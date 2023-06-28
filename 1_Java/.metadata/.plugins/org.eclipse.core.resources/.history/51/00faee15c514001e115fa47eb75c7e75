@@ -1,0 +1,44 @@
+package practice;
+
+public class A{
+	
+	private B b;
+	
+}
+
+public class B{
+		
+	private String f1;
+	private int f2;
+	
+}
+
+public class Test1{
+	
+	private Test2 t2;
+
+	public Test3 method1() {
+		
+		Test3 t3 = new Test3();
+		
+	}
+	
+}
+
+public class Test2{
+	
+	private int f1;
+}
+
+public class Test3{
+	private String str;
+
+	public String getStr() {
+		return str;
+	}
+
+	public void setStr(String str) {
+		this.str = str;
+	}
+	
+}

@@ -1,0 +1,25 @@
+/* 5순위 태그 선택자 */
+div{
+    width:200px;
+    height:200px;
+    background-color:gainsboro !important
+    /* 1순위 css 속성 : 속성 값 : important */;    
+}
+/* 4순위 클래스 선택자 */
+.cls1{
+    background-color: blanchedalmond;
+    /* width:250px; height: 250px; 
+    배경색은 바뀌지만 겹치지 않는 width와 height는 그대로 반영됨*/
+}
+ 
+.cls1{
+    background-color: azure;
+    /* 같은 순위를 반복하면 마지막(밑)의 코드가 반영됨 */
+}
+
+/* 3순위 아이디 선택자 */
+#test1{
+    height:100px;
+    background-color: plum;
+    color:blue;
+}

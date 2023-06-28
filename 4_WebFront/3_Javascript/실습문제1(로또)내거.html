@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로또 번호 생성기</title>
+
+    <style>
+
+        #container{
+            display:flex;
+            width:400px;
+            justify-content:space-between;
+
+            margin : 100px auto 50px;
+        }
+
+        #container>div{
+            width:50px;
+            height:50px;
+            border:1px solid black;
+            border-radius: 50px;
+        
+            display:flex;
+            justify-content: center;
+            align-items: center;
+        
+            font-size : 24px;
+            font-weight : bold;
+        }
+
+        #createLotto{
+            width:300px;
+            height:30px;
+
+            display:block;
+            margin:auto;
+        }
+
+    </style>
+
+
+</head>
+
+<body>
+
+        
+
+    
+    <div id="container">
+
+        <div name="con"></div>
+        <div name="con"></div>
+        <div name="con"></div>
+        <div name="con"></div>
+        <div name="con"></div>
+        <div name="con"></div>
+
+    </div>
+
+    <button id="createLotto">로또 번호 생성</button>
+
+
+ 
+    <script> /* 인터널 */
+        // 로또 번호 생성시 1 ~ 45 난수 생성
+
+        // lotto에 저장된 난수 오름차순 정렬
+
+        // * 로또 번호 중복 x 
+
+        document.getElementById("createLotto").addEventListener("click", function(){
+
+            const conList = document.getElementsByName("con");
+
+            let arr = [];
+
+            for(let i = 0; i < conList.length; i++){
+                
+                arr[i] = Math.floor(Math.random() * 45 + 1);
+
+                 for(let x = 0; x < i; x++) {
+				
+				if(arr[i] == arr[x]) {
+				i--;
+				break;
+				}     
+            } 
+            
+            }
+            arr.sort(function(a,b){ return a-b; })
+
+            for(let i = 0; i <conList.length; i++){
+                conList[i].innerHTML = arr[i];
+            }
+            
+        })
+
+    </script>
+
+
+</body>
+
+</html>

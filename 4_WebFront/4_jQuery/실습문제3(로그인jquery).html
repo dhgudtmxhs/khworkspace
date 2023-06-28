@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실습문제3(로그인jquery)</title>
+
+    <script src="js/jquery-3.7.0.min.js"></script>
+
+    <style>
+        form .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+
+        button.btn:hover {
+            opacity: 0.8;
+            color: yellow;
+        }
+
+        .cancel:hover {
+            opacity: 0.8;
+            background: red;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h2>로그인을 클릭하면 로그인 폼이 나타납니다.</h2>
+
+    <button class="open">로그인</button>
+
+    <div class="form-popup" id="myForm" >
+        <form action="08_effect메소드.html" >
+            <fieldset>
+                <legend>로그인</legend>
+
+                <h1>Login</h1>
+
+                <label for="email"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="email" required>
+                <br>
+
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+                <br>
+
+                <button type="submit" class="btn">Login</button>
+                <button type="button" class="btn cancel">Close</button>
+            </fieldset>
+        </form>
+    </div>    
+
+    <script>
+        
+        $("#myForm").css("visibility", "hidden"); 
+        
+        $("label").css({"display" : "inline-block", "width" : "80px"});
+    
+        $(".open").on("click",function(){
+            $("#myForm").css("visibility", "visible"); 
+        })
+        
+        $(".cancel").on("click",function(){
+            $("#myForm").css("visibility", "hidden");
+        })
+
+    </script>
+
+</body>
+
+</html>

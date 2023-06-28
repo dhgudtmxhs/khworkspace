@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실습문제1</title>
+
+    <script src="js/05_간이계산기.js"></script>
+
+</head>
+
+<body>
+    
+    <h1> 간이 계산기 만들기</h1>
+
+    첫번째 값 : <input type="text" id="num1"> <br>
+    두번째 값 : <input type="text" id="num2"> <br>
+    
+    <button onclick="plus()">+</button>
+    <button onclick="Minus()">-</button>
+    <button onclick="multi()">*</button>
+    <button onclick="div()">/</button>
+    <button onclick="mod()">%</button>
+
+    <br><br>
+
+    계산 결과 : <span id = result></span>
+
+    <script>
+        const num1 = document.getElementById("num1");
+        const num2 = document.getElementById("num2"); // 전역변수
+    
+        console.log(Number(num1.value)+Number(num2.value));
+        // num1과 num2는 string 타입이다. 1020으로 나옴.
+    
+       /*  const sumFn = function(n1, n2){
+            return n1+n2;
+        } */
+
+        const result = document.getElementById("result");
+
+        function plus(){ result.innerText = Number(num1.value) + Number(num2.value)}
+        function Minus(){ result.innerText = Number(num1.value) - Number(num2.value)}
+        function multi(){ result.innerText = Number(num1.value) * Number(num2.value)}
+        function div(){ result.innerText = Number(num1.value) / Number(num2.value)}
+        function mod(){ result.innerText = Number(num1.value) % Number(num2.value)}
+
+    </script>
+
+</body>
+
+</html>

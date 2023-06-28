@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실습문제2(색변경)</title>
+
+
+    <style>
+        #div1{
+            border:1px solid black; 
+            width:200px; 
+            height:200px;
+        }
+
+        #div2{
+            border-bottom: 1px solid black;
+            width:200px; 
+            height:170px;
+        }
+
+        .div2{
+            border:1px solid black; 
+            width:177px; 
+            height:200px;
+            display:inline-block;
+
+        }
+
+        .div2 div{
+            border-bottom: 1px solid black;
+            width:177px; 
+            height:170px;
+
+        }
+
+        #input{
+            border:0; 
+            outline:0;
+
+        }
+
+        .input2{
+            width:171px;
+        }
+        
+        .box{
+            display:inline-block;
+            width:177px; 
+            height:200px;
+            
+        }
+
+        .div3{
+            height:170px;
+            border:1px solid black; 
+        }
+
+        .input3{
+        
+            outline:0;
+        }
+
+    </style>
+
+    
+    <script src="js/jquery-3.7.0.min.js"></script>
+
+</head>
+
+<body>
+
+    <div id="div1" >
+        <div id="div2" ></div>
+        <input type="text" id="input" >
+
+    </div>
+
+    <button id="btn">색 변경</button>
+
+
+    <hr>
+
+    
+    <div class="area div2"></div>
+    <div class="area div2"></div>
+    <div class="area div2"></div>
+    <div class="area div2"></div>
+    <div class="area div2"></div>
+    <div class="area div2"></div>
+    
+    <div>
+        <input type="text" class="inputColor input2">
+        <input type="text" class="inputColor input2">
+        <input type="text" class="inputColor input2">
+        <input type="text" class="inputColor input2">
+        <input type="text" class="inputColor input2">
+        <input type="text" class="inputColor input2">
+    </div>
+
+    <button type="button" id="btn2">색변경</button>
+
+    <hr>
+
+    <div class="box">
+        <div class="area div3"></div>
+        <input type="text" class="inputColor input3">
+    </div>
+    <div class="box">
+        <div class="area div3"></div>
+        <input type="text" class="inputColor input3">
+    </div>
+    <div class="box">
+        <div class="area div3"></div>
+        <input type="text" class="inputColor input3">
+    </div>
+    <div class="box">
+        <div class="area div3"></div>
+        <input type="text" class="inputColor input3">
+    </div>
+    <div class="box">
+        <div class="area div3"></div>
+        <input type="text" class="inputColor input3">
+    </div>
+    <div class="box">
+        <div class="area div3"></div>
+        <input type="text" class="inputColor input3">
+    </div>
+
+    <script>
+
+        $("#btn").on("click",function(){
+            
+            $("#div2").css("backgroundColor", $("#input").val())
+            $("#input").css("color", $("#input").val())
+
+        })
+        
+        $("#btn2").on("click",function(){
+
+            const divArr = $(".div2");
+            const inputArr = $(".input2"); // 배열로 만들기
+
+             for(let i = 0; i < divArr.length; i++){
+            $(divArr[i]).css("backgroundColor", $(inputArr[i]).val())
+            } 
+        
+        /* divArr.each(function(i) {
+        $(this).css("backgroundColor", inputArr.eq(i).val());
+        }); */
+        
+        })
+
+        const box = $(".div3");
+        const input3 = $(".input3");
+
+        $(".input3").on("keyup",function(){
+           
+            for(let i = 0; i < box.length; i++){
+
+                $(box[i]).css("backgroundColor", $(input3[i]).val()).css( "border", "1px solid " + $(input3[i]).val() );      
+                       
+                $(input3[i]).css ("border", "1px solid " + $(input3[i]).val() );
+
+            }
+        })
+
+    </script>
+
+    
+
+
+</body>
+
+</html>

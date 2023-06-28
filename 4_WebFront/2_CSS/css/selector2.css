@@ -1,0 +1,122 @@
+/*CSS 파일
+    파일 전체가 <style> 태그 내부라고 생각하면 됨
+*/
+
+ /* 기본 속성 선택자 */
+
+ div[name="name-1"]{background-color: orangered;}
+ [name = "name-2"]{background-color: violet}
+
+ p[name='name-1']{background-color: aquamarine;}
+
+ /* 자식 선택자 */
+ #parent-ul > li{background-color: orange;}
+ #parent-ul > li > span{background-color: brown;}
+ /* #parent-ul span{background-color: red;} 왜 안덮혀써짐?*/
+
+ #test-div{border : 2px solid black;}
+
+ #test-div>p{background-color: blueviolet;}
+
+ #test-div>div>p{background-color: aqua;}
+
+ /* 반응 선택자 */
+.div-cls{
+    /* block 형식 요소만 크기 조정 가능 div=블럭형식(세로) 인라인은 가로*/
+    width: 200px; height: 200px; 
+    border:1px solid black;
+    background-color: #ddd; /* 16진수 표기법 */
+
+    /* 아래쪽 요소와의 간격 */
+    margin-bottom: 30px;
+
+    /* 요소에 마우스 커서가 올라오면 손가락 모양으로 변경*/
+    cursor: pointer;
+    
+    /* 클릭 하고 있을 때만 반응하는 :active */
+   
+}
+
+#active-test:active{
+    background-color: bisque;
+    width:230px;
+}
+
+/* 마우스 포인터가 올라갔을 때만 반응하면 :hover */
+#hover-test:hover{
+    background-color: plum;
+    width: 230px;
+    height:230px;
+
+    /* 변화 시간 지정 */
+    /*transition-duration:0.5s; 마우스 포인터가 올라갔을 때만*/
+
+}
+/* #hover-test 요소가 변화를 일으키면 0.5초동안 변함*/
+#hover-test{transition-duration: 0.5s;} /* 변화가 일어나면  */
+
+/* 상태 선택자*/
+
+/* 요소에 초점이 맞춰 졌을 때 (:focus) */
+#focus-test:focus{background-color: blueviolet;}
+
+/* 요소가 체크 되었을 때 (:checked) */
+[name="fruits"]:checked{
+    background-color:red;
+    width: 30px; height: 30;
+    /* radio,checkbox는 크기를 제외한 스타일 적용 안됨 */
+}
+
+/* 사용 가능 / 불가능 (:enalbed / :disabled ) */
+#test-div2 > input:enabled{
+    background-color: lightgreen;
+}
+
+#test-div2 > input:disabled{
+    background-color: lightcoral;
+}
+
+/* 동위 선택자 */
+/*A 바로 뒤에 있는 B요소 선택 (+)*/
+#div1 + div {
+    background-color: olive;
+}
+
+/* A 뒤에 있는 모든 B요소 선택(~)*/
+#div3 ~ div {
+    background-color: lawngreen;
+}
+
+/* **************** check 모양 바꾸기 **************** */
+
+/* label 태그 스타일 지정 */
+#check1 + label{
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+
+    /* 수평 분할 + 크기 조절 */
+    display: inline-block;
+
+    cursor: pointer; /* 마우스 손가락 모양 */
+
+    /* 모서리 라운딩 처리 */
+    border-radius: 15%;
+}
+
+#check1:checked + label {
+
+    background-image: url(../../images/check.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* #check1이 존재는 하지만 화면에 보이지 않게 하기 */
+#check1{
+    display:none;
+}
+
+
+
+
+

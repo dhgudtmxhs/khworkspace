@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11_연습문제2</title>
+</head>
+<body>
+    
+<form action="11_html연습문제2.html" target="_blank">
+
+    <fieldset>
+    <legend>납품자 정보</legend>
+        <br>
+    <label>1. 납품자명 : </label><input type="text" name = "납품자명" id = "납품자명"> <br><br>
+    2.email : <input type="email" name = "email" id = "email">  <br><br>
+    3.홈페이지:<input type="url" value="https://" name = "홈페이지" id = "홈페이지"> <br><br>
+    4.지역 : <select name = "지역"> 
+            <option id = "부산" value = "부산" selected>부산</option> 
+            <option id = "서울" value = "서울" >서울</option>
+            <option id = "경기도" value = "경기도" >경기도</option>
+            <option id = "강원도" value = "강원도" >강원도</option>
+            <option id = "제주도" value = "제주도" >제주도</option>
+            <!-- ol이 더편함 -->
+    </select>
+    <br><br>
+    </fieldset>
+
+    <fieldset>
+        <legend>납품 정보</legend>
+        <ul>
+            <li>상품명 : <input type="text" name = "상품명" id = "상품명"></li> <br>
+            <li>납품수량 : <input type="number" name = "납품수량" id = "납품수량" min ="100" max="500" step="100" placeholder="최소 100"></li> <br><br>
+            <li>납품등급 : <input type = "range" name = "납품등급" id = "납품등급" min = "50" max ="100" step = "10" ></li> <br>
+            <li>기타 사항: <textarea rows="5" cols="20" name = "기타사항" id = "기타사항"></textarea></li>
+        </ul>
+    </fieldset>
+
+    <button id = "a">send message</button>
+
+    <script>
+        document.getElementById("a").addEventListener("click", function(){
+            alert("주문 완료");
+        })
+    </script>
+
+
+</form>
+
+</body>
+
+</html>

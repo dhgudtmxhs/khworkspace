@@ -1,0 +1,59 @@
+/* :only-child */
+
+/* p, pre 타입 상관없이 그냥 하나밖에 없어야 한다 */
+#test1>p:only-child{
+    background-color: rosybrown;
+}
+
+/* only-of-type */
+#test1>p:only-of-type{
+    background-color: rosybrown;
+}
+
+#test1>pre:only-of-type{
+    background-color: royalblue;
+}
+
+/* :empty */
+#test3>p:empty{
+    height: 30px;
+    background-color: palevioletred;
+}
+
+/* 특정 요소 내부에 있는 특정 클래스만 선택 */
+
+/* #test4-1의 후손 중 클래스가 c4인 요소 선택 */
+
+#test4-1 .c4{ /* 띄어쓰기 해야함 */
+    background-color: royalblue;
+}
+
+li[class="c5"]{
+    background-color: red;
+}
+
+/* #test4-2 자식 중 클래스가 c4인 li 요소만 선택 */
+#test4-2>li.c4{
+    background-color: paleturquoise;
+}
+
+#test5-1, #test5-2, #test5-3{
+    background-color: chocolate;
+    border: 2px solid black;
+}
+
+/* 클래스가 여러개인 요소만 선택 */
+/* .test6 c6 이렇게 띄어쓰면 후손의 의미가 됨 */
+
+.test6.c6.c7{
+    background-color: chartreuse;
+}
+
+
+
+
+
+
+
+
+

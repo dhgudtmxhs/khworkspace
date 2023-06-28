@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실습문제4(체크박스JS)</title>
+가나다라
+    <style>
+        form{
+            width:800px;
+            height: 100px;
+        }
+
+        div1{
+            display:flex;
+            justify-content: space-between;
+        }
+
+        div{
+          width:100px;
+        }
+
+        div2{
+            display:block;
+            width:800px;
+            height:200px;
+            border:1px solid red;
+        }
+    </style>
+
+</head>
+
+<body>
+    
+    <form id="form">
+    <fieldset id="fs">
+        <legend>취미</legend>
+    <div1>
+    <div><input type="checkbox" id="all"><span>전체선택</span></div>
+
+    <div><input type="checkbox" class="chbox"><span>종합</span></div>
+    <div><input type="checkbox" class="chbox"><span>소설</span></div>
+    <div><input type="checkbox" class="chbox"><span>시/에세이</span></div>
+    <div><input type="checkbox" class="chbox"><span>경제/경영</span></div>
+    <div><input type="checkbox" class="chbox"><span>자기계발</span></div>
+    <div><input type="checkbox" class="chbox"><span>아동</span><br></div>
+    </div1>
+    
+    <div1>
+    <div></div>
+    <div><input type="checkbox" class="chbox"><span>여행</span></div>
+    <div><input type="checkbox" class="chbox"><span>과학</span></div>
+    <div><input type="checkbox" class="chbox"><span>역사/문화</span></div>
+    <div><input type="checkbox" class="chbox"><span>외국어</span></div>
+    <div><input type="checkbox" class="chbox"><span>컴퓨터</span></div>
+    <div><input type="checkbox" class="chbox"><span>만화</span></div>
+    </div1>
+
+    </fieldset>
+    </form>
+
+    <button id="btn">카테고리 선택</button>
+
+    <div2 id="out"></div2>
+
+    <script>
+    
+    const form = document.getElementById("form");
+    const all = document.getElementById("all");
+    const divs = document.getElementsByTagName("div");
+    const chbox = document.getElementsByClassName("chbox");
+    const span = document.getElementsByTagName("span");
+    const btn = document.getElementById("btn");
+    const out = document.getElementById("out");
+
+    all.addEventListener("click",function(){
+       
+        for(let i = 0; i < chbox.length; i++){
+
+            chbox[i].checked = all.checked;
+        }
+        
+    })
+
+    for(let i = 0; i < chbox.length; i++){
+    chbox[i].addEventListener("click",function(){
+        let allChecked = true;
+        for(let j = 0; j < chbox.length; j++){
+            if(!chbox[j].checked){
+                allChecked = false;
+                break;
+            }
+        }
+        all.checked = allChecked;
+    })
+    }
+
+    btn.addEventListener("click",function(){
+
+        out.innerText = '';
+
+        for(let i = 0; i < chbox.length; i++){
+            
+            if(chbox[i].checked){
+                out.innerHTML += span[i].innerHTML + " ";
+            }
+
+        }
+
+
+    })
+
+/* 
+    for(let i = 0; i < chbox.length; i++){
+
+    chbox[i].addEventListener("click",function(){
+
+        if(!chbox[i].checked){
+            all.checked = false;
+        }else{
+            all.checked = true;
+        }
+    })
+
+    }
+ */
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+/* 일반 구조 선택자 */
+
+/* first-child : 형제 관계의 요소 중 첫 번째 요소 */
+#test1>p:first-child{
+    background-color: red;
+    color:white;
+}
+
+/* last-child : 형제 관계의 요소 중 마지막 요소 */
+#test1>p:last-child{
+    background-color: orange;
+}
+/* #test1 > p 선택자를 통해 
+   #test1의 자식 중 p태그를 선택했는데,
+   #test1의 자식 중에는 pre태그가 포함되어 있다.
+   #test1의 last-child는 p태그가아닌 pre태그이기 때문에
+   아무런 일이 일어나지 않는다.
+
+   p와 형제인 요소 중 마지막 요소를 선택했을 때
+   last-child 앞의 요소(p)가 맞을 경우 선택
+*/
+
+#test1>pre:last-child{
+    background-color: orange;
+}
+
+/* nth-child (수열) 
+    형제 관계 요소 중 지정된 수열 번째 요소를 모두 선택
+    (nth = n번째)
+
+    * 순서를 따질 때 1부터 시작한다. (인덱스 아님)
+*/
+
+#test1 > p:nth-child(2){
+    /* test1의 자식요소 중에서 2번째 요소를 선택하고
+        그게 p태그가 맞다면 안의 구문을 수행한다. */
+    background-color: yellow;
+}
+
+#test1 > p:nth-child(4){
+    /* test1의 자식 요소 중에서 4번째 요소를 선택하고
+        그게 p태그가 맞다면 안의 구문을 수행한다. */
+    background-color: bisque;
+}
+
+/* 홀수 번째 형제 요소 선택 */
+#test1 > p:nth-child(2n-1){
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* 짝수 번째 형제 요소 선택 */
+#test1 > p:nth-child(2n){
+    border:1px solid black;
+}
+
+/* nth-last-child(수열) 
+    형제 관계 요소 중
+    뒤에서 부터 지정된 수열 번째 요소를 모두 선택
+*/
+
+#test1 > p:nth-last-child(2){
+   color: hotpink;
+}
+
+/* ----------------------------- */
+
+/* 형태 구조 선택자*/
+
+/* :first-of-type : 같이 선택된 형제들 중에서 첫 번째 요소 */
+#test2>p:first-of-type{
+    background-color: orange;
+}
+
+#test2>p:last-of-type{
+    background-color: blanchedalmond;
+}
+/* first-of-child랑은 다름. 타입 고려 */
+
+/* :nth-of-type(수열) : 같이 선택된 형제들 중에서 수열 번재 모든 요소 */
+/* #test2 자식 p태그 중 홀수 번째 요소의 글자 크기를 30px로 지정 */
+#test2>p:nth-of-type(2n-1){
+    font-size: 30px;
+}
+
+/* :nth-last-of-type(수열) 
+    : 같이 선택된 형제들 중에서 뒤에서 수열 번째 모든 요소*/
+/* #test2의 자식 p태그 중 짝수 번째 모든 요소의 배경을 red로 지정*/
+#test2>p:nth-last-of-type(2n){
+    background-color: red;
+}
+
+/* 부정 선택자 */
+
+/* #test3의 자식 요소 중 3의 배수를 제외한 요소만 선택 */
+#test3>li:not(:nth-of-type(3n)){
+    background-color: red;
+}
+
+
+
+
+
+
+
+ 
