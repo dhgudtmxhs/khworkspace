@@ -1,0 +1,9 @@
+package edu.kh.servlet;
+
+import javax.servlet.http.HttpServlet;
+
+public class ServletEx2 extends HttpServlet{
+	
+	
+	
+}

@@ -1,0 +1,17 @@
+package edu.kh.jdbc.board.model.vo;
+
+import java.sql.Date;
+
+//댓글만을 위한 vo
+public class Reply {
+
+	
+	
+	private int replyNo;
+	private String replyContent;
+	private Date createDate;
+	private memberNo;
+	private memberName;
+	
+	
+}
