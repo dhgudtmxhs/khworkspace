@@ -14,13 +14,19 @@ public class test extends HttpServlet {
 
 		String[] test = req.getParameterValues("test");
 		
+	
 		resp.setContentType("text/html; charset=UTF-8");
 		
 	for(String s : test) {
 		System.out.println(s);
 		resp.getWriter().println(s);
 	}
+	
+	
 
+
+	
+	
 	}
 	
 }
