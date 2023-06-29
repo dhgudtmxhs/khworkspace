@@ -90,9 +90,7 @@ public class ServletEx2 extends HttpServlet{
 		
 		out.println("</html>");
 		
-		
-		
-		
+
 	}
 	
 }

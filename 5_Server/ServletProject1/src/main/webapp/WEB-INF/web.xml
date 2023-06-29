@@ -55,7 +55,16 @@
   	<!-- /ServletProject1/test1 -->
   </servlet-mapping>
   
+  <!-- ======================== ex3 ================================  -->
+  <servlet>
+  	<servlet-name>ex3</servlet-name>
+  	<servlet-class>edu.kh.servlet.ServletEx3</servlet-class>
+  </servlet>
   
+  <servlet-mapping>
+  	<servlet-name>ex3</servlet-name>
+  	<url-pattern>/example3.do</url-pattern>
+  </servlet-mapping>
   
   
 </web-app>
