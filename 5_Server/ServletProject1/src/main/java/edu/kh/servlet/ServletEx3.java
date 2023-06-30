@@ -64,9 +64,7 @@ public class ServletEx3 extends HttpServlet{
 				}
 				out.print("</li>");
 			}
-
-				
-				
+			
 			out.println("</ul>");
 				
 			out.println("</body>");
@@ -75,9 +73,6 @@ public class ServletEx3 extends HttpServlet{
 			
 		}
 		
-		
 	}
-	
-	
 	
 }
