@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.kh.jsp.model.vo.Person;
 
-
 @WebServlet ("/EL/result")
 public class ELResultServlet extends HttpServlet{
 	
@@ -36,11 +35,14 @@ public class ELResultServlet extends HttpServlet{
 		p.setAge(inputAge + 100);
 		p.setAddress("대한민국" + inputAddress);
 		
-	
 		// 응답 화면 작성 코드를 JSP로 위임
 		
 		// 1) 요청 발송자
 		String path = "/WEB-INF/views/el/result.jsp"; // webapp폴더 기준
+		// "/"은 파일시스템 경로에서 루트 디렉토리를 나타내는 기호입니다.
+		// 이클립스 JSF(JavaServer Faces) 프로젝트에서 "/WEB-INF/views/el/result.jsp"와 같이 경로를 시작할 때 
+		//"/"를 사용하면 해당 경로는 웹 애플리케이션의 루트 디렉토리인 "webapp" 폴더를 기준으로 시작됩니다./
+		
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher(path); 
 		

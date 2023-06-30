@@ -21,7 +21,6 @@
 		 
 		2. EL은 null을 빈칸으로 출력함
 			(null과 관련된 것은 모두 빈칸)
-	
 	 -->
 
 	<h3>request에서 Parameter 얻어오기</h3>
@@ -35,7 +34,7 @@
 	<%= request.getParameter("inputName")%> /
 	<%= request.getParameter("inputAge")%> /
 	<%= request.getParameter("inputAddress")%>
-	
+
 	<%= request.getParameter("inputAddress2")%>
 	<!-- null -->
 	
@@ -57,8 +56,7 @@
 			request에 세팅된 속성(Attribute)의 key값만 작성하여 출력할 수 있다!
 			<!--  req.setAttribute("menu", menu); 로 가져오면 
 				jsp 표현식에서는  String menu = (String)request.getAttribute("menu"); 이렇게 다시 담아야하는데
-				el 표현으로는  ${ menu } 만 하면 나온다.
-			
+				el 표현으로는  ${ menu } 만 하면 나온다.	
 			 -->
 			
 		</pre>
