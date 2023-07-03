@@ -9,7 +9,7 @@
 <body>
 
 	<% // page scope
-		pageContext.setAttribute("message", "page");
+		pageContext.setAttribute("message", "page"); // 페이지 범위
 	%>
 
 	<pre>

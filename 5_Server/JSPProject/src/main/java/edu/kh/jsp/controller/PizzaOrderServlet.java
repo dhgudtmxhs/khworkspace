@@ -46,8 +46,6 @@ public class PizzaOrderServlet extends HttpServlet {
 		
 		req.setAttribute("res", result);
 		
-		
-		
 		dispatcher.forward(req, resp);
 	}
 	
