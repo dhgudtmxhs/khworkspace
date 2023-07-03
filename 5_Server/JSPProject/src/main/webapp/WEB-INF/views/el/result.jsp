@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -98,10 +100,62 @@
 		
 		\${ 속성 key. 필드명 }
 		<!-- 단, person에서 getter가 다 잘 작성되어있어야 한다. -->
-		
+				
 		</pre>
 		
+				
+		<hr>
+		
+		<h3>null 처리 방법</h3>
+		
+		<pre>
+			EL에서 null을 출력해야 되는 경우 ""(빈 문자열)을 출력한다.
+		
+			+ NullPointerException이 발생하는 코드에서도 ""(빈 문자열)을 출력한다.
+			
+		<!-- 	String str = null;
+				str.charAt(0)을 해도 EXCEPTION 발생 안함. -->
+		
+			+ EL은 null인 경우를 확인할 대 empty를 통해서 확인할 수 있다.
+	
+		</pre>
+		
+		<% 
+			List<String> list = null; 
+		%>
+		
+		1) JSP 표현식 : <%=list %>
+		
+		<br> <%= list == null %> 
+		
+		
+		
+		<br><br>
+		
+		2) EL(표현 언어) : ${ list }
+		
+		<br> <%-- ${ list == null } --%> ${ empty list } <!-- empty = 문자열이 비어있니? ""니? -->
+ 		
+ 		<h3 style="color:red;">EL의 empty는 null과, 비어있는 컬렉션을 비어있다고 취급한다.</h3>
+		
+		<%
+			list = new ArrayList<String>();
 
+			// list가 ArrayList 객체를 참조한다.	 == null 아님. 참조하는 주소값이 있다.
+			// 참조하고있는 ArrayList에 내용은 없음 == 비어있음.
+		%>
+		
+		<%=list == null %>
+		${ empty list }
+		
+		<%-- ${ list == null } 이렇게 확인 할 수 없다.
+			EL을 이용해서 컬렉션 요소를 다룰 때
+			null인지 비어있는지 확인하는 방법이 동일하기 때문에
+			코드 작성 시 이를 잘 구분할 수 있도록 해야한다.
+		--%>
+		
+		
+		
 </body>
 
 </html>

@@ -31,7 +31,7 @@ public class ELResultServlet extends HttpServlet{
 		// Person 객체에 파라미터를 변경한 값을 대입
 		Person p = new Person();
 		
-		p.setName(inputName + "님아");
+		p.setName(inputName + "님");
 		p.setAge(inputAge + 100);
 		p.setAddress("대한민국" + inputAddress);
 		
