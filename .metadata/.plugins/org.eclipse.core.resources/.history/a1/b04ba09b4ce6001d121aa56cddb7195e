@@ -1,9 +1,0 @@
-package practice;
-
-public class TvTest4 {
-
-	Tv t = new Tv();
-	
-	
-	
-}

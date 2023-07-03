@@ -16,14 +16,12 @@ public class ScopeServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-	    req.setAttribute("message", "request scope에 저장된 메세지 입니다.");
-	    
-	    // JSP로 요청 위침
-	    String path = "/WEB-INF/views/el/scopeResult.jsp";
-	    RequestDispatcher dispatcher = req.getRequestDispatcher(path);
-	    
-	    dispatcher.forward(req, resp);
+		req.setAttribute("message", "requestscope에 저장된 메세지 입니다.");
 		
+		String path = "/WEB-INF/views/el/scopeResult.jsp";
+		RequestDispatcher dispatcher = req.getRequestDispatcher(path);
+		
+		dispatcher.forward(req, resp);
 	}
 	// 1. page(생략)
     
