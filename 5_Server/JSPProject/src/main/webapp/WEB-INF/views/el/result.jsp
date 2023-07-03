@@ -12,7 +12,10 @@
 </head>
 
 <body>
-
+	session 범위 sessionValue : ${ sessionValue }
+	<br>
+	application 범위 appValue : ${ appValue }
+	
 	<!-- 
 		EL의 특징
 		

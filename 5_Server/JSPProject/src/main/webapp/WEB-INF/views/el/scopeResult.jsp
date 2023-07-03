@@ -8,9 +8,30 @@
 </head>
 <body>
 
+	<% // page scope
+		pageContext.setAttribute("message", "page");
+	%>
+
 	<pre>
 		request 범위 message : ${ message }
+
+		session 범위 sessionValue : ${ sessionValue }
+		
+		application 범위 appValue : ${ appValue }
+		
+		*** scope 우선순위 ***
+		page > request > session > application
+		
+		** 원하는 범위(scope)의 값 얻어오기 (OOOScope) 
+		${ requestScope.message }
+		${ sessionScope.message }
+		${ applicationScope.message }
+
+		
 	</pre>
+	
+	
+	
 
 
 </body>
