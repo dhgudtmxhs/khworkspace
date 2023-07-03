@@ -41,12 +41,13 @@
 	<br><br>
 	
 	2) EL(표현 언어) : 
-		
+		asdfasdfsafd
 		${ param.inputName } /
 		${ param.inputAge } /
 		${ param.inputAddress }
 		
 		${ param.inputAddress2 }
+		${ param.inputAddress3 }
 		<!-- 빈칸 -->
 
 		<h3>request에서 속성(Attribute) 얻어오기</h3>
