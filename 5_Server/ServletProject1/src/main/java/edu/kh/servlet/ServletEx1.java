@@ -37,6 +37,4 @@ public class ServletEx1 extends HttpServlet{
 		
 	}
 
-	
-	
 }

@@ -64,7 +64,7 @@ public class EmployeeDAO {
 			// DriverManager : Connection 객체 생성 메소드 제공
 
 			// 3) 수행할 SQL 작성
-			String sql = "SELECT * FROM EMPLOYEE_COPY ORDER BY EMP_ID";
+			String sql = "SELECT * FROM EMPLOYEE2 ORDER BY EMP_ID";
 						//*** SQL 작성 시 세미콜론은 없어야 된다!! ***
 			
 			// 4) Statement 객체 생성
@@ -169,13 +169,18 @@ public class EmployeeDAO {
 
 			conn = DriverManager.getConnection(type + ip + port + sid, user, pw);
 			
-			String sql = "SELECT * FROM EMPLOYEE WHERE EMP_ID = " + input;
+			String sql = "SELECT * FROM EMPLOYEE2 WHERE EMP_ID = " + input;
 			
 			// statement 생성
 			stmt = conn.createStatement();
 			
 			// SQL 수행후  결과 반환 받기
 			rs = stmt.executeQuery(sql);
+			
+			//String sql = "SELECT * FROM EMPLOYEE WHERE EMP_ID = ?";
+			//PreparedStatement pstmt = conn.prepareStatement(sql);
+			//pstmt.setInt(1, input);
+			//rs = pstmt.executeQuery();
 			
 			// 조회 결과가 있다면 1행 밖에 나오지 않으므로
 			// while 대신 if문 사용
@@ -376,9 +381,6 @@ public class EmployeeDAO {
 	            e.printStackTrace();
 	         
 	      }
-	      
-	      
-	      
 	      
 	      return result;
 	   }

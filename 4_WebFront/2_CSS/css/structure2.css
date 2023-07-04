@@ -1,4 +1,4 @@
-*{box-sizing:border-box; border:1px solid black;}
+*{box-sizing:border-box; }
 
 /* div{ border: 1px solid black;} */
 
@@ -178,6 +178,11 @@ form[name="login-form"]{
 
     justify-content:center; /* 중심축에 대한 정렬(세로 가운데 정렬) */
 
+}
+
+form[name="login-form"] > label{
+    font-size:14px;
+    margin-top:5px;
 }
 
 #id-pw-area{
