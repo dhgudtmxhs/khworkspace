@@ -1,0 +1,15 @@
+#test>p{
+
+
+        font-size: 75px;
+        font-weight:bold;
+        color:lightcoral;
+
+
+
+    text-shadow: 0px 0px 4px #ccc,
+                 0px -5px 4px #ff3,
+                 2px -10px 6px #f80,
+                 -2px -15px 11px #f20,
+                 2px -20px 18px #f100f1;
+}
