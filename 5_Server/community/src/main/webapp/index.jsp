@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,11 +66,24 @@
 
         <section class=content>
             
-            <section class="content-1"></section>
+            <section class="content-1">
+            	loginMember : ${ sessionScope.loginMember }
+            	
+            	<hr>
+            	
+            	message : ${ sessionScope.message }
+            	
+            </section>
 
             <section class="content-2">
 
-                <!-- 절대경로 : /community/member/login -->              
+				<!-- if - else -->
+				<c:choose>
+				
+					<%-- choose 내부에는 jsp 주석만 사용 --%>
+					<c:when test="${ empty sessionScope.loginMember }">
+					
+				<!-- 절대경로 : /community/member/login -->              
                 
                 <!-- 상대경로 (index.jsp) 기준 -->
                 <form action="member/login" method="post" name="login-form">
@@ -81,7 +95,6 @@
                                 <input type="text" name="inputEmail" placeholder="아이디(이메일)">
                                 <input type="password" name="inputPw" placeholder="비밀번호">
                             </section>
-        
         
                             <section>
                                 <button>로그인</button>
@@ -100,7 +113,16 @@
                             <input type="checkbox">아이디 저장
                         </label>
         
-                </form>
+                		</form>
+					
+					</c:when>
+					
+					<c:otherwise>
+					</c:otherwise>
+				
+				</c:choose>
+
+
         
             </section>
 
