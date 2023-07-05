@@ -117,7 +117,31 @@
 					
 					</c:when>
 					
+					
+					<%-- 로그인이 되어있는 경우 --%>
 					<c:otherwise>
+						<article class="login-area">
+							<!-- 회원 프로필 이미지  -->
+							<a href="#">
+								<img src="/community/resources/images/a.png" id="member-profile">
+							</a>
+							
+							<!-- 회원 정보 + 로그아웃 버튼  -->
+							<div class="my-info">
+								<div>
+									<a href="#" id="nickname">${sessionScope.loginMember.memberNickname }</a> <%-- scope 범위때문에 sessionScope.은 빼도 된다. page, request 범위의 값이 없으니까--%>
+									<a href="#" id="logout-btn">로그아웃</a>
+								</div>
+								
+								<p>
+									${loginMember.memberEmail }
+								</p>
+								
+							</div>
+							
+							
+							
+						</article>
 					</c:otherwise>
 				
 				</c:choose>
