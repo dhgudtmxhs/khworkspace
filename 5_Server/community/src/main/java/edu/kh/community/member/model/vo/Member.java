@@ -11,7 +11,6 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-
 /*@Getter // getter 자동 추가
 @Setter // setter 자동 추가
 @ToString // toString 자동 추가
