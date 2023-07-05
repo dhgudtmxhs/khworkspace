@@ -6,12 +6,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter // getter 자동 추가
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+
+/*@Getter // getter 자동 추가
 @Setter // setter 자동 추가
 @ToString // toString 자동 추가
 @NoArgsConstructor // 기본생성자
 @AllArgsConstructor // 모든 필드를 초기화하는 매개변수 생성자
-
+*/
 
 //Lombok 라이브러리
 //- VO(Value Object) 또는 DTO(Data Transfer Object)에

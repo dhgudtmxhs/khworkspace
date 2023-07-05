@@ -57,13 +57,13 @@ public class LoginServlet extends HttpServlet{
 				
 				// 회원 정보 Session에 세팅
 				session.setAttribute("loginMember", loginMember);
-				
+				System.out.println("성공");
 				// 특정 시간동안 요청이 없으면 세션 만료
 				session.setMaxInactiveInterval(3600);
 				// -> 초 단위다.
 				
 			}else { // 실패
-				
+				System.out.println("실패");
 				session.setAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
 				// ---> 리다이렉트 시 request 객체가 유지되지 않는다.
 				
