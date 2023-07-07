@@ -18,7 +18,7 @@
  
     <main>
         <header>
-
+        
             <section>
                 <!-- 클릭 시 메인페이지로 이동하는 로고 -->
                 <a href="#">
@@ -92,7 +92,8 @@
                         <fieldset id="id-pw-area">
         
                             <section>
-                                <input type="text" name="inputEmail" placeholder="아이디(이메일)">
+                                <input type="text" name="inputEmail" placeholder="아이디(이메일)" value="${ cookie.saveId.value }"> 
+                                																	<%-- value값이 이메일임 --%>
                                 <input type="password" name="inputPw" placeholder="비밀번호">
                             </section>
         
@@ -109,8 +110,20 @@
                             <a href="#">ID/PW 찾기</a>
                         </article>
 
+						<%-- 쿠키에 saveId가 있는 경우 --%>
+						<c:if test="${!empty cookie.saveId.value}">
+						
+						<%-- check 변수 생성(page scope) --%>
+						<c:set var="chk" value="checked"></c:set>
+						<%-- <c:set> 태그를 사용하여 변수를 설정할 때, 기본 범위는 page 범위입니다. scope="page"가 기본값 --%>
+						<%-- <c:set var="chk" value="checked"></c:set>는 if문 안에서만 사용되는 변수입니다. 
+						기본 범위가 page 범위이기 때문에, 이 변수는 해당 JSP 페이지 전체에서 사용할 수 있습니다. 
+						다시 말해, if문 밖에서도 해당 변수를 참조할 수 있습니다. --%>
+						
+						</c:if>
+						
                         <label>
-                            <input type="checkbox">아이디 저장
+                            <input type="checkbox" name="saveId" ${chk}>아이디 저장
                         </label>
         
                 		</form>
@@ -130,7 +143,7 @@
 							<div class="my-info">
 								<div>
 									<a href="#" id="nickname">${sessionScope.loginMember.memberNickname }</a> <%-- scope 범위때문에 sessionScope.은 빼도 된다. page, request 범위의 값이 없으니까--%>
-									<a href="#" id="logout-btn">로그아웃</a>
+									<a href="/community/member/logout" id="logout-btn">로그아웃</a>
 								</div>
 								
 								<p>
