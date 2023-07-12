@@ -17,53 +17,16 @@
 <body>
  
     <main>
-        <header>
-        
-            <section>
-                <!-- 클릭 시 메인페이지로 이동하는 로고 -->
-                <a href="#">
-                    <img src="resources/images/logo.jpg" id="home-logo">
-                </a>
-
-            </section>
-           
-            <!-- header의 두번째 자식 div -->
-            <section>
-                <article class="search-area">
-                    
-                    <!-- form태그 내부 input 태그 값을 서버 또는 페이지로 전달 -->
-                    <form action="#" name="search-form">
-
-                        <!-- fieldset : form 태그 내부에서 input을 종류별로 묶는 용도로 많이 사용함 -->
-                        <fieldset>
-
-                            <input type="search" id="query" name="query" 
-                            placeholder="검색어를 입력해주세요." autocomplete="off" >
-                                                              <!-- 자동완성 끄기 -->
-
-                            <!-- 검색 버튼 -->
-                            <button type = "submit" id="search-btn" class="fa-solid fa-magnifying-glass"></button>
-                       
-                        </fieldset>
-                    </form>
-                </article>
-            </section>
-
-
-            <section></section>
-
-        </header>
-
-        <nav>
-            <ul>
-                <li><a href="#">공지사항</a></li>
-                <li><a href="#">자유 게시판</a></li>
-                <li><a href="#">질문 게시판</a></li>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">1:1문의</a></li>
-            </ul>
-        </nav> 
-
+    
+    	<!-- jsp : include 태그  
+    			다른 jsp파일의 내용을 해당 위치에 포함시킴
+    			경로 작성 시 외부 요청 주소 X (인터넷 주소 -> 최상위 : /community ),
+    			내부 접근 경로로만 작성해야 한다. (파일 경로, 최상위 : /webapp ) 
+    	-->
+    	
+    	<!-- 내부 접근 경로 -->
+    	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+  
         <section class=content>
             
             <section class="content-1">
@@ -71,7 +34,7 @@
                
                <hr>
                
-               message : ${sessionScope.message }
+               message : ${ sessionScope.message }
                
             </section>
 
@@ -86,7 +49,7 @@
 				<!-- 절대경로 : /community/member/login -->              
                 
                 <!-- 상대경로 (index.jsp) 기준 -->
-                <form action="member/login" method="post" name="login-form">
+                <form action="member/login" method="post" name="login-form" onsubmit ="return loginValidate()">
         
                         <!-- 아이디(이메일 형식으로)/비밀번호/로그인버튼 영역 -->
                         <fieldset id="id-pw-area">
@@ -98,7 +61,7 @@
                             </section>
         
                             <section>
-                                <button>로그인</button>
+                                <button >로그인</button>
                             </section>
         
                         </fieldset>
@@ -132,7 +95,7 @@
 						</c:if>
 						
                         <label>
-                            <input type="checkbox" name="saveId" ${chk}>아이디 저장
+                            <input type="checkbox" name="saveId" ${chk} id="saveId">아이디 저장
                         </label>
         
                 		</form>
@@ -151,7 +114,9 @@
 							<!-- 회원 정보 + 로그아웃 버튼  -->
 							<div class="my-info">
 								<div>
-									<a href="#" id="nickname">${sessionScope.loginMember.memberNickname }</a> <%-- scope 범위때문에 sessionScope.은 빼도 된다. page, request 범위의 값이 없으니까--%>
+									<a href="${contextPath}/member/myPage/info" id="nickname">${sessionScope.loginMember.memberNickname }</a> <%-- scope 범위때문에 sessionScope.은 빼도 된다. page, request 범위의 값이 없으니까--%>
+									<%-- a태그는 무조건 get --%>
+									
 									<a href="/community/member/logout" id="logout-btn">로그아웃</a>
 								</div>
 								
@@ -164,52 +129,24 @@
 							
 							
 						</article>
+						
 					</c:otherwise>
 				
 				</c:choose>
-
-
-        
+  
             </section>
 
         </section>
 
     </main>
 
-    <footer>
 
-        <p>Copyright &copy; KH Information Educational Institue M-Class</p>
-    
-        <article>
-        
-                <a href="#">프로젝트 소개</a>
-                <span>|</span>
-                <a href="#">이용 약관</a>
-                <span>|</span>
-                <a href="#">개인정보처리방침</a>
-                <span>|</span>
-                <a href="#">고객센터</a>
-           
-        </article>
 
-    </footer>
+	    <!-- footer -->
+    	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
-	<%-- session에 message 속성이 존재하는 경우 alert 창으로 해당 내용을 출력 --%>
 
-	<c:if test="${ !empty sessionScope.message }">
-			
-			<script>
-				alert("${message}");
-				
-				//EL 작성 시 scope를 지정하지 않으면
-				// page -> request -> session -> application 순서로 검색하여 일치하는 속성이 있으면 출력한다.
-				
-			</script>
-			
-			<%-- message 1회 출력 후 session에서 제거 --%>
-			<c:remove var="message" scope="session"/>
-			
-	</c:if>
+	<script src="${contextPath}/resources/js/main.js"></script>
 
 </body>
 

@@ -18,52 +18,8 @@
 <body>
  
     <main>
-        <header>
-        
-            <section>
-                <!-- 클릭 시 메인페이지로 이동하는 로고 -->
-                <a href="#">
-                    <img src="../resources/images/logo.jpg" id="home-logo">
-                </a>
-
-            </section>
-           
-            <!-- header의 두번째 자식 div -->
-            <section>
-                <article class="search-area">
-                    
-                    <!-- form태그 내부 input 태그 값을 서버 또는 페이지로 전달 -->
-                    <form action="#" name="search-form">
-
-                        <!-- fieldset : form 태그 내부에서 input을 종류별로 묶는 용도로 많이 사용함 -->
-                        <fieldset>
-
-                            <input type="search" id="query" name="query" 
-                            placeholder="검색어를 입력해주세요." autocomplete="off" >
-                                                              <!-- 자동완성 끄기 -->
-
-                            <!-- 검색 버튼 -->
-                            <button type = "submit" id="search-btn" class="fa-solid fa-magnifying-glass"></button>
-                       
-                        </fieldset>
-                    </form>
-                </article>
-            </section>
-
-
-            <section></section>
-
-        </header>
-
-        <nav>
-            <ul>
-                <li><a href="#">공지사항</a></li>
-                <li><a href="#">자유 게시판</a></li>
-                <li><a href="#">질문 게시판</a></li>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">1:1문의</a></li>
-            </ul>
-        </nav> 
+	<!-- header  -->
+		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
         <!-- 회원가입 -->
         <section class="signUp-content">
@@ -189,23 +145,9 @@
 
     </main>
 
-    <footer>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
-        <p>Copyright &copy; KH Information Educational Institue M-Class</p>
-    
-        <article>
-        
-                <a href="#">프로젝트 소개</a>
-                <span>|</span>
-                <a href="#">이용 약관</a>
-                <span>|</span>
-                <a href="#">개인정보처리방침</a>
-                <span>|</span>
-                <a href="#">고객센터</a>
-           
-        </article>
-
-    </footer>
+	
 
 </body>
 

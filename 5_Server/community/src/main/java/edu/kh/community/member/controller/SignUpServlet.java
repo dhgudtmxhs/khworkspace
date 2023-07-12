@@ -86,6 +86,7 @@ public class SignUpServlet extends HttpServlet{
 			if(result == 1) {
 				System.out.println("성공");
 				session.setAttribute("message", "회원가입 성공");
+				
 			}else {
 				System.out.println("실패");
 				session.setAttribute("message", "회원가입 실패");
