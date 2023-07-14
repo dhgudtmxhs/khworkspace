@@ -39,7 +39,7 @@
 
             -->
 
-            <form action="signUp" method="post" name="signUp-form">
+            <form action="signUp" method="post" name="signUp-form" onsubmit = "return signUpValidate()">
 
                 <label for="memberEmail">
 
@@ -58,7 +58,7 @@
                     <button type="button">인증번호 받기</button>
                 </div>
 
-                <span class="signUp-message">메일을 받을 수 있는 이메일을 입력해주세요.</span>
+                <span class="signUp-message" id="emailMessage">메일을 받을 수 있는 이메일을 입력해주세요.</span>
 
                 <label for="emailCheck">
                     <span class="required">*</span> 인증번호
@@ -90,7 +90,7 @@
                                         placeholder="비밀번호 확인" maxlength="30">            
                 </div>
 
-                <span class="signUp-message error">비밀번호가 일치하지 않습니다.</span>
+                <span class="signUp-message" id="pwMessage">영어, 숫자, 특수문자(!,@,#,-,_) 6~30글자 사이로 작성해주세요.</span>
 
                 <label for="memberNickname">
                     <span class="required">*</span> 닉네임
@@ -102,10 +102,10 @@
 
                 </div>
 
-                <span class="signUp-message confirm">사용 가능한 닉네임 입니다.</span>
+                <span class="signUp-message" id="nicknameMessage">영어/숫자/한글 2~10글자 사이로 작성해주세요.</span>
 
                 <label for="memberTel">
-                    <span flass="required">*</span> 전화번호
+                    <span class="required">*</span> 전화번호
                 </label>
 
                 <div class="signUp-input-area">
@@ -114,7 +114,7 @@
 
                 </div>
 
-                <span class="signUp-message error">전화번호 형식이 올바르지 않습니다.</span>
+                <span class="signUp-message" id="telMessage">전화번호를 입력해주세요.(- 제외)</span>
 
                 <label for="memberAddress">
                     주소
@@ -147,7 +147,12 @@
 
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
+    <!-- jQuery 라이브러리 추가(CDN방식) -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    
+    <script src="${contextPath}/resources/js/member/signUp.js"></script>
 	
+
 
 </body>
 
