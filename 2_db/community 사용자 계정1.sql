@@ -13,3 +13,119 @@ SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NICK
 FROM MEMBER
 WHERE SECESSION_FL = 'N'
 ORDER BY MEMBER_NO ASC;
+
+-------------------------------------------------------------------------------
+
+-- "" 쌍따옴표가 없으면 테이블명, 컬럼명, 시퀀스 명 등을 무조건 대문자로만 저장하게 된다.
+-- "" 쌍따옴표가 있으면 대소문자를 구분한다.
+
+
+-- 게시판 종류
+DROP TABLE "BOARD_TYPE";
+
+CREATE TABLE "BOARD_TYPE" (
+	"BOARD_CD"	NUMBER           PRIMARY KEY,
+	"BOARD_NM"	VARCHAR2(50)     NOT NULL
+);
+
+COMMENT ON COLUMN "BOARD_TYPE"."BOARD_CD" IS '게시판 코드';
+
+COMMENT ON COLUMN "BOARD_TYPE"."BOARD_NM" IS '게시판 이름';
+
+
+-- 게시판 (게시글 저장 테이블)
+DROP TABLE "BOARD";
+
+CREATE TABLE "BOARD" (
+	"BOARD_NO"	NUMBER		NOT NULL,
+	"BOARD_TITLE"	VARCHAR2(150)		NOT NULL,
+	"BOARD_CONTENT"	VARCHAR2(4000)		NOT NULL,
+	"CREATE_DT"	DATE	DEFAULT SYSDATE	NOT NULL,
+	"UPDATE-DT"	DATE		NULL,
+	"READ COUNT"	NUMBER	DEFAULT 0	NOT NULL,
+	"BOARD_ST"	CHAR(1)	DEFAULT 'N'	NOT NULL,
+	"MEMBER_NO"	NUMBER		NOT NULL,
+	"BOARD_CD"	NUMBER		NOT NULL
+);
+
+COMMENT ON COLUMN "BOARD"."BOARD_NO" IS '게시글번호(시퀀스)';
+
+COMMENT ON COLUMN "BOARD"."BOARD_TITLE" IS '게시글제목';
+
+COMMENT ON COLUMN "BOARD"."BOARD_CONTENT" IS '게시글내용';
+
+COMMENT ON COLUMN "BOARD"."CREATE_DT" IS '작성일';
+
+COMMENT ON COLUMN "BOARD"."UPDATE-DT" IS '마지막 수정일';
+
+COMMENT ON COLUMN "BOARD"."READ COUNT" IS '조회수';
+
+COMMENT ON COLUMN "BOARD"."BOARD_ST" IS '게시글상태';
+
+COMMENT ON COLUMN "BOARD"."MEMBER_NO" IS '작성자회원번호';
+
+COMMENT ON COLUMN "BOARD"."BOARD_CD" IS '게시판 코드';
+
+-- BOARD 테이블 제약조건 추가
+ALTER TABLE BOARD
+ADD PRIMARY KEY(BOARD_NO); -- 제약조건명 생략하고 추가 -> (SYS_XXXXX) 형식으로 나옴
+
+ALTER TABLE BOARD
+ADD CONSTRAINT "FK_BOARD_CD" -- 제약조건명 지정
+FOREIGN KEY("BOARD_CD") -- BOARD의 BOARD_CODE 컬럼에 FK 지정
+REFERENCES "BOARD_TYPE"; -- 참조할 테이블 BOARD_TYPE의 PK와 연결됨.
+
+ALTER TABLE BOARD
+ADD CONSTRAINT "CHK_BOARD_ST" -- 체크 제약조건 걸겠다.
+CHECK ("BOARD_ST" IN('N', 'Y')); -- N, Y 둘 중 하나만 들어오게 하겠다.
+
+ALTER TABLE BOARD
+ADD CONSTRAINT "FK_BOARD_MEMBER"
+FOREIGN KEY("MEMBER_NO")
+REFERENCES MEMBER; -- MEMBER의 PK 참조하겠다.
+
+-- BOARD NO용 시퀀스
+CREATE SEQUENCE SEQ_BOARD_NO;
+
+-- BOARD_TYPE 데이터 삽입
+INSERT INTO BOARD_TYPE VALUES(1, '공지사항');
+INSERT INTO BOARD_TYPE VALUES(2, '자유 게시판');
+INSERT INTO BOARD_TYPE VALUES(3, '질문 게시판');
+
+SELECT * FROM BOARD_TYPE;
+
+-- BOARD 테이블에 샘플 데이터 삽입(PL/SQL) 이용
+
+BEGIN
+    FOR I IN 1..500 LOOP -- I가 증가하는 숫자, 1부터 500까지 반복(FOR문) for(){ <- 까지에 해당함 닫는괄호 없음
+
+        INSERT INTO BOARD
+        VALUES(SEQ_BOARD_NO.NEXTVAL, 
+               SEQ_BOARD_NO.CURRVAL || '번째 게시글',
+               SEQ_BOARD_NO.CURRVAL || '번째 게시글 내용입니다.',
+               DEFAULT,
+               DEFAULT,
+               DEFAULT,
+               DEFAULT,
+               1, -- 회원번호
+               3); -- 게시판 이름
+    
+    END LOOP; -- }
+
+END;
+/
+
+-- 공지사항 게시판 확인
+SELECT COUNT(*) FROM BOARD WHERE BOARD_CD = 1;
+
+-- 자유 게시판 조회
+SELECT COUNT(*) FROM BOARD WHERE BOARD_CD = 2;
+
+-- 질문 게시판 조회
+SELECT COUNT(*) FROM BOARD WHERE BOARD_CD = 3;
+
+-- 게시판 이름 조회
+SELECT BOARD_NM FROM BOARD_TYPE
+WHERE BOARD_CD = 3;
+
+commit;

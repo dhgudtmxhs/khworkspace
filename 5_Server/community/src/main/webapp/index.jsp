@@ -35,27 +35,20 @@
         
         		<p>이메일을 입력 받아 일치하는 회원 정보를 출력</p>
         		
-        		이메일 : <input type="text" id="in1">
+        		이메일 : <input type="text" id="in1"> 
         		<button id="select1">조회</button>
         		<div id="result1" style="height: 150px;">
         		        
 		
         		<!-- 이메일이 일치하는 회원이 있을 경우 -->     
-        		        
-        		<ul>
-        			<li>이메일 : user01@kh.or.kr</li>
-        			<li>닉네임 : 유저일</li>
-        			<li>전화번호 : 01012341234</li>
-        			<li>주소 : 서울시 강남구 테헤란로</li>
-        			<li>가입일 : 2023년 7월 14일</li>
-        		</ul>  
+
         		        
         		<!-- 이메일이 일치하는 회원이 없을 경우  -->
-        		<h4 style="color:red;">일치하는 회원이 없습니다.</h4>
+
         		        
         		</div> 
         
-				<hr>
+					<hr>
 
 				<h3>회원 목록 조회</h3>
 
