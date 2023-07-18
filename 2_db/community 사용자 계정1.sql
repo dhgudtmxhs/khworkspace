@@ -42,7 +42,7 @@ CREATE TABLE "BOARD" (
 	"BOARD_CONTENT"	VARCHAR2(4000)		NOT NULL,
 	"CREATE_DT"	DATE	DEFAULT SYSDATE	NOT NULL,
 	"UPDATE-DT"	DATE		NULL,
-	"READ COUNT"	NUMBER	DEFAULT 0	NOT NULL,
+	"READ_COUNT"	NUMBER	DEFAULT 0	NOT NULL,
 	"BOARD_ST"	CHAR(1)	DEFAULT 'N'	NOT NULL,
 	"MEMBER_NO"	NUMBER		NOT NULL,
 	"BOARD_CD"	NUMBER		NOT NULL
@@ -85,7 +85,9 @@ FOREIGN KEY("MEMBER_NO")
 REFERENCES MEMBER; -- MEMBER의 PK 참조하겠다.
 
 -- BOARD NO용 시퀀스
-CREATE SEQUENCE SEQ_BOARD_NO;
+CREATE SEQUENCE SEQ_BOARD_NO1;
+CREATE SEQUENCE SEQ_BOARD_NO2;
+CREATE SEQUENCE SEQ_BOARD_NO3;
 
 -- BOARD_TYPE 데이터 삽입
 INSERT INTO BOARD_TYPE VALUES(1, '공지사항');
@@ -100,9 +102,9 @@ BEGIN
     FOR I IN 1..500 LOOP -- I가 증가하는 숫자, 1부터 500까지 반복(FOR문) for(){ <- 까지에 해당함 닫는괄호 없음
 
         INSERT INTO BOARD
-        VALUES(SEQ_BOARD_NO.NEXTVAL, 
-               SEQ_BOARD_NO.CURRVAL || '번째 게시글',
-               SEQ_BOARD_NO.CURRVAL || '번째 게시글 내용입니다.',
+        VALUES(SEQ_BOARD_NO2.NEXTVAL, 
+               SEQ_BOARD_NO2.CURRVAL || '번째 게시글',
+               SEQ_BOARD_NO2.CURRVAL || '번째 게시글 내용입니다.',
                DEFAULT,
                DEFAULT,
                DEFAULT,
@@ -114,6 +116,7 @@ BEGIN
 
 END;
 /
+COMMIT;
 
 -- 공지사항 게시판 확인
 SELECT COUNT(*) FROM BOARD WHERE BOARD_CD = 1;
@@ -129,3 +132,27 @@ SELECT BOARD_NM FROM BOARD_TYPE
 WHERE BOARD_CD = 3;
 
 commit;
+
+-- 특정 게시판의 전체 게시글 수 조회
+-- (단, 삭제글은 제외)
+SELECT COUNT(*) FROM BOARD
+WHERE BOARD_CD = 1
+AND BOARD_ST = 'N';
+
+-- 특정 게시판에서 일정한 범위의 목록 조회
+    
+SELECT * FROM(
+    
+    SELECT ROWNUM RNUM, A.* FROM    (SELECT BOARD_NO, BOARD_TITLE, MEMBER_NICK, TO_CHAR(CREATE_DT, 'YYYY-MM-DD') AS CREATE_DT, READ_COUNT
+                                    FROM BOARD
+                                    JOIN MEMBER USING(MEMBER_NO)
+                                    WHERE BOARD_CD = 1 
+                                    AND BOARD_ST = 'N'
+                                    ORDER BY BOARD_NO DESC) A
+
+)
+WHERE RNUM BETWEEN 11 AND 20; -- ROWNUM에 별칭 안주면 무조건 1부터 시작함
+
+
+SELECT B.* FROM MEMBER M
+JOIN BOARD B ON(M.MEMBER_NO = B.MEMBER_NO);

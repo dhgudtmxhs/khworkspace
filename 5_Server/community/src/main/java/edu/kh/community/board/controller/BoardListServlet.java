@@ -25,8 +25,6 @@ public class BoardListServlet extends HttpServlet{
 			// /board/list?type=1
 			int type = Integer.parseInt(req.getParameter("type")); // 파라미터 = 스트링
 			
-			System.out.println("type : " + type);
-			
 			// /board/list?type=1&cp=2
 			
 			
@@ -38,11 +36,9 @@ public class BoardListServlet extends HttpServlet{
 			// 페이지네이션 번호 선택 시
 			// 쿼리스트링에 cp가 있음 --> cp = 쿼리스트링의 cp값
 			if(req.getParameter("cp") != null) { // 쿼리스트링에 cp가 존재한다면
-				Integer.parseInt(req.getParameter("cp"));
+				cp = Integer.parseInt(req.getParameter("cp"));
 				
 			}
-			
-			System.out.println("cp : " + cp);
 			
 			BoardService service = new BoardService();
 			
@@ -50,7 +46,12 @@ public class BoardListServlet extends HttpServlet{
 			
 			Map<String, Object> map = service.selectBoardList(type, cp);
 			
+			System.out.println(map.get("boardName"));
+			System.out.println(map.get("pagination"));
+			System.out.println(map.get("boardList"));
 			
+			// request 범위로 map을 세팅해서 넘겨준다.
+			req.setAttribute("map", map); // 위의 3개 값 세팅
 			
 			String path = "/WEB-INF/views/board/boardList.jsp";
 			
