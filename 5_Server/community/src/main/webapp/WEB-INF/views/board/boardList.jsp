@@ -68,7 +68,10 @@
                                     <tr>
                                         <td>${board.boardNo}</td>
             
-                                        <td><a href="#">${board.boardTitle}</a> </td>
+            							<!-- community/board/detail -->
+                                        <td>
+                                        	<a href="detail?no=${board.boardNo}&cp=${pagination.currentPage}&type=${param.type}">${board.boardTitle}</a>
+                                        </td>
             
                                         <td>${board.memberNickname}</td>
             
@@ -82,15 +85,9 @@
 
                         </c:choose>
 
-
-                        
-
-
-
                     </tbody>
 
                 </table>
-
 
             </div>
 
