@@ -156,7 +156,8 @@
 					
 					<%-- 로그인이 되어있는 경우 --%>
 					<c:otherwise>
-						<article class="login-area">
+                            
+                    <article class="login-area">
 							<!-- 회원 프로필 이미지  -->
 							<a href="#">
 								<img src="/community/resources/images/a.png" id="member-profile">
@@ -177,7 +178,7 @@
 								
 							</div>
 							
-							
+                            <!-- if 관리자일때 버튼 추가 -->
 							
 						</article>
 						

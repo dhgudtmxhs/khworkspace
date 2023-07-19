@@ -38,6 +38,8 @@ public class LoginServlet extends HttpServlet {
       mem.setMemberEmail(inputEmail);
       mem.setMemberPw(inputPw);
       
+      
+      
       try {
          // 서비스 객체 생성
          MemberService service = new MemberService();
@@ -57,6 +59,8 @@ public class LoginServlet extends HttpServlet {
             
             // 회원 정보 Session 세팅
             session.setAttribute("loginMember", loginMember);
+            
+          
             
             // 특정 시간동안 요청이 없으면 세션 만료
             session.setMaxInactiveInterval(3600); // 3600초 == 1시간

@@ -25,7 +25,6 @@ public class LogoutServlet extends HttpServlet {
 		// 1) Session에서 회원 정보만 없앤다.
 		//session.removeAttribute("loginMember"); //session.setAttribute("loginMember", loginMember);
 		
-		
 		// 2) Session 전체를 없애고 새로운 Session을 만든다. 1보다 더 많이 씀
 		session.invalidate(); // 세션 무효화
 							  // 현재 세션을 없앰 -> 자동으로 새로운 세션이 생성됨
@@ -36,18 +35,6 @@ public class LogoutServlet extends HttpServlet {
 		
 		// 쿠키는 파일로 저장되는데 브라우저가 자동으로 읽어온다.?
 		
-		
-	
-		
-		
-
-		
-		
-		
-		
-		
 	}
-	
-	
 	
 }

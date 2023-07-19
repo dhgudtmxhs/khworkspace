@@ -41,7 +41,7 @@ CREATE TABLE "BOARD" (
 	"BOARD_TITLE"	VARCHAR2(150)		NOT NULL,
 	"BOARD_CONTENT"	VARCHAR2(4000)		NOT NULL,
 	"CREATE_DT"	DATE	DEFAULT SYSDATE	NOT NULL,
-	"UPDATE-DT"	DATE		NULL,
+	"UPDATE_DT"	DATE		NULL,
 	"READ_COUNT"	NUMBER	DEFAULT 0	NOT NULL,
 	"BOARD_ST"	CHAR(1)	DEFAULT 'N'	NOT NULL,
 	"MEMBER_NO"	NUMBER		NOT NULL,
@@ -56,7 +56,7 @@ COMMENT ON COLUMN "BOARD"."BOARD_CONTENT" IS '게시글내용';
 
 COMMENT ON COLUMN "BOARD"."CREATE_DT" IS '작성일';
 
-COMMENT ON COLUMN "BOARD"."UPDATE-DT" IS '마지막 수정일';
+COMMENT ON COLUMN "BOARD"."UPDATE_DT" IS '마지막 수정일';
 
 COMMENT ON COLUMN "BOARD"."READ COUNT" IS '조회수';
 
@@ -99,7 +99,7 @@ SELECT * FROM BOARD_TYPE;
 -- BOARD 테이블에 샘플 데이터 삽입(PL/SQL) 이용
 
 BEGIN
-    FOR I IN 1..500 LOOP -- I가 증가하는 숫자, 1부터 500까지 반복(FOR문) for(){ <- 까지에 해당함 닫는괄호 없음
+    FOR I IN 1..2 LOOP -- I가 증가하는 숫자, 1부터 500까지 반복(FOR문) for(){ <- 까지에 해당함 닫는괄호 없음
 
         INSERT INTO BOARD
         VALUES(SEQ_BOARD_NO2.NEXTVAL, 
@@ -109,14 +109,18 @@ BEGIN
                DEFAULT,
                DEFAULT,
                DEFAULT,
-               1, -- 회원번호
-               3); -- 게시판 이름
+               126, -- 회원번호
+               1); -- 게시판 이름
     
     END LOOP; -- }
 
 END;
 /
 COMMIT;
+
+ALTER TABLE MEMBER ADD ADMIN_FL CHAR(1);
+ALTER TABLE MEMBER
+ADDCHECK(ADMIN_FL IN('T', 'F'));
 
 -- 공지사항 게시판 확인
 SELECT COUNT(*) FROM BOARD WHERE BOARD_CD = 1;
@@ -174,19 +178,19 @@ COMMENT ON COLUMN BOARD_IMG.IMG_LEVEL IS '이미지 위치 지정 번호';
 COMMENT ON COLUMN BOARD_IMG.BOARD_NO IS '게시글 번호';
 
 -- 이미지 번호 시퀀스 생성
-CREATE SEQUENCE SEQ_IMG_NO NOCACHE; -- 시퀀스 1씩
+CREATE SEQUENCE SEQ_IMG_NO1 NOCACHE; -- 시퀀스 1씩
 
 -- 샘플 데이터
 INSERT INTO BOARD_IMG VALUES(
-        SEQ_IMG_NO.NEXTVAL, '/resources/images/board/sample1.jpg', 'cat1.jpg', 0, 500
+        SEQ_IMG_NO1.NEXTVAL, '/resources/images/board/sample1.jpg', 'cat1.jpg', 0, 500
 );
 
 INSERT INTO BOARD_IMG VALUES(
-        SEQ_IMG_NO.NEXTVAL, '/resources/images/board/sample2.jpg', 'cat2.jpg', 1, 500
+        SEQ_IMG_NO1.NEXTVAL, '/resources/images/board/sample2.jpg', 'cat2.jpg', 1, 500
 );
 
 INSERT INTO BOARD_IMG VALUES(
-        SEQ_IMG_NO.NEXTVAL, '/resources/images/board/sample3.jpg', 'cat3.jpg', 2, 500
+        SEQ_IMG_NO1.NEXTVAL, '/resources/images/board/sample3.jpg', 'cat3.jpg', 2, 500
 );
 
 INSERT INTO BOARD_IMG VALUES(
@@ -199,10 +203,21 @@ INSERT INTO BOARD_IMG VALUES(
 
 COMMIT;
 
+-- 게시글 상세 조회
+SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT,
+    TO_CHAR(CREATE_DT, 'YYYY"년" MM"월" DD"일" HH24:MI:SS') CREATE_DT,
+    TO_CHAR(UPDATE_DT, 'YYYY"년" MM"월" DD"일" HH24:MI:SS') CREATE_DT,
+    READ_COUNT, MEMBER_NICK, PROFILE_IMG, MEMBER_NO, BOARD_NM
+FROM BOARD
+JOIN MEMBER USING(MEMBER_NO)
+JOIN BOARD_TYPE USING(BOARD_CD)
+WHERE BOARD_NO = 500
+AND BOARD_ST = 'N';
 
-
-
-
+-- 특전 게시글에 첨부된 이미지 목록 조회
+SELECT * FROM BOARD_IMG
+WHERE BOARD_NO = 500
+ORDER BY IMG_LEVEL;
 
 
 
