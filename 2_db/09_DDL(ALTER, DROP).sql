@@ -49,7 +49,7 @@ INSERT INTO MEMBER VALUES
 (SEQ_MEMBER_NO.NEXTVAL, 'testid', 'testpw', 'testemail', 'testnick', 
 'testname', '200020202', '서울', 'skt', '01033339999', '남자', '내국인', 'img', default, default, default);
 
-
+commit;
 
 -- DDL(Data Definition Language) : 데이터 정의 언어로
 -- 객체를 만들고(CREATE), 수정하고(ALTER), 삭제하는(DROP) 구문

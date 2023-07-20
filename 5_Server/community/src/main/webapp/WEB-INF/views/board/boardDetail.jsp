@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +12,8 @@
     <link rel="stylesheet" href="${contextPath}/resources/css/main-style.css">
     
     <link rel="stylesheet" href="${contextPath}/resources/css/boardDetail-style.css">
+
+    <link rel="stylesheet" href="${contextPath}/resources/css/reply-style.css">
 
     <script src="https://kit.fontawesome.com/16679b9adf.js" crossorigin="anonymous"></script>
 
@@ -134,22 +135,61 @@
             <!-- 버튼 영역 -->
             <div class="board-btn-area">
 
-                <c:if test="${loginMember.memberNo == detail.memberNo || loginMember.관리자여부 ='y'}">  <!-- loginMember는 sessionscope -->
+                <c:if test="${loginMember.memberNo == detail.memberNo}">  <!-- loginMember는 sessionscope -->
 
                     <button id="updateBtn">수정</button>
                     <button id="deleteBtn">삭제</button>
 
                 </c:if>
 
-
+                <!-- onclick="history.back()"; 뒤로가기
+                     history.go(숫자) : 양수(앞으로가기), 음수(뒤로가기)
+                -->
 
                 <button id="goToListBtn">목록으로</button>
 
             </div>
         </section>
+
+        <!-- 댓글 -->
+        <jsp:include page="/WEB-INF/views/board/reply.jsp"/>
+
     </main>
 
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
+    <!-- jQuery 추가 -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+    <script src="${contextPath}/resources/js/board/board.js"></script>
+
+    <script>
+        // 댓글 관련 JS 코드에 필요한 값을 전역 변수로 선언
+
+        // jsp 파일: html, css, el, jstl 사용 가능
+        // js 파일 : js만 사용 가능
+
+        // 코드 해석 순서 : EL == JSTL > HTML > JS
+
+        // ** JS 코드에서 EL/JSTL을 작성하게 된다면 반드시 ""를 양쪽에 추가 
+
+        // 최상위 주소
+        const contextPath = "${contextPath}";
+                            // /community
+
+        // 게시글 번호
+        //const boardNo = ${detail.boardNo}; 
+        // 이클립스에선 오류안남 근데 el은 null일때 빈칸이라 에러남
+        const boardNo = "${detail.boardNo}"; //null일때 ""라 에러안남
+
+        // 로그인한 회원 번호
+        const loginMemberNo = "${loginMember.memberNo}";
+        // 로그인 O : "10";
+        // 로그인 X : "";
+
+    </script>
+
+    <script src="${contextPath}/resources/js/board/reply.js"></script>
 
 </body>
 

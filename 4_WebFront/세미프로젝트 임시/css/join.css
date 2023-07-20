@@ -1,21 +1,375 @@
-*{box-sizing: border-box; border:1px solid lightcoral;}
+*{
+    box-sizing: border-box; 
+    font-family: 'Hi Melody', cursive;
+    font-size:16px;
+    font-weight: bold;
+    
+}
+
+/* ::placeholder{
+ 
+} */
 
 body{
-    height:900px;
+    height:950px;
     display:flex;
     justify-content: center;
     align-items: center;
 }
 
 main{
-
     display:flex;
-    width:100%;
-    height:80%;
-    border: 2px solid black;
+    width:45%;
+    height:100%;
+    flex-direction: column;
 }
 
-div{
-    border:1px solid black;
+/* 로고div */
+#logoDiv{
+    display:Flex;
+    flex-basis:8%;
+    justify-content: center;
+    align-items: center;
+}
 
+form{
+    display:flex;
+    flex-basis:90%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 8px solid lightgray;
+    border-radius:10px;
+    
+}
+
+/* 아이디,비번,비번확인,이메일 인증 */
+#firstbox{
+    display:flex;
+    width:60%;
+    height:24%;
+    flex-direction: column;
+    border:5px solid lightgray;
+    border-radius:5px;
+}
+
+/* firstBox에 대한 height*/
+#firstbox > article{
+    display:flex;
+    height:33.3%;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#innerTextSpan1{
+    display:flex;
+    height:12%;
+    margin-left:50px;
+    margin-bottom: 5px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* 닉네임, 이름, 생년월일, 주 활동지역, 통신사, 폰번호, 남/녀, 내/외국인 */
+#height{
+    display:flex;
+    height:1.5%;    
+}
+
+#secondBox{
+    display:flex;
+    width:60%;
+    height: 56%;
+    flex-direction: column;
+    border:5px solid lightgray;
+    border-radius:5px;
+}
+
+#secondBox:hover{
+    border:5px solid lightcoral;
+}
+
+
+/* secondBox에 대한 height*/
+#secondBox > article{
+    display:flex;
+    height:11.5%;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* 통신사 */
+article > agency{
+    display:flex;
+    width:80%;
+    justify-content: s;
+}
+
+/* 통신사 div */
+
+.agencyLabels{
+    display:Flex;
+    flex-basis:33.3%;
+    border:1px solid lightgray;
+    border-radius: 5px;
+    height:35px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    
+}
+
+.agency{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.agency > span{
+    margin-left:5px;
+   margin-top:4px;
+}
+
+#agencyMargin{
+    margin-left: 10px;
+}
+
+/* 남/여 , 내/외국인 */
+
+#genderNationality{
+    display:flex;
+    width:80%;
+}
+
+#gender{
+    display:flex;
+    width:50%;
+    margin-right:5px;
+    
+}
+
+#gender label{
+    border:2px solid lightgray;
+    border-radius: 5px;
+    width:50%;
+    height:35px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#nationality{
+    display:flex;
+    width:50%;
+
+}
+
+#nationality label{
+    border:2px solid lightgray;
+    border-radius: 5px;
+    width:50%;
+    height:35px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.leftLabel{
+    border:1px solid red;
+}
+
+.rightLabel{
+    border-left:1px;
+}
+
+
+/* 2번째 div 정규식 */
+
+#innerTextSpan2{
+    display:flex;
+    height:8%;
+    margin-left:50px;
+
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* 인증약관 전체동의 */
+#thirdBox{
+    display:flex;
+    height:8%;
+    border:5px solid lightgray;
+    margin-top:10px;   
+    width:60%;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+#thirdBox:hover{
+    border:5px solid lightcoral;
+}
+
+#thirdBox > span{
+    display:flex;
+    margin-left:5px;
+    margin-top:3px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+p{
+    color:lightcoral;
+    margin-top:17px;
+    margin-right:5px;
+}
+
+#agreeImg{
+    width:15px;
+    height:15px;
+    margin-left:10px;
+}
+
+#agreeClickBox{
+    display:none;
+}
+
+#test{
+    display:flex;
+    text-align: end;
+}
+/* 회원가입 버튼 div*/
+#forthBox{
+    display:flex;
+    width:100%;
+    height:8%;
+    justify-content: center;
+    align-items: center;
+}
+
+#btn{
+    height:70%;
+    width:60%;
+    border:0;
+    background-color: lightcoral;
+    color:white;
+    font-size:26px;
+    border-radius: 10px;
+    cursor:pointer;
+}
+
+#btn:hover{
+    color:black;
+    transition-duration: 1s;
+}
+
+img{
+    margin:2px 2px;
+    height:50px;
+    width:50px;
+}
+
+#img3{
+    height:40px;
+}
+
+#img4{
+    height:40px;
+    width:35px;
+    margin: 0 7px;
+}
+
+/* 주 활동 지역*/
+
+#selectDiv{
+    display:flex;
+    width:80%;
+}
+
+#selectDiv > select{
+    width:100%;
+    height:38px;
+    border:2px solid lightgray;
+    border-radius: 5px;
+}
+
+/* ::placeholder{
+
+} */
+
+.inputs{
+    width:80%;
+    height:32px;
+    border:0;
+    border-bottom: 2px solid lightgray; /* 입력완료->lightcoral */
+    outline:0;
+    
+}
+
+#firstbox:hover{
+    border:5px solid lightcoral;
+
+}
+
+/* 라디오 버튼 숨기기 */
+.radios{
+    display:none;
+}
+
+
+/* 이메일 부분 */
+#inputEmail{
+    width:60%;
+}
+
+#emailBtn{
+    margin-left:10px;
+    width:20%;
+    height:30px;
+    border:0;
+    background-color:lightcoral;
+    color:white;
+    border-radius: 5px;
+    cursor:pointer;
+}
+
+#emailBtn:hover{
+    color:black;
+    transition-duration: 1s;
+}
+
+/* 전체 라벨 호버 */
+label:hover{
+    background-color: lightcoral;
+    color:white;
+    transition-duration: 1s;
+}
+
+
+/* 푸터인데 이것도 jsp 따로 만들어서 인클루드 해야할듯 */
+
+footer{
+    margin-top:20px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;    
+}
+
+.find1{
+    display:flex;
+    margin-top:0px;
+    align-items:center;
+}
+
+.find1 a{
+    font-size:14px;
+    color:rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+}
+
+.footer a{
+    display:flex;
 }
