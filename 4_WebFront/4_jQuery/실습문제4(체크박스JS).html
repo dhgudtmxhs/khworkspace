@@ -65,13 +65,10 @@
 
     <script>
     
-    const form = document.getElementById("form");
+
     const all = document.getElementById("all");
-    const divs = document.getElementsByTagName("div");
     const chbox = document.getElementsByClassName("chbox");
-    const span = document.getElementsByTagName("span");
-    const btn = document.getElementById("btn");
-    const out = document.getElementById("out");
+
 
     all.addEventListener("click",function(){
        
@@ -94,21 +91,6 @@
         all.checked = allChecked;
     })
     }
-
-    btn.addEventListener("click",function(){
-
-        out.innerText = '';
-
-        for(let i = 0; i < chbox.length; i++){
-            
-            if(chbox[i].checked){
-                out.innerHTML += span[i].innerHTML + " ";
-            }
-
-        }
-
-
-    })
 
 /* 
     for(let i = 0; i < chbox.length; i++){

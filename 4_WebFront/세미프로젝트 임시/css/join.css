@@ -6,6 +6,18 @@
     
 }
 
+/* 정규식 클래스 추가,제거 */
+/* .true{
+
+    color:blue;
+}
+
+.false{
+
+    color:red;
+
+} */
+
 /* ::placeholder{
  
 } */
@@ -93,7 +105,7 @@ form{
 /* secondBox에 대한 height*/
 #secondBox > article{
     display:flex;
-    height:11.5%;
+    height:13%;
     justify-content: flex-start;
     align-items: center;
 }

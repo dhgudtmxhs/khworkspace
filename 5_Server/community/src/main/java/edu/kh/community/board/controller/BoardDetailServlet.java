@@ -35,9 +35,11 @@ public class BoardDetailServlet extends HttpServlet{
 			if(detail != null) {
 				ReplyService rService = new ReplyService();
 				List<Reply> rList = rService.selectReplyList(boardNo);
+				//ReplyService reply = new ReplyService();
 				// List<Reply> list = new ReplyService().selectReplyList(boardNo);
-				req.setAttribute("rList", rList); // 같이 jsp로 넘긴다.
 				
+				req.setAttribute("rList", rList); // 같이 jsp로 넘긴다.
+				//req.setAttribute("reply", reply);
 			}
 			
 			req.setAttribute("detail", detail);

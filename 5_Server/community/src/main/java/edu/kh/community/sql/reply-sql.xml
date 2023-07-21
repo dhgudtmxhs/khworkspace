@@ -14,5 +14,16 @@
 	ORDER BY REPLY_NO
 </entry>
 
+<entry key="insertReply">
+	INSERT INTO REPLY VALUES(SEQ_RNO.NEXTVAL, ?, DEFAULT, DEFAULT, ?, ?)
+</entry>
+
+
+<entry key="deleteReply">
+	UPDATE REPLY SET
+	REPLY_ST = 'Y'
+	WHERE REPLY_NO = ?
+</entry>
+	
 
 </properties>
