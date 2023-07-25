@@ -90,9 +90,17 @@ public class ReplyController extends HttpServlet{
 				
 			}
 			
-			
-			
-			
+			// 댓글 수정
+			if(command.equals("update")) {
+				
+				int replyNo = Integer.parseInt(req.getParameter("replyNo"));
+				String replyContent = req.getParameter("replyContent");
+				
+				int result = service.updateReply(replyNo, replyContent);
+				
+				resp.getWriter().print(result);
+				
+			}
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -107,6 +115,8 @@ public class ReplyController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// POST방식 요청 처리
 		doGet(req,resp); // POST방식으로 전달된 요청을 doGet()으로 전달하여 수행
+		
+		
 		
 	}
 	

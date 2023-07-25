@@ -79,11 +79,17 @@
 				AND SECESSION_FL = 'N'
    </entry> 
    
+   <!-- 회원 전체 조회  -->
    <entry key ="selectAll">
-   	SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NICK
-	FROM MEMBER
-	WHERE SECESSION_FL = 'N'
-	ORDER BY MEMBER_NO
+	   	SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NICK
+		FROM MEMBER
+		WHERE SECESSION_FL = 'N'
+		ORDER BY MEMBER_NO
+   </entry>
+   
+   <!-- 프로필 이미지 변경  -->
+   <entry key = "updateProfileImage">
+   		UPDATE MEMBER SET PROFILE_IMG = ? WHERE MEMBER_NO = ?
    </entry>
    
 </properties>

@@ -42,7 +42,7 @@
 
                     <c:if test="${!empty detail.profileImage}"> <!-- choose로 굳이 안해도 된다. -->
                         <!-- 프로필 이미지가 있는 경우 -->
-                        <img src="${contextPath}>${detail.profileImage}"> <!-- 기본 이미지 값 -->
+                        <img src="${contextPath}${detail.profileImage}"> <!-- 기본 이미지 값 -->
                         
                     </c:if>
                     

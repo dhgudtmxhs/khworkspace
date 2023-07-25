@@ -182,29 +182,6 @@ public void ex11() {
    System.out.print("정수 입력 : ");
    int num = sc.nextInt();
    
-    /* for(int i = 1; i <= num; i++) {
-      
-      for(int j = 1; j <= (num - i + 1); j++) {
-         
-         System.out.print(" ");
-      }
-   
-      for(int y = 1; y <= (2 * i - 1); y++) {
-         System.out.print("*");
-      }
-   System.out.println();
-   }*/
-   
- /*  for(int i = 1; i <= num; i++) {
- 	  
- 	  for(int j = 1; j <= num -i + 1; j++) {
- 		   System.out.print(" ");
- 	  }
- 	  for(int x = 1; x <= 2 * i - 1; x++) {
- 		  System.out.print("*");
- 	  }
- 	  	  System.out.println();
-   } */
    
    for(int i = 1; i <= num; i++) {
  	  
@@ -217,6 +194,7 @@ public void ex11() {
    System.out.println();
    
    }
+   
    for(int i = num-1; i>=1; i--) {
  
  	  for(int j = 1; j <= num - i + 1; j++) { /// 2, 3, 4, 5

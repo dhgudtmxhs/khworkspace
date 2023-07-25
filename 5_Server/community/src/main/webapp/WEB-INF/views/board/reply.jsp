@@ -29,15 +29,13 @@
 
                 </p>
                 
-                <p class="reply-content">
-                    ${reply.replyContent}
-
-                </p>
+                <p class="reply-content">${reply.replyContent}</p>
+                
                 <c:if test="${loginMember.memberNo == reply.memberNo}">
                     
                     <div class="reply-btn-area">
                         <button onclick="showUpdateReply(${reply.replyNo}, this)">수정</button>
-                        <button onclick="deleteReply(${reply.replyNo})">삭제</button>
+                        <button onclick="deleteReply(${reply.replyNo})">삭제</button> <!-- 오류아님 -->
                     </div>
 
                 </c:if>
@@ -45,14 +43,6 @@
             </li>
         </c:forEach>
 
-            <li class="reply-row">
-                <textarea class="update-textarea">기존 댓글 내용</textarea>
-                
-                <div class="reply-btn-area">
-                    <button>수정</button>
-                    <button>삭제</button>
-                </div>
-            </li>
         </ul>
 
     </div>

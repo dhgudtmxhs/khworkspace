@@ -307,7 +307,6 @@ memberPw.addEventListener("input",function(){
         pwMessage.classList.remove("confirm");
 
         checkObj.memberPw = false; // 유효 x 기록
-
     }
 
 });

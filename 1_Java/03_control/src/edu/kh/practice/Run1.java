@@ -15,7 +15,7 @@ public class Run1 {
 	            //condition.ex5();
 	   
 	   LoopPractice loop = new LoopPractice();
-	   			loop.ex13();
+	   			loop.ex11();
 	   
 	   }
 }

@@ -36,7 +36,6 @@
                 <h1 class="myPage-title">내 정보</h1>
                 <span class="myPage-explanation">원하는 회원정보를 수정할 수 있습니다.</span>
 
-
                 <!-- 같은 폴더라 앞에 다지우기?  
                     http://localhost:8080/community/member/myPage/info (get)
                     http://localhost:8080/community/member/myPage/info (post)

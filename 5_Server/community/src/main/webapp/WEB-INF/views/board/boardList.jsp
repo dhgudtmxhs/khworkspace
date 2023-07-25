@@ -79,6 +79,11 @@
             
                                         <td>${board.readCount}</td>
                                     </tr>
+                                    <tr>
+                                        <td>img , text</td>
+                                        <td>img , text</td>
+                                        <td>img , text</td>
+                                    </tr>
                                 </c:forEach>
 
                             </c:otherwise>
