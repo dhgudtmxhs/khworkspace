@@ -6,7 +6,12 @@ public class Util {
 	
 	public static String newLineHandling(String content) {
 		
-		return content.replaceAll("\n|\r|\r\n|\n\r", "<br>");
+		return content.replaceAll("\r\n|\n|\r|\n\r", "<br>"); //\r\n 일때 먼저 br로 바뀜
+	
+		// textarea의 엔터 : \r\n
+		// \r : 캐리지 리턴(첫 번째로 돌아가기) -> 현재는 개행문자로 인식함
+		// \n : new line(다음 줄로 이동)
+	
 	}
 	
 	// XSS : 관리자가 아닌 이용자가 악성 스크립트를 삽입해서 공격할 수 있다.

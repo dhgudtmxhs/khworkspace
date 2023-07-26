@@ -79,11 +79,7 @@
             
                                         <td>${board.readCount}</td>
                                     </tr>
-                                    <tr>
-                                        <td>img , text</td>
-                                        <td>img , text</td>
-                                        <td>img , text</td>
-                                    </tr>
+
                                 </c:forEach>
 
                             </c:otherwise>
@@ -97,7 +93,16 @@
             </div>
 
                 <div class="btn-area">
-                    <button id="insertBtn">글쓰기</button>
+                    
+                    <c:if test="${!empty loginMember}"> <!-- 로그인 한 경우에만 -->
+
+                        <!-- /community/board/write -->
+                        <button id="insertBtn" onclick="location.href='write?mode=insert&type=${param.type}&cp=${param.cp}'">글쓰기</button>
+                                                        <!-- get방식임 form말고는 걍 다 get이라 생각 -->
+                                                        <!-- http://localhost:8080/community/board/list?type=1 에서 type 쿼리스트링으로 param.type -->
+                                                        <!-- http://localhost:8080/community/board/write?mode=insert&type=1 으로 -->
+                    </c:if>
+
                 </div>
 
                 <!-- ${param.type}  --><!-- 리퀘스트로 타입 전달되서 옴. el로 표현 (파라미터의 타입)-->

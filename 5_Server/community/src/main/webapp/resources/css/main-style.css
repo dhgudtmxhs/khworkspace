@@ -102,6 +102,8 @@ nav{
 
     border-bottom:2px solid black;
 
+    z-index : 10; /* z축으로 10만큼 튀어나옴 */
+
 }
 
 nav{

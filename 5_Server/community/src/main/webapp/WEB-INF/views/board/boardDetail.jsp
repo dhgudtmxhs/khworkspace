@@ -124,12 +124,7 @@
 
             <!-- 내용 -->
             <div class="board-content">
-                내용입니다<br>
-                내용입니다<br>
-                내용입니다<br>
-                내용입니다<br>
-                내용입니다<br>
-                내용입니다<br>
+             ${detail.boardContent}
             </div>
 
             <!-- 버튼 영역 -->

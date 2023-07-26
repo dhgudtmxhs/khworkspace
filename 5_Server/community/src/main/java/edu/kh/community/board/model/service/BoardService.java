@@ -12,6 +12,7 @@ import edu.kh.community.board.model.vo.Board;
 import edu.kh.community.board.model.vo.BoardDetail;
 import edu.kh.community.board.model.vo.BoardImage;
 import edu.kh.community.board.model.vo.Pagination;
+import edu.kh.community.common.Util;
 
 public class BoardService {
 
@@ -79,6 +80,64 @@ public class BoardService {
 		close(conn);
 		
 		return detail;
-	}	
+	}
+
 	
+	/** 게시글 등록 Service
+	 * @param detail
+	 * @param imageList
+	 * @param boardCode
+	 * @return boardNo
+	 * @throws Exception
+	 */
+	public int insertBoard(BoardDetail detail, List<BoardImage> imageList, int boardCode) throws Exception{
+		
+		Connection conn = getConnection();
+		
+		// 1. 다음 작성할 게시글 번호 얻어오기
+		// -> BOARD 테이블 INSERT / BOARD_IMG 테이블 INSERT / 반환값 (상세조회 번호)
+		int boardNo = dao.nextBoardNo(conn); // 밑에서 쓰기 위해 시퀀스 게시글 번호 가져오기
+		
+		// 2. 게시글 부분만 삽입(detail, boardCode 사용)
+		detail.setBoardNo(boardNo); // 조회된 다음 게시글 번호 세팅
+		
+		// 1) XSS 방지 처리(제목/내용) 에 스크립트 적거나 하는거
+		detail.setBoardTitle(Util.XSSHandling( detail.getBoardTitle() ) );
+		detail.setBoardContent(Util.XSSHandling( detail.getBoardContent() ) );
+		
+		// 2) 개행문자 처리(내용)
+		detail.setBoardContent(Util.newLineHandling( detail.getBoardContent() ) );
+		
+		int result = dao.insertBoard(conn, detail, boardCode);
+		
+		if(result > 0) { // 게시글 DB BOARD TABLE에 삽입 성공 시  
+			
+			// 3. 이미지 정보만 삽입(imageList 사용)
+			for(BoardImage image : imageList) { // 하나씩 꺼내서 DAO 수행
+				image.setBoardNo(boardNo); // 게시글 번호 세팅
+				
+				result = dao.insertBoardImage(conn, image); // executeUpdate를 for문으로 한 개 씩 돌리겠다.
+			
+				if(result == 0) { // for문 안이라 한 번의 executeUpdate가 실패하면 
+					break;
+				}
+				
+			} // for문 끝
+			
+			
+		} // if문 끝 (게시글 삽입 성공)
+		
+		if(result > 0) { 
+			commit(conn);
+		
+		}else { // 2, 3 번에서 한 번이라도 실패한 경우 // 위에서 result == 0 일떄 break;
+			rollback(conn);
+			boardNo = 0; // 게시글 번호를 0으로 바꿔서 실패했음을 컨트롤러로 전달해준다.
+		}
+		
+		close(conn);
+		
+		return boardNo;
+	}	
+
 }
