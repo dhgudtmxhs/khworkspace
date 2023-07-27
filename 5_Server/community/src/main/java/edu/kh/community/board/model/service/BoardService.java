@@ -138,6 +138,77 @@ public class BoardService {
 		close(conn);
 		
 		return boardNo;
+	}
+
+	/** 게시글 수정 Service
+	 * @param detail
+	 * @param imageList
+	 * @param deleteList
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateBoard(BoardDetail detail, List<BoardImage> imageList, String deleteList) throws Exception {
+
+		Connection conn = getConnection();
+		
+		// 1. 게시글 부분(제목, 내용, 마지막 수정일)
+		
+		// 1) XSS 방지 처리(제목, 내용)
+		detail.setBoardTitle(Util.XSSHandling(detail.getBoardTitle()));
+		detail.setBoardContent(Util.XSSHandling(detail.getBoardContent()));
+		// 2) 개행문자 처리(내용)
+		detail.setBoardContent(Util.newLineHandling(detail.getBoardContent()));
+		
+		// 3) DAO 호출
+		int result = dao.updateBoard(conn, detail);
+		
+		if(result == 1) {
+			
+			// 2. 이미지 부분 수정(기존 -> 변경, 없다가 -> 추가)
+			for(BoardImage img : imageList) {
+				
+				img.setBoardNo(detail.getBoardNo()); // 게시글 번호 세팅
+				
+				// img(변경명 : a.jpg / 원본명 : 1.jpg / 게시글번호 : 1526 / 이미지레벨 : 4)
+				
+				/*
+				 		UPDATE BOARD_IMG SET IMG_RENAME = ?, IMG_ORIGINAL = ?
+						WHERE BOARD_NO = ? AND IMG_LEVEL = ?
+				 */
+				
+				// 이미지 1개씩 수정 (for문 안임)
+				result = dao.updateBoardImage(conn, img);
+				
+				if(result == 1) {
+				
+				}
+				
+				if(result == 0){ //result == 0 : 수정 실패 -> 기존에 없다가 새로 추가된 이미지
+								// img_level = 4를 for문 돌면서 수정에서 넣었는데 where로 찾으니까 원래 없었던 경우에 수정 실패가 나서 result == 0 이 오게 됨
+								// -> insert를 진행해야 한다.
+					result =  dao.insertBoardImage(conn, img);
+					
+				}
+				
+			} // 향상된 for문 끝
+
+			// 3. 이미지 삭제
+			// deleteList ( "1,2,3" 이런 모양, 없으면 ""(빈 문자열) )
+			
+			if(!deleteList.equals("")){ // 삭제된 이미지 레벨이 기록되어 있을 때만 삭제를 하겠다.
+			
+				result = dao.deleteBoardImage(conn, deleteList, detail.getBoardNo());
+				
+			}
+			
+		} // 게시글 수정 성공 시 (if 문 끝)
+		
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		
+		return result;
 	}	
 
 }

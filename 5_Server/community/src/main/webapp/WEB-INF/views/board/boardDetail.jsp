@@ -30,6 +30,7 @@
             <!-- 제목 -->
             <div class="board-title">${detail.boardTitle} <span> - ${detail.boardName}</span></div>
 
+
             <!-- 프로필 + 닉네임 + 작성일 + 조회수 -->
             <div class="board-header">
                 <div class="board-writer">
@@ -132,7 +133,22 @@
 
                 <c:if test="${loginMember.memberNo == detail.memberNo}">  <!-- loginMember는 sessionscope -->
 
-                    <button id="updateBtn">수정</button>
+                    <!-- 현재 위치 : detail?no=500&cp=15&type=2 이런식 -->
+                    <!-- 글 작성 직후 페이지 : detail?no=500&type=2 -> cp가 주소에 아예 없음 -->
+
+                    <!-- cp가 없을 경우 -->
+                    <c:if test="${empty param.cp}">
+                        <c:set var="cp" value="1"/> <!-- 이 cp는 그냥 변수임 -->
+                    </c:if>
+
+                    <!-- 파라미터에 cp가 있을 경우  -->
+                    <c:if test="${!empty param.cp}">
+                        <c:set var="cp" value="${param.cp}"/> <!-- 이 cp는 그냥 변수임 -->
+                    </c:if>
+
+                    <button id="updateBtn" onclick="location.href='write?mode=update&type=${param.type}&cp=${cp}&no=${param.no}'">수정</button>
+                                                    <!-- 현재 위치 : detail?no=500&cp=15&type=2 이런식 -->  <!-- ${detail.boardNo} 도 가능 -->
+                    
                     <button id="deleteBtn">삭제</button>
 
                 </c:if>
@@ -145,6 +161,7 @@
 
             </div>
         </section>
+                
 
         <!-- 댓글 -->
         <jsp:include page="/WEB-INF/views/board/reply.jsp"/>

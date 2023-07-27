@@ -70,8 +70,14 @@
 
             const type = "type=" + params.get("type"); // type = 1
             let cp; 
+
+            if(params.get("cp") != ""){ // 퀴리스트링에 cp가 있을 경우
+                cp = "cp=" + params.get("cp");
+            } else{
+                cp = "cp=1";
+            } 
             
-            if(params.get("cp") != ""){ // 쿼리스트링에 cp가 있을 경우
+           /*  if(params.get("cp") != ""){ // 쿼리스트링에 cp가 있을 경우
                 cp = "cp=" + params.get("cp"); //상세조회 경우에는 cp가 있어서 목록으로 누르면 해당 페이지로감 15p -> 15p
             
             }
@@ -89,7 +95,7 @@
 
             if(params.get("cp") == ""){ // 처음 1페이지에서 글쓰기 화면에서의 cp= 빈문자열임
                 cp = "cp=1";
-            }
+            } */
 
             // if cp != '' -> cp = "cp=" + params.get("cp"); 
             // else -> cp = "cp=1"; 로 해도 된다.
