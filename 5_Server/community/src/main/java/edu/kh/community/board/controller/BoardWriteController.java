@@ -227,7 +227,7 @@ public class BoardWriteController extends HttpServlet{
 	        	
 	        	String path = null;
 	        	String message = null;
-
+	        	
 	        	if(result > 0 ) { // 성공
 	        		
 	        		// detail?no=1000&type=1&cp=20

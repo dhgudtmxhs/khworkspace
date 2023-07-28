@@ -105,7 +105,14 @@
             url += type + "&" + cp
             // /community/board/list? += type= 숫자 얻어온거 + & + cp = 숫자 얻어온거
 
-           
+            // 검색 key,query가 존재하는 경우 url에 추가
+            if(params.get("key") != null){
+                const key = "&key=" + params.get("key");
+                const query = "&query=" + params.get("query");
+
+                url += key + query; // url 뒤에 붙이기
+
+            }
             
             location.href = url;
             // /community/board/list?type=1&cp=1 첨부터 쿼리스트링 끝까지 다 담기게 되고
@@ -116,3 +123,87 @@
     }
 
 })();
+
+// 즉시 실행 함수 : 성능 up, 변수명 중복 X
+(function(){
+
+    const deleteBtn = document.getElementById("deleteBtn"); // 존재하지 않으면 null
+
+    if(deleteBtn != null){ // 버튼이 화면이 존재할 때만 함수를 실행함
+
+        deleteBtn.addEventListener("click",function(){
+            // 현재 위치 : /community/board/detail?no=1500&cp=1&type=1
+            // 목표 위치 : /community/board/delete?no=1500&type=1
+            // 상대 경로 -> delete
+
+            let url = "delete"; 
+
+            // 주소에 작성된 쿼리스트링에서 필요한 파라미터만 얻어오기
+
+            // 현재 페이지 주소에서 쿼리스트링에 존재하는 파라미터만 얻어온다.
+            const params = new URL(location.href).searchParams; 
+
+            const no = "?no=" + params.get("no");
+
+            const type = "&type=" + params.get("type");
+
+            url += no + type;
+
+            if(confirm("정말로 삭제하시겠습니까?")){
+                location.href = url; // get방식으로 url에 요청
+            }
+        
+        });
+    
+    }
+
+})();
+
+// 검색창에 이전 검색기록 반영하기
+(function(){
+
+    const select = document.getElementById("search-key");
+    const input = document.getElementById("search-query");
+
+    //const option = select.children; // 4개있음
+    const option = document.querySelectorAll("#search-key > option"); // css 선택자
+
+    if(select != null){ // 검색창 화면이 존재할 때만 코드를 적용하겠다.
+
+        // 현재 주소에서 쿼리스트링(파라미터) 얻어오기
+        const params = new URL(location.href).searchParams;
+
+        // 얻어온 파라미터 중 key, query만 변수에 저장하겠다.
+        const key = params.get("key");
+        const query = params.get("query");
+
+        // input에 query값 대입
+        input.value = query;
+
+        // option을 반복 접근해서 value와 key와 같으면 selected 속성 추가
+        for(let op of option){
+            
+            if(op.value == key){
+                op.selected = true;
+            }
+        }
+
+    }
+
+})();
+
+// 검색 유효성 검사(검색어를 입력했는지 확인)
+
+function searchValidate(){
+
+    const input = document.getElementById("search-query");
+
+    if(input.value.trim().length == 0){
+        alert("검색어를 입력해주세요.");
+        input.focus();
+        return false;
+    }
+
+    return true;
+
+}

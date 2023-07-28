@@ -27,7 +27,6 @@ public class BoardListServlet extends HttpServlet{
 			
 			// /board/list?type=1&cp=2
 			
-			
 			// nav 메뉴(공지사항, 자유게시판, 질문게시판) 선택 시
 			// 쿼리스트링에 cp가 없다. // 주소에 cp가 없음
 			// 1페이지 고정, 널 오류 방지
@@ -44,11 +43,26 @@ public class BoardListServlet extends HttpServlet{
 			
 			// 게시판 이름, 페이지네이션 객체, 게시글 리스트를 한번에 반환하는 Service 호출
 			
-			Map<String, Object> map = service.selectBoardList(type, cp);
+			Map<String, Object> map = null;
 			
-			System.out.println(map.get("boardName"));
-			System.out.println(map.get("pagination"));
-			System.out.println(map.get("boardList"));
+			if(req.getParameter("key") == null) { // 일반 목록 조회
+				
+				map = service.selectBoardList(type, cp);
+				
+			} else { // 검색 목록 조회
+				String key = req.getParameter("key");
+				String query = req.getParameter("query");
+				
+				map = service.searchBoardList(type, cp, key, query);
+				
+				
+			}
+			
+			/*
+			 * System.out.println(map.get("boardName"));
+			 * System.out.println(map.get("pagination"));
+			 * System.out.println(map.get("boardList"));
+			 */
 			
 			// request 범위로 map을 세팅해서 넘겨준다.
 			req.setAttribute("map", map); // 위의 3개 값 세팅

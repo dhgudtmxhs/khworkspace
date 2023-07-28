@@ -28,9 +28,22 @@
       
         <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
+        <%-- 검색을 진행한 경우 key, query를 쿼리스트링 형태로 저장한 변수 생성 --%>
+        <c:if test="${!empty param.key}">
+            <c:set var="sURL" value="&key=${param.key}&query=${param.query}"/>
+            
+        </c:if>
+        <!-- key가 있을 경우(검색을 했을 경우) sURL에 key=?&query=? 를 담음 그리고  detail로 들어갈 때 등 모든 a태그 주소에 ${sURL}를 붙임,-->
+         <!-- 벨류가 있다면 주소에 붙을거고 없다면 원래대로 됨 -->
+
         <section class="board-list">
 
             <h1 class="board-name">${boardName}</h1>
+
+            <c:if test="${!empty param.key}">
+                <h3 style="margin-left:30px;">"${param.query}" 검색 결과</h3>
+            </c:if>
+
 
             <div class="list-wrapper">
                 
@@ -70,7 +83,7 @@
             
             							<!-- community/board/detail -->
                                         <td>
-                                        	<a href="detail?no=${board.boardNo}&cp=${pagination.currentPage}&type=${param.type}">${board.boardTitle}</a>
+                                        	<a href="detail?no=${board.boardNo}&cp=${pagination.currentPage}&type=${param.type}${sURL}">${board.boardTitle}</a>
                                         </td>
             
                                         <td>${board.memberNickname}</td>
@@ -115,10 +128,10 @@
                     <ul class="pagination">
                         
                         <!-- 첫 페이지로 이동 -->
-                        <li><a href="${url}1">&lt;&lt;</a></li> <!-- 리스트 넘기기, <<로 처음화면 가게하기? -->
+                        <li><a href="${url}1${sURL}">&lt;&lt;</a></li> <!-- 리스트 넘기기, <<로 처음화면 가게하기? -->
                         
                         <!-- 이전 목록 마지막 번호로 이동 -->
-                        <li><a href="${url}${pagination.prevPage}">&lt;</a></li> 
+                        <li><a href="${url}${pagination.prevPage}${sURL}">&lt;</a></li> 
 
                         <!-- li*10>a{$} -->
 
@@ -134,29 +147,34 @@
                                     <li><a class="current">${i}</a></li> <!-- 첫페이지는 기본값이라 링크 x -->
                                 </c:when>
                                 <c:otherwise>
-                                    <li><a href="${url}${i}">${i}</a></li>    
+                                    <li><a href="${url}${i}${sURL}">${i}</a></li>    
                                 </c:otherwise>
                             </c:choose>
 
                         </c:forEach>
 
-                        <li><a href="${url}${pagination.nextPage}">&gt;</a></li> 
+                        <li><a href="${url}${pagination.nextPage}${sURL}">&gt;</a></li> 
 
                         <!-- 끝 페이지로 이동 -->
-                        <li><a href="${url}${pagination.maxPage}">&gt;&gt;</a></li> 
+                        <li><a href="${url}${pagination.maxPage}${sURL}">&gt;&gt;</a></li> 
                     </ul>
                 </div>
 
-                <form action="#" method="get" id="boardSearch">
+                <!-- /board/list/type=1&cp=3 -->
 
-                    <select name="key">
+                <!-- /board/list/type=1&key=t&query=안녕 -->
+                <form action="list" method="get" id="boardSearch" onsubmit="return searchValidate()">
+                    
+                    <input type="hidden" name="type" value="${param.type}">
+
+                    <select name="key" id="search-key">
                         <option value="t">제목</option>
                         <option value="c">내용</option>
                         <option value="tc">제목+내용</option>
                         <option value="w">작성자</option>
                     </select>
 
-                    <input type="text" name="query" placeholder="검색어를 입력해주세요.">
+                    <input type="text" name="query" id="search-query" placeholder="검색어를 입력해주세요.">
                     
                     <button>검색</button>
 
@@ -168,8 +186,7 @@
 
         <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
-
-
+        <script src="${contextPath}/resources/js/board/board.js"></script>
 
 </body>
 
