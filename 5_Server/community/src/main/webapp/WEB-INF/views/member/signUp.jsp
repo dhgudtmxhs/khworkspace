@@ -36,7 +36,6 @@
                 왜 경로가 겹쳐도 되냐?
                 a태그는 get 지금 form은 post
                 -> 요청 주소가 같아도 데이터 전달 방식이 다르면 중복이 허용된다.
-
             -->
 
             <form action="signUp" method="post" name="signUp-form" onsubmit = "return signUpValidate()">

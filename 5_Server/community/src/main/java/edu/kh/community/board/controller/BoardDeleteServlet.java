@@ -42,10 +42,8 @@ public class BoardDeleteServlet extends HttpServlet{
 				// 상제 페이지 == 이전 요청 페이지 주소 == referer
 			}
 			
-			
 			session.setAttribute("message", message);
 			resp.sendRedirect(path);
-			
 			
 		}catch(Exception e) {
 			e.printStackTrace();

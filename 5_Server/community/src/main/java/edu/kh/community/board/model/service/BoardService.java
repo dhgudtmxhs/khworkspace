@@ -50,6 +50,8 @@ public class BoardService {
 		map.put("pagination", pagination);
 		map.put("boardList", boardList);
 		
+		System.out.println(map);
+		
 		close(conn);
 		
 		return map; // Map 객체 반환

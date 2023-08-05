@@ -38,8 +38,6 @@ public class LoginServlet extends HttpServlet {
       mem.setMemberEmail(inputEmail);
       mem.setMemberPw(inputPw);
       
-      
-      
       try {
          // 서비스 객체 생성
          MemberService service = new MemberService();
@@ -59,8 +57,6 @@ public class LoginServlet extends HttpServlet {
             
             // 회원 정보 Session 세팅
             session.setAttribute("loginMember", loginMember);
-            
-          
             
             // 특정 시간동안 요청이 없으면 세션 만료
             session.setMaxInactiveInterval(3600); // 3600초 == 1시간
@@ -126,7 +122,7 @@ public class LoginServlet extends HttpServlet {
          } else { // 실패
             
             session.setAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
-            
+            	
          }
          
          // 클라이언트 요청 -> 서버 요청 처리(Servlet) -> 응답 화면 만들어줘(JSP 위임)
@@ -168,9 +164,6 @@ public class LoginServlet extends HttpServlet {
       }catch (Exception e) {
          e.printStackTrace();
       }
-      
-      
-      
       
    }
 

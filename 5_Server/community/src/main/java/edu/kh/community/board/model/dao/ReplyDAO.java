@@ -123,7 +123,7 @@ public class ReplyDAO {
 	/** 댓글 삭제 DAO
 	 * @param conn
 	 * @param replyNo
-	 * @return replyNo
+	 * @return result
 	 * @throws Exception
 	 */
 	public int deleteReply(Connection conn, int replyNo) throws Exception {

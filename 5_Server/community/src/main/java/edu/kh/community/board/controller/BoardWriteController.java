@@ -83,6 +83,8 @@ public class BoardWriteController extends HttpServlet{
 
 	        String filePath = root + folderPath; // /community/src/main/webapp + /resources/images/board/ 
 	        
+	        System.out.println(filePath);
+	        
 	        String encoding = "UTF-8"; // 파라미터 중 파일을 제외한 파라미터(문자열)의 인코딩을 지정한다.
 	        
 	        
@@ -246,7 +248,6 @@ public class BoardWriteController extends HttpServlet{
 	        		path = req.getHeader("referer");
 	        		// referer : HTTP 요청 흔적(요청 바로 이전 페이지 주소)
 	        		
-	        		
 	        		message = "게시글 수정 실패";
 	        		
 	        	}
@@ -255,14 +256,10 @@ public class BoardWriteController extends HttpServlet{
 	        	resp.sendRedirect(path);
 	        }
 	        
-	        
-	        
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
-		
 	}
-	
 	
 }

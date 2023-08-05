@@ -344,7 +344,6 @@ function updateReply(replyNo, btn){
         },
 
         error : function(req, status, error){
-            console.log("댓글 수정 실패2");
             console.log("req.responseText");
         }
 
