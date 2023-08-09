@@ -19,6 +19,8 @@ public class ELResultServlet extends HttpServlet{
 
 		//test
 		
+		//test
+		
 		// POST 방식 요청 -> 한글 깨짐 -> 문자 인코딩 처리 필요
 		req.setCharacterEncoding("UTF-8");
 		
