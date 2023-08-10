@@ -20,15 +20,10 @@ import edu.kh.project.member.model.dto.Member;
 // @RequestMapping(value="요청 주소", method=RequestMethod.GET/POST)
 // -> GET/POST 방식 구분한다.
 
-
-
-
-
-
-
 @Controller // 요청/응답 처리하는 클래스 + bean으로 등록(Spring이 관리하는 객체)
 @RequestMapping("/member") // 공통된 주소 앞부분을 작성
 						   // member로 시작하는 요청은 해당 컨트롤러에서 처리한다.
+						   // 클래스도 RequestMapping 가능
 public class MemberController {
 
 	// 로그인		: /member/login
@@ -38,8 +33,10 @@ public class MemberController {
 	// Class에 작성한 /member를 제외한 나머지 부분을 주소로 작성
 	
 	// @RequestMapping(value="/login", method=RequestMethod.POST)
+					//value= 없이 "/login" 만 써도 되는듯? // 메소드를 적지 않는다면 get/post 다 받는다.
+											
 	public String login(HttpServletRequest req) {
-		
+						// extends Httpservlet 생략가능
 		// 파라미터 전달 방법 1 : HttpServletRequest를 이용하는 방법
 		// -> Controller 메소드에 매개변수로 HttpServletRequest를 작성
 		
@@ -65,7 +62,7 @@ public class MemberController {
 	// 	  POST 방식 요청을 연결하는 어노테이션
 	// @RequestMapping(value="/login", method=RequestMethod.POST) 에서 더 간단하게 바뀜.
 	//@PostMapping("/login")
-	public String login(/*@RequestParam("inputEmail")*/ String inputEmail,
+	public String login(/*@RequestParam("inputEmail")*/ String inputEmail, // 변수명과 jsp에서의 name이 같다 -> @req param 생략 해도 그냥 넘어온다.
 						/*@RequestParam("inputPw")*/ String inputPw) {
 		
 		// 파라미터 전달 방법 2 : @RequestParam 어노테이션 이용(+생략 방법)
@@ -108,8 +105,15 @@ public class MemberController {
 	// 앞,뒤에 경로(/WEB-INF/views), 확장자(.jsp)를 붙여서
 	// jsp 파일의 경로를 지정한 후 forward(요청 위임)을 하는 객체
 	
+	// <form action="/member/login" method="POST" id="loginFrm">
 	@PostMapping("/login")
-	public String login(/*@ModelAttribute*/ Member mem) {
+	public String login(/*@ModelAttribute*/ Member mem) { 
+		
+		// String 형이다(String str) -> 매개변수로 선언한 이름이 jsp의 name값과 같다면 넘어온다. @RequestParam("name값")는 생략이 가능하다.
+		// dto 형이다(Member mem) -> 매개변수로 선언한 dto class 안에 담긴 한 변수와 jsp안의 name이 같다면 
+		// dto객체에서 그 변수에 jsp의 같은 name의 parameter가 넘어온다. @ModelAttribute는 생략이 가능하다.
+		// (아마 String형이 아니면 dto나 vo라고 프레임워크가 생각할듯해서 구분해서 어노테이션들의 생략이 가능한거 같음)
+		
 		
 		// 파라미터 전달 방법 3 : @ModelAttribute를 이용한 방법
 		// - DTO(또는 VO)와 같이 사용하는 어노테이션
@@ -130,6 +134,7 @@ public class MemberController {
 		System.out.println(mem);
 		
 		return "redirect:/";
+		
 	}
 	
 	
