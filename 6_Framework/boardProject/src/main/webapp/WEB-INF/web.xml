@@ -20,8 +20,14 @@
 	
 	<!-- context-param -> root-context를 설정 -->
 	<context-param>
+		
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:spring/root-context.xml</param-value>
+		
+		<param-value>
+			classpath:spring/root-context.xml
+			classpath:spring/spring-security.xml
+		</param-value>
+		
 	</context-param>
 
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
@@ -68,8 +74,6 @@
 		 <url-pattern>/</url-pattern> 를  @RequestMapping("/")
 										 public String mainForward() 로 받아서 첫 화면을 잘 띄우게 되는 것.
 	-->
-	
-	
 	
 
 	<!-- 한글 깨짐 방지를 위한 Filter 추가 -->
