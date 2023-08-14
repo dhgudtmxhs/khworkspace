@@ -18,4 +18,11 @@ public interface MemberService { // MemberService service = new MemberServiceImp
 	 */
 	Member login(Member inputMember); 
 	
+	/** 회원 가입 서비스(비밀번호 암호화 필요)
+	 * @param inputMember
+	 * @return result(0:실패, 1:성공)
+	 */
+	public int signUp(Member inputMember);
+	
+	
 }

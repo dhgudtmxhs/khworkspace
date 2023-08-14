@@ -314,6 +314,89 @@ public class MemberController {
 		
 	}
 	
+	// 로그인 전용 화면 이동
+	@GetMapping("/login")
+	public String login() { // 오버로딩
+		return "member/login";
+	}
+	
+	// 회원가입 전용 화면 이동
+	@GetMapping("/signUp")
+	public String signUp() {
+		// /WEB-INF/views/member/signUp.jsp로 "forward"
+		// servlet-context 안의 viewResolver가 prefix, suffix를 리턴 값 앞,뒤에 붙여주기 때문에 가능.
+		// servlet-context는 web-xml에서 읽힘
+		return "member/signUp";
+	}
+	
+
+	// 회원 가입 진행
+	@PostMapping("/signUp")
+	public String signUp(/*@ModelAttribute*/ Member inputMember // dto의 변수명과 jsp의 name속성명이 같아서 생략 가능
+						 /* @RequestParam("memberAddress") */ , String[] memberAddress  // 변수명과 jsp의 name속성명이 같아서 생략 가능
+						 , RedirectAttributes ra) {
+		
+		// ----------------- 매개 변수 설명 -------------------- //
+		// Member inputMember : 커맨드 객체(jsp의 파라미터가 저장된 객체)
+		
+		// String[] memberAddress : 
+		// input name = "memberAddress" 3개가 저장된 배열
+		
+		// RedirectAttributes ra : 
+		// 리다이렉트 시 데이터를 request scope로 전달하는 객체
+		
+		// ----------------- ---------- -------------------- //
+		// 12345^^^서울시^^^2층
+		// 주소 구분자를 , -> ^^^ 변경
+		// String addr = inputMember.getMemberAddress().replaceAll(",", "^^^");
+		// inputMember.setMemberAddress(addr);
+		// -> 클라이언트가 , 를 직접 입력하면 문제가 발생한다.
+		
+		
+		// 만약 주소를 입력하지 않은 경우(,,) null로 변경
+		if(inputMember.getMemberAddress().equals(",,")) {
+			
+			inputMember.setMemberAddress(null);
+		
+		}else {
+			
+			// String.join("구분자", String[])
+			// 배열의 요소를 하나의 문자열로 변경
+			// 단, 요소 사이에 "구분자" 추가
+			
+			String addr = String.join("^^^", memberAddress);
+			inputMember.setMemberAddress(addr);
+			
+		}
+		
+		// 회원가입 서비스 호출
+		int result = service.signUp(inputMember);
+
+		String path = "redirect:";
+		String message = null;
+		
+		if(result > 0) { // 가입이 성공 했을 때
+		
+			path += "/"; 
+		
+			message = inputMember.getMemberNickname() +"님 환영합니다.";
+			
+		} else { //가입 실패
+		
+			path += "/member/signUp"; // 절대경로
+			
+			// 상대경로 path += "signUp";
+			message = "회원가입 실패";
+			
+		}
+		
+		// redirect 시 session에 잠시 올라갔다 내려오도록 세팅
+		ra.addFlashAttribute("message", message); // footer에서 띄움
+		
+		return path;
+		
+	}
+
 	/* 스프링 예외 처리 방법(3종류, 우선 순위가 존재 -> 중복 사용해도 우선순위에 따라서 처리가 된다.)
 	 *  
 	 * 1순위 : method 단위로 처리

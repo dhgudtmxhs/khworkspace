@@ -53,31 +53,37 @@
 		
 	</bean>
 
-		<!-- SqlSession : sql구문을 DB에 전달, 실행하는 객체 
-		 SqlSessionFactory : SqlSession을 만드는 객체 
-		 sqlSessionFactoryBean : mybatis 설정 파일(mybatis-config.xml)과 Connection Pool 정보를 이용하여 SqlSessionFactory를 만드는 객체 
-		 sqlSessionTemplate : SqlSession 객체에 트랜잭션 처리 역할이 가능하도록 하는 객체 -->
-	
+		<!-- 
+			 SqlSession : sql구문을 DB에 전달, 실행하는 객체 
+			 SqlSessionFactory : SqlSession을 만드는 객체 
+		 	 sqlSessionFactoryBean : mybatis 설정 파일(mybatis-config.xml)과 Connection Pool 정보를 이용하여 SqlSessionFactory를 만드는 객체 
+		 	 sqlSessionTemplate : SqlSession 객체에 트랜잭션 처리 역할이 가능하도록 하는 객체 
+		-->
+		
 	<!-- 마이바티스 SqlSession 등록하기 (xml 방식으로 bean 등록) -->
-	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean"> 	<!-- 1) 먼저 SqlSessionFactoryBean을 정의하고, -->
 		
 		<!-- mybatis-config.xml 설정 불러오기 -->
-		<property name="configLocation" value="classpath:mybatis-config.xml" />
-		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis-config.xml" /> 		<!-- 2) configLocation 속성을 통해 mybatis-config.xml 설정 파일의 위치를 지정하고,  -->
+		<property name="dataSource" ref="dataSource" /> 								<!-- 3) dataSource 속성을 통해 데이터베이스 연결을 위한 DataSource를 참조합니다. -->
 		
+																						<!-- mybatis.config.xml 에는 null, alias, mappers 주소 에 대한 게 작성되어있음.  -->
 	</bean>
+	
 	
 	<!-- SqlSessionTemplate : 기본 SQL 실행 + 트랜잭션 관리 역할을 하는 SqlSession을 생성할 수 있게 하는 객체(Spring bean으로 등록해야함.) -->
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactoryBean" />
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">		<!-- 4) 다음으로 sqlSessionTemplate을 정의하고,  -->
+		<constructor-arg ref="sqlSessionFactoryBean" />									<!-- 5) 생성자로 sqlSessionFactoryBean을 참조해서 SqlSessionTemplate을 생성합니다. -->
 	</bean>
+	
+	
 	
 	<!-- 스프링에서 사용하는 proxy를 이용한 트랜잭션 제어가 안될 경우 추가적인 트랜잭션 매니저를 추가해서 문제 해결 -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> <!-- 6) 마지막으로 transactionManager를 정의하고, -->
+		<property name="dataSource" ref="dataSource" />									<!-- 7) DataSourceTransactionManager를 사용하여 데이터베이스 연결을 위한 DataSource를 참조합니다. -->
 	</bean>
 	
-
+	<!-- 이렇게 정의된 빈들은 스프링에서 사용되며, SqlSession을 생성하고 트랜잭션을 관리할 수 있습니다.  -->
 
 
 </beans>

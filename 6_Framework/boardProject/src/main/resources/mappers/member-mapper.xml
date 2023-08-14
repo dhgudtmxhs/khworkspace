@@ -13,7 +13,6 @@
         컬럼 값을 옮겨 담을 DTO의 필드명이 같지 않을 때
         이를 매핑 시켜 SELECT시 자동으로 담기게 하는 역할
         
-        
       - 속성
       type : 연결할 DTO (패키지명 + 클래스명 또는 별칭)
       id : 만들어진 resultMap을 지칭할 식별명(이름)
@@ -22,6 +21,7 @@
       <result> 태그 : <id>제외 나머지
    -->
    
+   <!-- select문 만을 위함 -->
    <resultMap type="Member" id="member_rm">
       
       <!-- DB의 기본 키(복합키면 여러 개 작성) -->
@@ -74,10 +74,10 @@
       - MEMBER_EMAIL이 'user01'인 회원 조회
       SELECT * FROM MEMBER WHERE ${test2} = #{test1}
                          MEMBER_EMAIL = 'user01'
-                 
    
    -->
-   					
+   	
+   	<!-- 로그인 -->				
 	<select id="login" parameterType="Member" resultMap="member_rm">
 		SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NICKNAME, MEMBER_PW,
 		MEMBER_TEL, MEMBER_ADDR, PROFILE_IMG, AUTHORITY,
@@ -87,7 +87,28 @@
 		AND MEMBER_EMAIL = #{memberEmail}
 	</select>
     
-   
-   
+    <!-- 
+    	insert, update, delete와 같은 DML 구문은 
+    	수행 결과가 항상 성공한 행의 개수(int 자료형)으로 고정
+    	-> resultType을 작성하지 않는다( 항상 int이기 때문에)
+    	
+    	(***select만 resultMap을 씀***)
+    	
+    -->
+    
+    <!-- 회원가입 -->	<!-- mybatis-config.xml alias -->
+   	<insert id="signUp" parameterType="Member" >
+		INSERT INTO "MEMBER"
+		VALUES(SEQ_MEMBER_NO.NEXTVAL
+		, #{memberEmail}
+		, #{memberPw}
+		, #{memberNickname}
+		, #{memberTel}
+		, #{memberAddress}
+		, NULL, DEFAULT, DEFAULT, DEFAULT)
+   	</insert>
+   	
+
+   	
    
 </mapper>
