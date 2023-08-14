@@ -109,7 +109,6 @@ public class MemberController {
 		System.out.println("inputEmail :" + inputEmail);
 		System.out.println("inputPw : " + inputPw);
 		
-		// 메인 페이지 리다이렉트(재요청)
 		return "redirect:/";
 		
 	}

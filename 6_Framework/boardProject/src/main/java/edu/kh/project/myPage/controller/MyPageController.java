@@ -23,7 +23,7 @@ public class MyPageController {
 
 	@Autowired // MyPageService의 자식 MyPageServiceImpl 의존성 주입(DI)
 	private MyPageService service;
-	// MypageService service = new MyPageServiceImpl();
+	//MypageService service = new MyPageServiceImpl();
 	// @Autowired 어노테이션을 통해 MyPageService 인터페이스를 구현한 MyPageServiceImpl의 객체를 자동으로 주입받게 됩니다. 
 	// 이를 의존성 주입(Dependency Injection)이라고 합니다. 이후에는 MyPageServiceImpl의 메소드를 사용할 수 있게 됩니다.
 	
@@ -123,9 +123,6 @@ public class MyPageController {
 		return "redirect:info"; // 상대경로
 		// 절대경로 -> (/myPage/info) [get]
 
-		
-		
-		
 		
 		
 		

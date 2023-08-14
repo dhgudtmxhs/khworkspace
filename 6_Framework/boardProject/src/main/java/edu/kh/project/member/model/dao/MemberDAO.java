@@ -54,15 +54,6 @@ public class MemberDAO {
 	}
 
 
-	/** 회원 정보 수정 Service
-	 * @param updateMember
-	 * @return result
-	 */
-	public int updateInfo(Member updateMember) {
-								// <update id="updateInfo" parameterType="Member">
-		return sqlSession.update("myPageMapper.updateInfo", updateMember);
-	// mybatis.config.xml에서 sqlSession bean으로 등록
-	}
 
 
 }

@@ -1,17 +1,22 @@
 package edu.kh.project.myPage.model.service;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.project.member.model.dao.MemberDAO;
 import edu.kh.project.member.model.dto.Member;
+import edu.kh.project.myPage.model.dao.MyPageDAO;
 
 @Service // 비즈니스 로직 처리 클래스 + Bean 등록(IOC)
 public class MyPageServiceImpl implements MyPageService{
 
+	@Autowired // 등록된 Bean 중에서 SqlSessionTemplate 타입의 Bean을 주입
+	private SqlSessionTemplate sqlSession;
+	
 	@Autowired
-	private MemberDAO dao;
+	private MyPageDAO dao;
 
 	// 스프링에서는 트랜잭션을 처리할 방법을 지원해줌.(코드기반, 선언적)
 	// 1) <tx:advice> -> AOP를 이용한 방식(XML에 작성)
