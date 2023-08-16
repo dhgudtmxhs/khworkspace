@@ -24,5 +24,6 @@ public interface MemberService { // MemberService service = new MemberServiceImp
 	 */
 	public int signUp(Member inputMember);
 	
-	
 }
+
+

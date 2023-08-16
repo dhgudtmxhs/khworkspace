@@ -2,6 +2,7 @@ package edu.kh.project.myPage.model.service;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,8 +16,11 @@ public class MyPageServiceImpl implements MyPageService{
 	@Autowired // 등록된 Bean 중에서 SqlSessionTemplate 타입의 Bean을 주입
 	private SqlSessionTemplate sqlSession;
 	
-	@Autowired
+	@Autowired //  MyPageDAO DI
 	private MyPageDAO dao;
+	
+	@Autowired // BcryptPasswordEncoder DI
+	private BCryptPasswordEncoder bcrypt;
 
 	// 스프링에서는 트랜잭션을 처리할 방법을 지원해줌.(코드기반, 선언적)
 	// 1) <tx:advice> -> AOP를 이용한 방식(XML에 작성)
@@ -30,9 +34,8 @@ public class MyPageServiceImpl implements MyPageService{
 	// RuntimeException 외 다른 Exception(대표적으로 SQLException 등)에도 트랜잭션 롤백처리를 적용하고 싶으면 
 	// @Transactional의 rollbackFor 속성을 활용하면 된다
 
-	/** 회원정보수정
-	 * return result
-	 */
+	
+	// 회원 정보 수정 서비스
 	@Transactional(rollbackFor = {Exception.class})
 	@Override
 	public int updateInfo(Member updateMember) {
@@ -41,7 +44,50 @@ public class MyPageServiceImpl implements MyPageService{
 
 	}
 
+	
+	// 비밀번호 변경 서비스
+	// Transcational // UnChecked Exception 발생 시 rollback
+	@Transactional(rollbackFor = {Exception.class})
+	// 모든 Exception 발생 시 rollback
+	@Override
+	public int changePw(String currentPw, String newPw, int memberNo) {
 
+		// 1. 현재 비밀번호, DB에 저장된 비밀번호 비교
+		// 1) 회원번호가 일치하는 Member 테이블의 행의 MEMBER_PW 조회
+		String encPw = dao.selectEncPw(memberNo);
+		
+		// 2) bcrypt.matches(평문, 암호문) -> 같으면 true 반환 -> 이 때 비밀번호 수정
+		
+		if(bcrypt.matches(currentPw, encPw)) {
+			
+			// 2. 비밀번호 변경(UPDATE DAO 호출) -> 결과 반환
+			return dao.changePw(bcrypt.encode(newPw), memberNo);
+			
+		}
+		
+			// 3) 비밀번호가 일치하지 않으면 0 반환
+			return 0;
+	
+	}
+
+	// 회원 탈퇴 서비스
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int secession(int memberNo, String memberPw) {
+
+		// 비밀번호 비교
+		String encPw = dao.selectEncPw(memberNo);
+		
+		if(bcrypt.matches(memberPw, encPw)) {
+			
+			// - 비밀번호가 일치하면 MEMBER_DEL_FL -> 'Y'로 바꾸고 1을 반환
+			return dao.secession(memberNo);
+			
+		}
+		
+		// - 비밀번호가 일치하지 않으면 -> 0 반환
+		return 0;
+	}
 
 
 }

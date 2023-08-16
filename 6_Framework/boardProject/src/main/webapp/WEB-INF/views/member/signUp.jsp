@@ -38,7 +38,7 @@
                    
                     <button id="sendAuthKeyBtn" type="button">인증번호 받기</button>
                 </div>
-                <span class="signUp-message" id="emailMessage">메일을 받을 수 있는 이메일을 입력해주세요.</span>
+                <span class="signUp-message" id="emailMessage"></span>
 
                 <!-- 인증번호 입력 -->
                 <label for="emailCheck">
@@ -162,6 +162,9 @@
                 }
             }).open();
         }
+    </script>
+
+    <script src="/resources/js/member/signUp.js">
     </script>
 
 

@@ -11,7 +11,7 @@
 		 </typeAliases> -->
 
 	
-
+	<!-- 회원 정보 수정 -->
    	<update id="updateInfo" parameterType="Member"> <!-- alias = "Member" -->
 	   	UPDATE "MEMBER"SET 
 	   	MEMBER_NICKNAME = #{memberNickname}
@@ -20,6 +20,59 @@
 		WHERE MEMBER_NO = #{memberNo}
    	</update>
 
+	<!-- 비밀번호 조회 -->
+	
+	<!-- 
+		마이바티스  		기본 별칭
+		java	  	 	mybatis
+		int				_int
+		Integer			int
+		String 			string
+	 -->
+	
+	<!-- 조회 결과가 1개인 경우(한 컬럼 갖고올때)
+		 또는 조회 결과를 모두 Map에 담는 경우
+	 	 resultMap이아닌 resultType을 사용
+	-->
+	<select id="selectEncPw" parameterType="_int" resultType="string">  
+			SELECT MEMBER_PW FROM "MEMBER"
+			WHERE MEMBER_NO = #{memberNo}
+	</select>										
+	
+	<!-- <select id="login" parameterType="Member" resultMap="member_rm"> 반환형이 member? -->
 
+	<!--
+		 resultMap은 쿼리 결과를 객체로 매핑하는 역할을 하는데, 
+		 select 문의 결과 컬럼과 DTO의 변수를 매핑시켜줍니다. 
+		 이렇게 해주면 컬럼명과 DTO의 변수명이 다를 경우에도 정확한 매핑이 가능합니다. 
+
+		 selectEncPw 쿼리에서는 resultType이 string으로 설정되어 있는데, 
+		 이 경우에는 단일 값을 반환하기 때문에 DTO 대신에 결과 값을 
+		 그대로 반환 받을 수 있는 String 타입으로 설정하는 것이 편리합니다. 
+		 
+		 resultType으로 반환할때는 한 컬럼의 값이어서 
+		 	resultMap 안에
+		 	<result property="memberEmail" column="MEMBER_EMAIL" />
+			이런식으로 컬럼명 변수명 매핑 필요 없이
+			그냥 해당 자료형으로만 반환받는다.??? 
+		 
+	-->
+
+
+	<!-- 비밀번호 변경 -->
+	<!-- Member : mybatis.config.xml alias -->
+	<update id="changePw" parameterType="Member">
+		UPDATE "MEMBER" 
+		SET MEMBER_PW = #{memberPw} 
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+		
+	<!-- 회원 탈퇴 처리 -->
+	<update id="secession" parameterType="_int">
+		UPDATE "MEMBER" 
+		SET AUTHORITY = '2'
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
 
 </mapper>

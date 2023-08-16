@@ -77,6 +77,7 @@ public class MemberController {
 		return "redirect:/";
 		
 	}
+	
 	// PostMapping
 	// -> @RequestMapping의 자식으로
 	// 	  POST 방식 요청을 연결하는 어노테이션
@@ -161,7 +162,7 @@ public class MemberController {
 	 * @return 메인페이지 redirect 주소
 	 */
 	@PostMapping("/login")
-	public String login(Member inputMember, Model model
+	public String login(Member inputMember, Model model // Model = requestScope
 						, @RequestHeader(value="referer") String referer
 						, @RequestParam(value="saveId", required=false)/*null을 허용하기 위해 씀*/ String saveId
 						, HttpServletResponse resp
