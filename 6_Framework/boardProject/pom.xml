@@ -47,7 +47,7 @@
 			<!-- 위 properties의 지정한 Spring 버전을 따라감 -->
 		</dependency>
 
-		<!-- Mybatis 영속성 프레임워크 -->
+		<!-- Mybatis 영속성(지속성) 프레임워크 -->
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
 		<dependency>
 			<groupId>org.mybatis</groupId>

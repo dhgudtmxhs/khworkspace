@@ -64,7 +64,7 @@
 
                 <div class="signUp-input-area">
                     <input type="password" name="memberPw" id="memberPw"
-                    placeholder="비밀번호" maxlength="20" >
+                    placeholder="비밀번호" maxlength="20"  autocomplete = "off">
                 </div>
                 <div class="signUp-input-area">
                     <input type="password" name="memberPwConfirm" id="memberPwConfirm"
@@ -72,7 +72,7 @@
                 </div>
 
 
-                <span class="signUp-message" id="pwMessage">영어,숫자,특수문자(!,@,#,-,_) 6~20글자 사이로 입력해주세요.</span>
+                <span class="signUp-message" id="pwMessage"></span>
 
 
 
@@ -88,7 +88,7 @@
                 </div>
 
 
-                <span class="signUp-message" id="nickMessage">한글,영어,숫자로만 2~10글자</span>
+                <span class="signUp-message" id="nickMessage"></span>
 
 
                 <!-- 전화번호 입력 -->
@@ -102,7 +102,7 @@
                 </div>
 
 
-                <span class="signUp-message" id="telMessage">전화번호를 입력해주세요.(- 제외)</span>
+                <span class="signUp-message" id="telMessage"></span>
 
 
 

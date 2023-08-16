@@ -58,7 +58,6 @@
 		 
 	-->
 
-
 	<!-- 비밀번호 변경 -->
 	<!-- Member : mybatis.config.xml alias -->
 	<update id="changePw" parameterType="Member">
@@ -73,6 +72,5 @@
 		SET AUTHORITY = '2'
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
-	
 
 </mapper>
