@@ -27,7 +27,7 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired // bean으로 등록된 객체중 타입이 일치하는 객체를 DI 
 	private BCryptPasswordEncoder bcrypt;
 	
-	@Override
+	@Override // 이건 그냥 자바 어노테이션이라 bean 등록과는 연관이 없다.
 	public Member login(Member inputMember) {
 		
 		// 암호화 추가 예정

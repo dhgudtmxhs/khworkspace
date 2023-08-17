@@ -29,16 +29,18 @@
 
                 <%-- 현재 페이지 : http://localhost/myPage/info
                      제일 뒤에 info 지우고 action에 작성된 경로로 추가 --%>
-                <form action="info" method="POST" name="myPageFrm">
+                <form action="info" method="POST" name="myPageFrm" id="updateInfo">
 
                     <div class="myPage-row">
                         <label>닉네임</label>
-                        <input type="text" value="${loginMember.memberNickname}" name="memberNickname"  maxlength="10">
+                        <input type="text" value="${loginMember.memberNickname}"
+                         name="memberNickname" id="memberNickname" maxlength="10">
                     </div>
 
                     <div class="myPage-row">
                         <label>전화번호</label>
-                        <input type="text" value="${loginMember.memberTel}" name="memberTel"  maxlength="11">
+                        <input type="text" value="${loginMember.memberTel}" 
+                        name="memberTel" id="memberTel" maxlength="11">
                     </div>
 
                     <div class="myPage-row info-title">
@@ -110,7 +112,6 @@
         }
     </script>
 
-
-
+    <script src = "/resources/js/myPage/myPage.js"></script>
 </body>
 </html>

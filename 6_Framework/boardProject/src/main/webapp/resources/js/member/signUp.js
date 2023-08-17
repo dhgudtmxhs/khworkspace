@@ -127,9 +127,39 @@ memberEmail.addEventListener("input", () => {
         
         if(regEx.test(memberEmail.value)){ // 유효한 경우
 
-                emailMessage.innerText = "이메일이 유효합니다.";
-                emailMessage.style.color = "green"; // or classList.add && error
-                checkObj.memberEmail = true; 
+                /***************************************************************************/
+                /* fetch() API를 이용한 ajax(비동기 통신) */
+
+                // GET 방식 ajax 요청 (파라미터 쿼리스트링으로 보냄)
+                fetch("/dupCheck/email?email=" + memberEmail.value)
+
+                .then( response => response.text() ) // 응답 객체 -> 파싱(parsing, 데이터 형태 변환)
+                
+                .then( count => {
+                        
+                        // count = 중복되면 1, 중복 아니면 0
+                        if(count == 0){
+
+                                emailMessage.innerText = "사용 가능한 이메일입니다.";
+                                emailMessage.style.color = "green"; // or classList.add && error
+                                checkObj.memberEmail = true; 
+                                        
+                        }else{
+
+                                emailMessage.innerText = "이미 사용중인 이메일입니다.";
+                                emailMessage.style.color = "red";
+                                checkObj.memberEmail = false;
+
+                        }
+
+
+                } ) // 파싱한 데이터를 이용해서 수행할 코드 작성
+
+                .catch( error => console.log(error) ) // 예외 처리
+
+                /***************************************************************************/
+
+
 
         } else { // 유효하지 않은 경우
 
@@ -261,11 +291,34 @@ memberNickname.addEventListener("input", ()=>{
 
         const regEx = /^[가-힇\w]{2,10}$/
 
-        if(regEx.test(memberNickname.value)){
+        if(regEx.test(memberNickname.value)){ // 유효한 경우
 
-                checkObj.memberNickname = true;
-                nickMessage.innerText = "닉네임이 유효합니다.";
-                nickMessage.style.color = "green";
+                fetch("/dupCheck/nickname?nickname=" + memberNickname.value)
+
+                .then(resppppp => resppppp.text()) // 응답 객체를 text로 파싱(변환)
+
+                .then(respppppParsingText => { // count
+                        if(respppppParsingText == 0){ // 중복 아닌 경우
+
+                                checkObj.memberNickname = true;
+                                nickMessage.innerText = "사용 가능한 닉네임입니다.";
+                                nickMessage.style.color = "green";
+
+                        }else{ // 중복인 경우
+
+                                checkObj.memberNickname = false;
+                                nickMessage.innerText = "이미 사용중인 닉네임입니다.";
+                                nickMessage.style.color = "red"; 
+
+                        }
+
+                })
+
+                .catch( error => console.log(error) )
+
+
+
+
 
         }else{
 

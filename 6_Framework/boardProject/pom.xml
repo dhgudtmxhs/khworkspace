@@ -93,6 +93,20 @@
 			<version>5.7.1</version>
 		</dependency>
 
+		<!-- jackson-databind  -->
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.14.2</version>
+		</dependency>
+		
+		<!-- 
+			jackson-databind는 Java 객체와 JSON 데이터 간의 매핑을 처리하는 Jackson 라이브러리의 일부입니다. 
+			이 라이브러리는 JSON 데이터를 Java 객체로 변환하거나 Java 객체를 JSON 데이터로 변환하는 작업을 단순화합니다. 
+			예를 들어, JSON 데이터를 읽어와서 Java 객체로 변환하거나, Java 객체를 JSON 데이터로 변환하여 전송하는 등의 
+			작업을 쉽게 수행할 수 있습니다. 
+		-->
 
 
 
