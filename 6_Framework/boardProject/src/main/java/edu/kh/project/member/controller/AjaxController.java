@@ -1,11 +1,17 @@
 package edu.kh.project.member.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import edu.kh.project.member.model.dto.Member;
 import edu.kh.project.member.model.service.AjaxService;
 
 @Controller // 요청/응답 제어 + bean 등록
@@ -18,7 +24,7 @@ public class AjaxController {
 	// <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	@GetMapping(value="/selectNickname", produces = "application/text; charset=UTF-8")
 	@ResponseBody
-	public String selectNickname(String email) {
+	public String selectNickname(@RequestParam String email) {
 							// 쿼리스트링에 담긴 파라미터
 		
 		
@@ -115,12 +121,39 @@ public class AjaxController {
 	// 닉네임 중복 검사
 	
 	@GetMapping(value = "/dupCheck/nickname") // produces = "application/text; charset=UTF-8" 하면 json형식으로 전달이 안되서 오류나는듯
-	@ResponseBody
+	@ResponseBody										  // application/json 으로 보내야함
 	public int nickDupCheck(@RequestParam String nickname) {
 		
 		return service.nickDupCheck(nickname);
 		
 	}
+	
+	// 이메일로 회원정보 조회
+	
+	@PostMapping(value = "/selectMember", produces = "application/json; charset=UTF-8")
+	@ResponseBody // Java 데이터 -> json, text로 변환 + 비동기 요청한 곳으로 응답
+	public Member selectMember(@RequestBody Map<String, Object> paramMap) { // post는 매개변수에 resquestbody
+		
+		// @RequestBody Map<String, Object> paramMap
+		// -> 요청된 HTTP Body에 담긴 모든 데이터를 Map으로 반환
+		
+		String email = (String)paramMap.get("email"); // map에서 key값이 email인 것을 얻어와라
+		
+		return service.selectMember(email); // return하면 viewResolver가 prefix, suffix 붙여서 보냄
+											// responsebody로 보내줘야 함
+	}
+	
+	
+	@PostMapping(value = "/selectMemberList", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public List<Member> selectMemberList(@RequestBody String input) {
+		
+		/* System.out.println("input : " + input); */
+		
+		return service.selectMemberList(input); // List -> JsonArray [{}, {}] 자바스크립트 배열 형태로 보냄
+		
+	}
+	
 	
 	
 }
