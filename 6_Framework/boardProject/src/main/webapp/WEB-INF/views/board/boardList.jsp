@@ -5,13 +5,34 @@
 <c:set var="pagination" value="${map.pagination}"/>
 <c:set var="boardList" value="${map.boardList}"/>
 
+<%-- 게시판 이름 가져오는 방법 1 --%>
+<%-- <c:set var="boardName" value="${boardTypeList[boardCode-1].BOARD_NAME}"/> --%> 
+                            <%-- 인터셉터에서 application.setAttribute("boardTypeList", boardTypeList); --%>    
+                            <%-- 공지사항이 1번짼데 boradtypelist의 0번째 인덱스에 담겨있어서 -1 --%>
+                            <%-- [{BOARD_NAME=공지사항, BOARD_CODE=1}, {BOARD_NAME=자유 게시판, BOARD_CODE=2}, ...] --%>
+
+
+<%-- 게시판 이름 가져오는 방법 2 --%>
+<c:forEach items="${boardTypeList}" var="boardType">
+    <c:if test="${boardType.BOARD_CODE == boardCode}"> 
+    <%-- 0번 인덱스부터 끝 인덱스까지 boardcode와 비교? --%> 
+
+    <%-- boardCode는 @PathVariable("boardCode") --%>
+
+    <%-- boardType.BOARD_CODE는 
+    [{BOARD_NAME=공지사항, BOARD_CODE=1}, {BOARD_NAME=자유 게시판, BOARD_CODE=2}, ...] --%>
+  
+        <c:set var="boardName" value = "${boardType.BOARD_NAME}"/>
+    </c:if>
+</c:forEach>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시판 이름</title>
+    <title>boardList</title>
 
     <link rel="stylesheet" href="/resources/css/board/boardList-style.css">
 
@@ -23,7 +44,8 @@
         
         <section class="board-list">
 
-            <h1 class="board-name">게시판 이름</h1>
+            <%-- 게시판 이름 --%>
+            <h1 class="board-name">${boardName}</h1>
 
 
             <div class="list-wrapper">
@@ -56,21 +78,22 @@
                             <!-- 게시글 목록 조회 결과가 있다면 -->
                             <c:forEach items="${boardList}" var="board">
                                 <tr>
-                                    <td>${board.boardNo}</td>
+                                    <td>${board.boardNo}</td> <%-- 글번호 1495 --%>
                                     <td> 
 
                                     <%-- 썸네일이 있을 경우 --%>
                                     <c:if test="${!empty board.thumbnail}">
-                                        <img class="list-thumbnail" src="${board.thumbnail}">
+                                        <img class="list-thumbnail" src="${board.thumbnail}"> <%-- 썸네일 이미지 --%>
                                     </c:if>
                                         <a href="/board/${boardCode}/${board.boardNo}?cp=${pagination.currentPage}">${board.boardTitle}</a>   
                                         <%-- boardCode가 pathVariable로 있어서 resultMap이나 sql에서 쓰지않고 이렇게 가져오는듯 --%>
-                                        [${board.commentCount}]
+                                        <%-- 1495번째 게시글 --%>
+                                        [${board.commentCount}] <%-- 댓글 수 --%>
                                     </td>
-                                    <td>${board.memberNickname}</td>
-                                    <td>${board.boardCreateDate}</td>
-                                    <td>${board.readCount}</td>
-                                    <td>${board.likeCount}</td>
+                                    <td>${board.memberNickname}</td> <%-- 닉네임 --%>
+                                    <td>${board.boardCreateDate}</td> <%-- 작성일 --%>
+                                    <td>${board.readCount}</td> <%-- 조회수 --%>
+                                    <td>${board.likeCount}</td> <%-- 좋아요 수 --%>
                                 </tr>
                             </c:forEach>
 
@@ -97,33 +120,37 @@
                 <ul class="pagination">
                 
                     <!-- 첫 페이지로 이동 -->
-                    <li><a href="#">&lt;&lt;</a></li>
-
+                    <li><a href="${boardCode}?cp=1">&lt;&lt;</a></li>
+                    <%-- 절대경로 : href="/board/${boardCode}?cp=1" --%>
+                    
                     <!-- 이전 목록 마지막 번호로 이동 -->
-                    <li><a href="#">&lt;</a></li>
+                    <li><a href="${boardCode}?cp=${pagination.prevPage}">&lt;</a></li>
 
-               
                     <!-- 특정 페이지로 이동 -->
-                    
-                    <!-- 현재 보고있는 페이지 -->
-                    <li><a class="current">1</a></li>
-                    
-                    <!-- 현재 페이지를 제외한 나머지 -->
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">6</a></li>
-                    <li><a href="#">7</a></li>
-                    <li><a href="#">8</a></li>
-                    <li><a href="#">9</a></li>
-                    <li><a href="#">10</a></li>
+                    <c:forEach var="i" begin="${pagination.startPage}" 
+                                end="${pagination.endPage}" step="1"> 
+                                <%-- private int pageSize = 10;  --%>
+                            <%-- endPage = startPage + pageSize - 1; --%>
+
+                                    <c:choose>
+                                       <c:when test="${i == pagination.currentPage}">
+                                                <!-- 현재 보고있는 페이지 -->
+                                                <li><a class="current">${i}</a></li> <%-- 주소달 필요없음, 파랑 표시--%>
+                                       </c:when>
+                                    
+                                       <c:otherwise>
+                                                <!-- 현재 페이지를 제외한 나머지 -->
+                                                <li><a href="/board/${boardCode}?cp=${i}">${i}</a></li>
+                                       </c:otherwise>
+                                    </c:choose>
+
+                    </c:forEach>
                     
                     <!-- 다음 목록 시작 번호로 이동 -->
-                    <li><a href="#">&gt;</a></li>
+                    <li><a href="/board/${boardCode}?cp=${pagination.nextPage}">&gt;</a></li>
 
                     <!-- 끝 페이지로 이동 -->
-                    <li><a href="#">&gt;&gt;</a></li>
+                    <li><a href="/board/${boardCode}?cp=${pagination.maxPage}">&gt;&gt;</a></li>
 
                 </ul>
             </div>

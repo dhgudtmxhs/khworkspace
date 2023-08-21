@@ -49,7 +49,7 @@ public class BoardServiceImpl implements BoardService {
 		// 4. pagination, boardList를 Map에 담아서 반환
 		Map<String, Object> map = new HashMap<>();
 		
-		map.put("pagintaion", pagination);
+		map.put("pagination", pagination);
 		map.put("boardList", boardList);
 		
 		return map;

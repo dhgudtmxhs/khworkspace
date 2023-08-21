@@ -52,6 +52,8 @@ public class BoardTypeInterceptor implements HandlerInterceptor {
 			// application scope에 세팅
 			application.setAttribute("boardTypeList", boardTypeList);
 			
+			// 게시판을 추가하면 따로 jsp를 변경하지 않고 개수에따라 늘어나거나 줄어들 수 있게 함
+			
 		}
 		
 		return HandlerInterceptor.super.preHandle(request, response, handler);

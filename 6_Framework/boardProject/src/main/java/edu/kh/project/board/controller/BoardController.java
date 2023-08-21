@@ -61,7 +61,7 @@ public class BoardController {
 	// ex) board/list?order=recent (최신순)
 	// ex) board/list?order=most (인기순)
 	
-	// 뭘 써야할지 헷갈리는 부분이 있음 -> 팀 내 상의
+	// 둘 중 뭘 써야할지 헷갈리는 부분이 있음 -> 팀 내 상의
 	
 	
 	// 게시글 목록 조회				// controller의 mapping = "/board"
