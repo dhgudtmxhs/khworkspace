@@ -130,7 +130,12 @@
                     <c:forEach var="i" begin="${pagination.startPage}" 
                                 end="${pagination.endPage}" step="1"> 
                                 <%-- private int pageSize = 10;  --%>
-                            <%-- endPage = startPage + pageSize - 1; --%>
+                                <%-- endPage = startPage + pageSize - 1; 
+                                     startPage = 1 이면 endpage = 10
+                                     startPage = 1~10 사이면 endpage = 10 (5, 6 이런페이지 넘어가도 끝페이지는 10)
+                                     
+                                     startPage = 11~20 이면 endPage = 20 (12, 13 이런페이지로 가도 끝페이지는 20)
+                                --%>
 
                                     <c:choose>
                                        <c:when test="${i == pagination.currentPage}">
