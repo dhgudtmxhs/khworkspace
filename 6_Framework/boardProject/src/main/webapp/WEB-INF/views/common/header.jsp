@@ -113,10 +113,12 @@
     <%-- [{BOARD_NAME=공지사항, BOARD_CODE=1}, {BOARD_NAME=자유 게시판, BOARD_CODE=2}] 이런식 --%>
     <c:forEach  var="boardType" items="${boardTypeList}"> 
         <li>
-            <a href="#">${boardType.BOARD_CODE}.${boardType.BOARD_NAME}</a> 
+            <a href="/board/${boardType.BOARD_CODE}">${boardType.BOARD_CODE}.${boardType.BOARD_NAME}</a> 
         </li>
     </c:forEach>    
     <%-- BOARD_NAME 오라클 컬럼명 그대로? --%>
+
+    <%-- /board/5 이런식인데 parameter가 아님 쿼리스트링도 아니고 --%>
                    
 
     </ul>

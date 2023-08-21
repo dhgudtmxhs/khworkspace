@@ -10,6 +10,13 @@ public interface BoardService {
 	 */
 	List<Map<String, Object>> selectBoardTypeList();
 
+	/** 게시글 목록 조회
+	 * @param boardCode
+	 * @param cp
+	 * @return map
+	 */
+	Map<String, Object> selectBoardTypeList(int boardCode, int cp);
+
 	
 	
 	
