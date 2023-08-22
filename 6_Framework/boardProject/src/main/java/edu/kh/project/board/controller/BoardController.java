@@ -1,5 +1,6 @@
 package edu.kh.project.board.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.kh.project.board.model.dto.Board;
 import edu.kh.project.board.model.service.BoardService;
 
 @SessionAttributes({"loginMember"})
@@ -63,7 +66,7 @@ public class BoardController {
 	
 	// 둘 중 뭘 써야할지 헷갈리는 부분이 있음 -> 팀 내 상의
 	
-	
+	// @PathVariable("boardCode") int boardCode 부분 때문에 @GetMapping("/{boardCode}")와 같이 경로를 설정할 수 있습니다.
 	// 게시글 목록 조회				// controller의 mapping = "/board"
 	@GetMapping("/{boardCode}") // <a href="/board/${boardType.BOARD_CODE}">
 	public String selectBoardList(@PathVariable("boardCode") int boardCode
@@ -82,6 +85,44 @@ public class BoardController {
 		// 조회 결과를 request scope에 세팅 후 forward
 		
 		return "board/boardList";
+	}
+	
+	// @PathVariable : 주소에 지정된 부분을 변수에 저장 , request scope 세팅
+	
+	// 게시글 상세 조회
+	@GetMapping("/{boardCode}/{boardNo}")
+	public String boardDetail(@PathVariable("boardNo") int boardNo
+							 ,@PathVariable("boardCode") int boardCode
+							 ,Model model 								
+							 ,RedirectAttributes ra) { 
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("boardCode", boardCode);
+		map.put("boardNo", boardNo);
+		
+		// 게시글 상세 조회 서비스 호출
+		Board board = service.selectBoard(map);
+		
+		String path = null;
+		
+		if(board != null) { // 조회 결과가 있을 경우
+ 			
+			path = "board/boardDetail"; // forward할 경로
+			model.addAttribute("board", board);
+			
+		}else { // 조회 결과가 없을 경우
+			
+			path = "redirect:/board/" + boardCode; // 게시판 첫페이지로 리다이렉트 (pathvariable)
+			
+			ra.addFlashAttribute("message", "해당 게시글이 존재하지 않습니다.");
+			
+		}
+		
+		return path;
+		//  <a href="/board/${boardCode}/${board.boardNo}?cp=${pagination.currentPage}">${board.boardTitle}</a>
+		//  http://localhost/board/2/1500?cp=1
+		
 	}
 	
 }
