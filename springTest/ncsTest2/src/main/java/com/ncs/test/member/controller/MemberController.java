@@ -21,6 +21,11 @@ public class MemberController {
 	@Autowired
 	private MemberService memservice;
 	
+	@RequestMapping("/")
+	public String toIndex() {
+		return "index";
+	}
+	
 	@PostMapping("login")
 	public String memberLogin(@ModelAttribute Member member,
 							  				  Model model,

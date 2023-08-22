@@ -477,6 +477,8 @@ SELECT * FROM(
              ) A
 )
 WHERE NUM BETWEEN 11 AND 20; 
+
+
 -- ROWNUM = 가상컬럼 BETWEEN 11~20 안됨 -> ROWNUM에 별칭줌 -> 진짜 컬럼으로 인식이 됨 -> SELECT로 다시 감쌈
 
 
@@ -544,10 +546,56 @@ WHERE L.BOARD_NO = 1495;
 
 -- 특정 게시글에 대한 이미지 조회(IMG_ORDER 오름차순)
 SELECT * FROM BOARD_IMG
-WHERE BOARD_NO = 1996
+WHERE BOARD_NO = 1495
 ORDER BY IMG_ORDER;
 
+INSERT INTO BOARD_IMG
+VALUES(SEQ_IMG_NO.NEXTVAL,
+        '/resources/images/board/',
+        '20230821141913_00001.jpg',
+        'dog1.jpg',
+        1, 1495);
+        
+INSERT INTO BOARD_IMG
+VALUES(SEQ_IMG_NO.NEXTVAL,
+        '/resources/images/board/',
+        '20230821141913_00002.jpg',
+        'dog2.jpg',
+        2, 1495);
 
+commit;
 
+-- 특정 게시글에 대한 댓글 목록 조회(바뀔 예정)
+SELECT COMMENT_NO, COMMENT_CONTENT,
+    TO_CHAR(C_CREATE_DATE, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') C_CREATE_DATE,
+    BOARD_NO, MEMBER_NO, MEMBER_NICKNAME, PROFILE_IMG, PARENT_NO, COMMENT_DEL_FL
+FROM "COMMENT"
+JOIN MEMBER USING(MEMBER_NO)
+WHERE BOARD_NO = 1495
+ORDER BY COMMENT_NO;
+
+-- 회원 프로필 이미지 변경
+UPDATE MEMBER SET
+PROFILE_IMG = '/resources/images/member/flower2.jpg'
+WHERE MEMBER_NO = 1;
+COMMIT;
+
+-- 좋아요 여부 확인
+SELECT COUNT(*) FROM BOARD_LIKE
+WHERE BOARD_NO = 1495 -- 게시글 번호
+AND MEMBER_NO = 1; -- 로그인한 회원의 번호
+
+	SELECT COMMENT_NO, COMMENT_CONTENT,
+    TO_CHAR(C_CREATE_DATE, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') C_CREATE_DATE,
+    BOARD_NO, MEMBER_NO, MEMBER_NICKNAME, PROFILE_IMG, PARENT_NO, COMMENT_DEL_FL
+	FROM "COMMENT"
+	JOIN MEMBER USING(MEMBER_NO)
+	WHERE BOARD_NO = 1495   
+	ORDER BY COMMENT_NO;
+    
+    
+    		SELECT * FROM
+		BOARD_TYPE ORDER BY 1;
+        
 
 

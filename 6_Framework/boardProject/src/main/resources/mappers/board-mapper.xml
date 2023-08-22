@@ -20,6 +20,94 @@
 		<result property="profileImage" column="PROFILE_IMG" />
 
 		<result property="thumbnail" column="THUMBNAIL" />
+		
+		<!-- 
+			 collection 태그
+			 select로 조회된 결과를 컬렉션(List)에 담아
+			 지정된 필드에 세팅
+		
+			 property : List를 담을 DTO의 필드명
+			 select	  : 실행할 select의 id
+			 column	  : 조회 결과 중 지정된 컬럼의 값을 파라미터로 전달
+			 javaType : List(컬렉션)의 타입을 지정
+			 ofType	  : List(컬렉션)의 제네릭(타입 제한) 지정
+		-->
+		
+		<collection
+
+			property="imageList" 
+			select="selectImageList" 
+			column="BOARD_NO" 
+			javaType="java.util.ArrayList" 
+			ofType="BoardImage"> 
+						
+		</collection>
+		
+		<!-- 	
+				imageList
+				
+				property =  Board dto 안에 있는 private List<BoardImage> imageList; 
+				select = 사용할 select문의 id
+				column = 
+				javaType = List(컬렉션) 타입
+				ofType = List(컬렉션)의 제네릭(타입 제한)
+				
+				column="BOARD_NO"는 부모 객체와 자식 객체를 연결하는데 사용할 컬럼을 나타냅니다. 
+				즉, selectImageList 쿼리의 결과를 부모 객체의 BOARD_NO 컬럼 값과 매핑하여 
+				자식 객체들을 부모 객체에 연결하겠다는 의미입니다.
+				
+				게시글(Board)이 부모 객체이고, 이미지(BoardImage)가 자식 객체입니다. 댓글(commentList)도 자식 객체
+				
+				column="BOARD_NO"은 selectImageList 쿼리의 결과에서 
+				
+				<select id="selectImageList" resultMap="boardImgRm">
+					SELECT * FROM BOARD_IMG
+					WHERE BOARD_NO = #{boardNo}
+					ORDER BY IMG_ORDER
+				</select>
+				
+				BOARD_NO라는 컬럼의 값을 추출하여,
+				이 값을 다시 selectImageList 쿼리의 실행 시에 파라미터로 전달하라는 의미입니다.
+				
+				-> 게시글 상세에 들어가면 dao까지 와서 mapper에서 해당 id의 select문이 받게되고 쿼리 실행 전에 
+				   select문이 넘겨받은 BOARD_NO를 
+				   select문이 갖고있는 resultMap 안에 있는 collection들이 받기 위해서
+				   column = BOARD_NO로 하는 것.
+				   
+				<resultMap> 안에서 여러 개의 <collection> 요소가 사용되는 경우, 
+				코드에서 정의한 순서대로 각 <collection> 요소의 select 쿼리가 실행되며, 
+				그 결과가 부모 객체에 매핑됩니다.   
+				
+				MyBatis에서 <resultMap> 안에 정의된 <collection> 요소에 대한 select 쿼리는
+				해당 resultMap의 쿼리가 실행되기 전에 실행됩니다.
+				
+				-> 게시글 상세 select문의 쿼리가 실행되기 전 상세 select문의 <resultMap> 안에 있는
+				   collection들에 대한 select문이 실행되고 나서 게시글상세 select문이 실행된다.
+				   
+				   결과적으로, 부모 객체의 BOARD_NO 값이 자식 객체를 조회하는 데 사용되며, 
+				   이후에 부모 객체에 대한 조회가 실행되면 이미 자식 객체에 대한 조회 및 매핑이 완료되어 있습니다.
+					
+				   부모 select(쿼리 실행x) -> 자식 select 쿼리 실행(resultMap의 collection들) -> 부모 select 쿼리실행
+				   
+				   board_no를 부모가 자식에게 넘겨주고 자식이 조회 및 매핑된 상태로 부모 쿼리 실행
+				   -> 게시글 상세들어가면 jsp를 활용해 게시글상세(부모),이미지(자식1),댓글(자식2) 가 나타나게 됨
+			
+					매핑이 되어있다는 말은, 데이터베이스로부터 조회한 결과를 객체에 매핑(대응)하여 
+					객체의 필드에 데이터를 채웠다는 것을 의미합니다.
+				
+		 -->
+		
+		<collection
+
+			property="commentList" 
+			select="selectCommentList"
+			column="BOARD_NO"
+			javaType="java.util.ArrayList"
+			ofType="comment">		
+						
+		</collection>
+		
+		
 	</resultMap>
 
 	<!-- boardImage resultMap -->
@@ -45,6 +133,7 @@
       <result property="parentNo" column="PARENT_NO"/>
       <result property="memberNickname" column="MEMBER_NICKNAME"/>
       <result property="profileImage" column="PROFILE_IMG"/>
+
    </resultMap>
    
 
@@ -99,6 +188,7 @@
 	</select>
 
 	<!-- 게시글 상세 조회 -->
+	<!-- resultMap 안에 select img, select comment가 있어서 같이 실행되서 게시글 상세에 이미지랑 댓글이 가져와짐 -->
 	<select id="selectBoard" resultMap="board_rm">
 		SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_CODE,
 		       READ_COUNT, MEMBER_NICKNAME, MEMBER_NO, PROFILE_IMG,
@@ -111,6 +201,31 @@
 		AND BOARD_CODE = #{boardCode}
 		AND BOARD_NO = #{boardNo}
 	</select>
+	
+	<!-- 특정 게시글 이미지 조회 -->
+	<select id="selectImageList" resultMap="boardImgRm">
+		SELECT * FROM BOARD_IMG
+		WHERE BOARD_NO = #{boardNo}
+		ORDER BY IMG_ORDER
+	</select>	
+		
+	<!-- 특정 게시글 댓글 조회(바뀔 예정) -->	
+	<!-- comment 테이블이 member랑 board 테이블에 대해 fk로 member_no, board_no를 갖고 있어서 연결이 됨  -->
+	<select id="selectCommentList" resultMap="comment_rm">
+		SELECT COMMENT_NO, COMMENT_CONTENT,
+	    TO_CHAR(C_CREATE_DATE, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') C_CREATE_DATE,
+	    BOARD_NO, MEMBER_NO, MEMBER_NICKNAME, PROFILE_IMG, PARENT_NO, COMMENT_DEL_FL
+		FROM "COMMENT"
+		JOIN MEMBER USING(MEMBER_NO)
+		WHERE BOARD_NO = #{boardNo}
+		ORDER BY COMMENT_NO
+	</select>
 
+	<!-- 좋아요 여부 확인 -->
+	<select id="boardLikeCheck" resultType="_int">
+		SELECT COUNT(*) FROM BOARD_LIKE
+		WHERE BOARD_NO = #{boardNo} 
+		AND MEMBER_NO = #{memberNo}
+	</select>
 
 </mapper>

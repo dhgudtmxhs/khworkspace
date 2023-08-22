@@ -25,7 +25,6 @@
         --%>
         <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
-
         <section class="content">
             <section class="content-1">
 

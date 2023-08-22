@@ -86,7 +86,7 @@
                                         <img class="list-thumbnail" src="${board.thumbnail}"> <%-- 썸네일 이미지 --%>
                                     </c:if>
                                         <a href="/board/${boardCode}/${board.boardNo}?cp=${pagination.currentPage}">${board.boardTitle}</a>   
-                                        <%-- boardCode가 pathVariable로 있어서 resultMap이나 sql에서 쓰지않고 이렇게 가져오는듯 --%>
+                                        <%-- boardCode가 pathVariable로 있어서 resultMap이나 sql에서 쓰지않고 이렇게 가져옴--%>
                                         <%-- 1495번째 게시글 --%>
                                         [${board.commentCount}] <%-- 댓글 수 --%>
                                     </td>

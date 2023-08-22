@@ -23,8 +23,6 @@ public class Board {
     
     /////////////////////여기까지가 board 테이블////////////////////////
     
-    
-    
     // 서브쿼리
     private int commentCount; // 댓글 수
     private int likeCount;	  // 좋아요 수    

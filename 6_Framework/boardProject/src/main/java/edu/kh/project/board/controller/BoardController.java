@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.project.board.model.dto.Board;
 import edu.kh.project.board.model.service.BoardService;
+import edu.kh.project.member.model.dto.Member;
 
 @SessionAttributes({"loginMember"})
 @RequestMapping("/board")
@@ -32,7 +34,6 @@ public class BoardController {
 	 * 수정 : /board2/update?code=1&no=1500 (no == BOARD_NO, 게시글 번호)
 	 * 삭제 : /board2/delete?code=1&no=1500 
 	 * */
-
 	
 	// @PathVariable
 	// URL 경로에 있는 값을 매개변수로 이용할 수 있게 하는 어노테이션
@@ -49,7 +50,6 @@ public class BoardController {
 	// ex) https://github.com/UserName
 	// ex) /board/1 -> 1번(공지사항) 게시판
 	// ex) /board/2 -> 2번(자유 게시판) 게시판
-	
 	
 	// @Query String을 사용하는 경우
 	// - @PathVaribale 외의 모든 경우일때 사용
@@ -69,11 +69,16 @@ public class BoardController {
 	// @PathVariable("boardCode") int boardCode 부분 때문에 @GetMapping("/{boardCode}")와 같이 경로를 설정할 수 있습니다.
 	// 게시글 목록 조회				// controller의 mapping = "/board"
 	@GetMapping("/{boardCode}") // <a href="/board/${boardType.BOARD_CODE}">
+	//경로 변수는 URL 경로의 다른 부분에서 값을 캡처하는 데 사용됩니다. URL 패턴 내에서 중괄호 '{}'로 묶여 있습니다. 
+	//'@GetMapping("/{boardCode}")'를 사용하여 메서드 매핑을 정의할 때 'boardCode'라는 경로 변수를 사용하여 URL 패턴을 지정합니다.
+	// 예를 들어:'/board/1'은 URL 패턴 '/board/{boardCode}'와 일치하며 'boardCode' 경로 변수로 '1' 값을 캡처합니다.
+	// 요악하면, 중괄호 '{}'는 URL 패턴에서 경로 변수를 정의하고 식별하는 데 사용되며
+	//'@GetMapping' 주석에서 경로 변수를 URL에서 추출하여 메서드 매개 변수로 전달해야 하는 위치를 올바르게 나타내는 데 필요합니다.
 	public String selectBoardList(@PathVariable("boardCode") int boardCode
-								// getMapping("/{boardCode}") 와 같은 값
+								 // getMapping("/{boardCode}") 와 같은 값
 								 ,@RequestParam(value="cp", required=false, defaultValue="1") int cp 
 								 // cp가 없을 경우를 대비 -> 없으면 1
-								 ,Model model) {
+								 ,Model model) { 
 		//boardCode 확인
 		//System.out.println("boardCode : " +  boardCode);
 		
@@ -82,9 +87,9 @@ public class BoardController {
 		
 		model.addAttribute("map", map);
 		// model.addAttribute(map); 하면 key, value 둘다 객체돼서? 이렇게 쓰면 안됨
-		// 조회 결과를 request scope에 세팅 후 forward
 		
-		return "board/boardList";
+		// 조회 결과를 request scope에 세팅 후 forward
+		return "board/boardList"; // map에 put된 boardCode
 	}
 	
 	// @PathVariable : 주소에 지정된 부분을 변수에 저장 , request scope 세팅
@@ -94,7 +99,8 @@ public class BoardController {
 	public String boardDetail(@PathVariable("boardNo") int boardNo
 							 ,@PathVariable("boardCode") int boardCode
 							 ,Model model 								
-							 ,RedirectAttributes ra) { 
+							 ,RedirectAttributes ra
+							 ,@SessionAttribute(value="loginMember", required=false /*필수는 아니도록 없으면 null*/) Member loginMember) { 
 		
 		Map<String, Object> map = new HashMap<>();
 		
@@ -108,6 +114,28 @@ public class BoardController {
 		
 		if(board != null) { // 조회 결과가 있을 경우
  			
+			// ------------------------------------------------
+			// 현재 로그인 상태인 경우
+			// 로그인한 회원이 해당 게시글에 좋아요를 눌렀는지 확인
+			
+			if(loginMember != null) { // @SessionAttribute
+				// 회원 번호를 map에 추가 (위에서 쓰던 map임)
+				map.put("memberNo", loginMember.getMemberNo());
+				// map엔 boardCode, boardNo, memberNo 담긴 상태
+				
+			}
+			
+				// 좋아요 여부 확인 서비스 호출
+				int result = service.boardLikeCheck(map);
+				
+			
+				if(result > 0) { 	// 좋아요 누른적 있다면
+					model.addAttribute("likeCheck", "on"); // on 자리 아무거나 써도됨 (K:V)
+				}else {
+					
+				}
+			
+			// ------------------------------------------------
 			path = "board/boardDetail"; // forward할 경로
 			model.addAttribute("board", board);
 			
@@ -120,6 +148,7 @@ public class BoardController {
 		}
 		
 		return path;
+		
 		//  <a href="/board/${boardCode}/${board.boardNo}?cp=${pagination.currentPage}">${board.boardTitle}</a>
 		//  http://localhost/board/2/1500?cp=1
 		

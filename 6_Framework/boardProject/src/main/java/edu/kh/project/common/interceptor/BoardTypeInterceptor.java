@@ -38,7 +38,7 @@ public class BoardTypeInterceptor implements HandlerInterceptor {
 		ServletContext application = request.getServletContext();
 		
 		// application scope에 BOARD_TYPE이 조회되어 세팅이 되지 않았다면
-		// -> 서버 시작 후 누구도 요청한 적이 없을 경우
+		// -> 서버 시작 후 누구도 요청한 적이 없을 경우 
 		if(application.getAttribute("boardTypeList") == null) {
 			
 			// 조회 서비스 호출
@@ -46,6 +46,8 @@ public class BoardTypeInterceptor implements HandlerInterceptor {
 			
 			List< Map<String, Object> > boardTypeList = service.selectBoardTypeList();
 			// list는 게시판 개수 map은 게시판번호, 게시판이름
+			// [{BOARD_NAME=공지사항, BOARD_CODE=1}, {BOARD_NAME=자유 게시판, BOARD_CODE=2}, 
+			//  {BOARD_NAME=테스트 게시판, BOARD_CODE=3}, {BOARD_NAME=질문 게시판, BOARD_CODE=4}, {BOARD_NAME=점심 게시판, BOARD_CODE=5}] 이런식으로 담김
 			
 			System.out.println(boardTypeList);
 			

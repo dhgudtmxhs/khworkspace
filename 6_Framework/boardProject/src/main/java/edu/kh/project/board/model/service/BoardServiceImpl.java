@@ -26,7 +26,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	// 게시글 목록 조회
 	@Override
-	public Map<String, Object> selectBoardTypeList(int boardCode, int cp) {
+	public Map<String, Object> selectBoardTypeList(int boardCode, int cp) { 
 		
 		// 1. 특정 게시판의 삭제되지 않은 게시글 수 조회
 		int listCount = dao.getListCount(boardCode); // 어느게시판인지만 구분
@@ -61,6 +61,13 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public Board selectBoard(Map<String, Object> map) {
 		return dao.selectBoard(map);
+	}
+
+
+	// 게시글 좋아요
+	@Override
+	public int boardLikeCheck(Map<String, Object> map) {
+		return dao.boardLikeCheck(map);
 	}
 	
 	

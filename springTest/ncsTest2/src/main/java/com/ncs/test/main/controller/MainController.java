@@ -8,8 +8,5 @@ public class MainController {
 
 	
 	
-@RequestMapping("/")
-	public String toIndex() {
-		return "index";
-	}
+
 }

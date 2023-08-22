@@ -34,7 +34,7 @@ public class boardDAO {
 	public int getListCount(int boardCode) {
 		
 		return sqlSession.selectOne("boardMapper.getListCount", boardCode); // 카운트라 selectOne
-	
+	 
 	}
 
 	/** 특정 게시판에서 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회
@@ -70,6 +70,14 @@ public class boardDAO {
 	 */
 	public Board selectBoard(Map<String, Object> map) {
 		return sqlSession.selectOne("boardMapper.selectBoard", map);
+	}
+
+	/** 게시글 좋아요
+	 * @param map
+	 * @return result
+	 */
+	public int boardLikeCheck(Map<String, Object> map) {
+		return sqlSession.selectOne("boardMapper.boardLikeCheck", map);
 	}
 	
 	
