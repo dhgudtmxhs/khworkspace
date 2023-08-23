@@ -27,7 +27,7 @@
 
         <section class="content">
             <section class="content-1">
-
+    
               <!--   <h3>로그인된 회원 정보</h3>
 
                 ${sessionScope.loginMember} -->

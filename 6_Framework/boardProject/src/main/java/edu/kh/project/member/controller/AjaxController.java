@@ -120,7 +120,7 @@ public class AjaxController {
 	
 	// 닉네임 중복 검사
 	
-	@GetMapping(value = "/dupCheck/nickname") // produces = "application/text; charset=UTF-8" 하면 json형식으로 전달이 안되서 오류나는듯
+	@GetMapping(value = "/dupCheck/nickname") // produces = "application/text; charset=UTF-8" 하면 json형식으로 전달이 안되서 오류
 	@ResponseBody										  // application/json 으로 보내야함
 	public int nickDupCheck(@RequestParam String nickname) {
 		

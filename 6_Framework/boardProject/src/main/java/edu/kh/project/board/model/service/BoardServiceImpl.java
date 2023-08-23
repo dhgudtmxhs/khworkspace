@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.project.board.model.dao.boardDAO;
 import edu.kh.project.board.model.dto.Board;
@@ -69,9 +70,44 @@ public class BoardServiceImpl implements BoardService {
 	public int boardLikeCheck(Map<String, Object> map) {
 		return dao.boardLikeCheck(map);
 	}
+
+
+	// 좋아요 처리 서비스
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int like(Map<String, Integer> paramMap) {
+		
+		int result = 0;
+		
+		if(paramMap.get("check") == 0) { // 좋아요가 안눌려있으면
+		  // BOARD_LIKE 테이블 INSERT
+			result = dao.insertBoardLike(paramMap);
+			
+		}else { // 좋아요가 눌려있으면           // 좋아요 했던 기록 남기고싶으면 컬럼하나 더 만들어서 UPDATE? 
+		  // BOARD_LIKE 테이블 DELETE
+			result = dao.deleteBoardLike(paramMap);
+			
+		}
+		
+		// SQL 수행 결과가 0 == DB 또는 파라미터에 문제가 있다. insert든 delete든 1이 나와야 함
+		// 1) 에러를 나타내는 임의의 값을 반환 (-1)
+		
+		if(result == 0) return -1;
+		
+		// insert나 delete 후에
+		// 현재 게시글의 좋아요 개수 다시 조회
+		int count = dao.countBoardLike(paramMap.get("boardNo"));
+		
+		return count;
 	
-	
-	
-	
+	}
+
+
+	// 조회수 증가 서비스
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateReadCount(int boardNo) {
+		return dao.updateReadCount(boardNo);
+	}	
 	
 }
