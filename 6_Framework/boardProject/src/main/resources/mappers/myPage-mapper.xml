@@ -72,5 +72,13 @@
 		SET AUTHORITY = '2'
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
+	
+	<!-- 프로필 이미지 수정 -->
+	<update id="updateProfileImage" parameterType="Member">
+		UPDATE MEMBER
+		SET PROFILE_IMG = #{profileImage}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
 
 </mapper>

@@ -159,8 +159,9 @@ public class BoardController {
 
 
 				if(result > 0) { 	// 좋아요 누른적 있다면
-					model.addAttribute("likeCheck", "on"); // on 자리 아무거나 써도됨 (K:V)
+					model.addAttribute("likeCheck", "on"); // on 자리 아무거나 써도됨 (K:V) 
 					// model -> request scope고 forward해서 jsp에서  <c:if test="${empty likeCheck}"> 가 가능하다.
+					// 
 					// 처음 상세페이지 띄울 때 확인만 하고 빈하트 꽉찬하트로 구분한 뒤
 					// js에서 클릭할때마다 insert, delete하고 좋아요 수 update까지
 				}
