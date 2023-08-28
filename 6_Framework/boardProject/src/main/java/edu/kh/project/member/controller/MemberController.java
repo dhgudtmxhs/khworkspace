@@ -22,6 +22,7 @@ import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.project.member.model.dto.Member;
+import edu.kh.project.member.model.service.MemberService;
 import edu.kh.project.member.model.service.MemberServiceImpl;
 import oracle.jdbc.proxy.annotation.Post;
 
@@ -44,7 +45,7 @@ public class MemberController {
 	// -> MemberService를 구현한 MemberServiceImple의 Bean을 주입
 	
 	@Autowired
-	private MemberServiceImpl service; // MemberService는 interface라 상속받은 class로 만듬
+	private MemberService service; // MemberService는 interface라 상속받은 class로 만듬
 
 	// 로그인		: /member/login
 	// 로그아웃	: /member/logout
