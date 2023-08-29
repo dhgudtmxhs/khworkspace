@@ -58,7 +58,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 게시글 상세 조회
-	// join하면 쓸데없는 행? 들이 같이 딸려나와서 select 3번하는게 더 낫다.
+	// join하면 쓸데없는 행들이 같이 딸려나와서? select 3번하는게 더 낫다.
 	@Override
 	public Board selectBoard(Map<String, Object> map) {
 		return dao.selectBoard(map);

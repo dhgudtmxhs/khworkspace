@@ -627,6 +627,8 @@ WHERE MEMBER_NO = 1;
 ROLLBACK;
 
 SELECT * FROM BOARD ORDER BY BOARD_NO DESC;
+
+select * from board_img order by img_no desc;
 -- 한번에 여러개 INSERT 하기
 
 -- INSERT ALL : 여러 테이블에 동시에 INSERT 하는 구문
@@ -648,8 +650,22 @@ UNION ALL
 
 SELECT '웹접근경로' IMG_PATH, '변경명' IMG_RENAME, '원본명' IMG_ORIGINAL,
         2 IMG_ORDER, 1515 BOARD_NO 
-FROM DUAL) A
+FROM DUAL) A;
 
+-- 게시글 수정
+UPDATE BOARD 
+SET BOARD_TITLE = 'test', BOARD_CONTENT = 'TEST'
+WHERE BOARD_NO = 1515;
 
+ROLLBACK;
 
+-- 이미지 삭제
+DELETE FROM BOARD_IMG
+WHERE BOARD_NO = #{boardNo}
+AND IMG_ORDER IN(${deleteList}); -- in(1, 2, 3) 형식
+
+-- 이미지 수정
+UPDATE BOARD_IMG
+SET IMG_PATH = #{imagePath}, IMG_ORIGINAL = #{imageOriginal}, IMG_RENAME = #{imageReName}
+WHERE IMG_ORDER =#{imageOrder} AND BOARD_NO = #{boardNo};
 

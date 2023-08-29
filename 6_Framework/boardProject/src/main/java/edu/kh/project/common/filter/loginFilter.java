@@ -24,7 +24,7 @@ import edu.kh.project.member.model.dto.Member;
 
 
 @WebFilter(filterName = "loginFilter",
-			urlPatterns = {"/myPage/*"})
+			urlPatterns = {"/myPage/*", "/board2/*"})
 public class loginFilter implements Filter {
 
 	public void init(FilterConfig fConfig) throws ServletException {

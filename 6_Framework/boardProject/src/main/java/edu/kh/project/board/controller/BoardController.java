@@ -152,8 +152,6 @@ public class BoardController {
 				map.put("memberNo", loginMember.getMemberNo());
 				// map엔 boardCode, boardNo, memberNo 담긴 상태
 
-
-
 				// 좋아요 여부 확인 서비스 호출
 				int result = service.boardLikeCheck(map);
 

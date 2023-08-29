@@ -36,7 +36,6 @@ boardLike.addEventListener("click", e => {
         // JSON.stringify() : JS 객체 -> JSON 
         // JSON.parse()     : JSON -> JS 객체 
 
-
     })
 
     // JSON으로 보냄 -> DTO/MAP(controller)로바꿈 -> sql 수행 -> 
@@ -77,5 +76,27 @@ boardLike.addEventListener("click", e => {
 
 })
 
+// 게시글 수정 버튼 클릭 시
+const updateBtn = document.getElementById("updateBtn")
 
+updateBtn.addEventListener("click",()=>{
+
+    // board/1/2012 에서
+    // board2/1/2012/update?cp=1 으로 이동하기
+
+    // 1) location.pathname -> '/board/1/1521'
+
+    // 2) location.pathname.replace("board", "board2") -> '/board2/1/1521'
+
+    // 3) location.pathname.replace("board", "board2") + "/update" -> '/board2/1/1521/update'
+
+    // 4) location.search -> '?cp=1' 상세페이지에 있던 쿼리스트링
+
+    // 5) location.pathname.replace("board", "board2") + "/update" + location.search
+    
+    // -> '/board2/1/1521/update?cp=1'
+
+    location.href = location.pathname.replace("board", "board2") + "/update" + location.search;
+
+})
 

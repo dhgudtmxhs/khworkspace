@@ -9,6 +9,12 @@ const inputImage = document.getElementsByClassName("inputImage");
 // x버튼 5개 
 const deleteImage = document.getElementsByClassName("delete-image");
 
+// 게시글 수정 시 삭제된 이미지의 순서를 기록할 Set 객체 생성
+const deleteSet = new Set(); // 순서 , 중복 x
+// -> x버튼 클릭 시 순서를 한 번만 저장하는 용도
+
+
+
 // -> 위에 얻어온 요소들의 개수가 같음 == 인덱스가 일치한다.
 
 for(let i = 0; i < inputImage.length; i++){
@@ -25,13 +31,20 @@ for(let i = 0; i < inputImage.length; i++){
             // 지정된 파일을 읽은 후 result 변수에 URL 형식으로 저장
             
             reader.onload = e=>{ // 파일을 다 읽은 후 함수 실행
+                
                 preview[i].setAttribute("src", e.target.result); // src = url 대입
+
+                // 이미지가 성공적으로 읽어지면 deleteSet에서 삭제하겠다.
+                deleteSet.delete(i); // 있을때만 동작함 ?
 
             }
 
-        } else { // 선택 후 취소 되었을 때 file == undefined
+        } else { // "선택 후" 취소 되었을 때 file == undefined 
+                 // 이미지 있는 상태에서 취소했을때가 아니여서 이 경우에는 아무일도 일어나지 않음
+                 // 이미지가 있는 상태에서 변경하고 취소하면 삭제가 되어버림?
             // 선택 된 파일 없음 -> 미리보기 삭제
             preview[i].removeAttribute("src");
+            // deleteSet.add(i); // 이미지가 삭제되었음을 표시
 
         }
 
@@ -50,6 +63,9 @@ for(let i = 0; i < inputImage.length; i++){
             // ** input type = "file"의 value ""(빈칸)만 대입 가능 **
             inputImage[i].value = "";
 
+            // deleteSet에 삭제된 이미지 순서(i) 추가
+            deleteSet.add(i);
+
         }
 
     })
@@ -57,24 +73,42 @@ for(let i = 0; i < inputImage.length; i++){
 }
 
 // 게시글 등록 시 제목, 내용 작성 여부 검사
-const boardWriteFrm = document.getElementById("boardWriteFrm"); // 폼
-//const boardTitle = document.getElementsByClassName("boardTitle")[0]; // 제목 
-//const boardContent = document.querySelector("#boardWriteFrm > div.board-content > textarea"); // 내용 (id, name 없을 때)
-
-//const boardWriteFrm = document.getElementById("boardWriteFrm");
+const boardUpdateFrm = document.getElementById("boardUpdateFrm"); // 폼
 const boardTitle = document.querySelector("[name='boardTitle']");
 const boardContent = document.querySelector("[name='boardContent']");
 
-boardWriteFrm.addEventListener("submit", e=>{
+boardUpdateFrm.addEventListener("submit", e=>{
 
     if(boardTitle.value.trim().length == 0){
         alert("제목을 입력해주세요.");
+        boardTitle.value="";
+        boardTitle.focus();
         e.preventDefault();
+        return;
     }
 
     if(boardContent.value.trim().length == 0){
         alert("test");
+        boardContent.value="";
+        boardContent.focus();
         e.preventDefault();
+        return;
     }
 
+    // input type="hidden" 태그에
+    // deleteSet에 저장된 값을 "1,2,3" 형태로 변경해서 저장
+
+    // Array.from(deleteSet) : Set -> Array 변경
+
+    // JS 배열은 string에 대입 되거나 출력될 때
+    // 요소, 요소, 요소 형태의 문자열을 반환한다.
+
+    document.querySelector("[name='deleteList']").value = Array.from(deleteSet); 
+
+    // document.querySelector("[name='deleteList']").value = Array.from(deleteSet);
+    // 는 deleteSet에 저장된 값을 배열 형태로 가져온 다음, 
+    // 그 값을 문자열 형태로 변환하여 숨겨진 입력 태그의 값으로 설정하는 역할을 합니다. 
+
+
 })
+
