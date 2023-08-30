@@ -1,0 +1,87 @@
+*{ box-sizing: border-box; 
+}
+
+/* 전체 */
+
+body{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 임시 헤더 */
+#header{
+    width:100%;
+    height:50px;
+    border:1px solid #0080FF;
+}
+
+/* 임시 푸터 */
+#footer{
+    width:100%;
+    height:50px;
+    border:1px solid #0080FF;
+}
+
+/* 메인 */
+#main{
+    width:1000px;
+
+    display:flex;
+    flex-direction: column;
+    width: 60%;
+    
+    
+}
+
+/* 게시판 이름들(공지, 자유, Q&A), 네비게이션 */
+#boardNameList{
+    display:flex;
+    justify-content: space-around;
+    height:50px;
+    font-size:20px;
+    font-weight:bold;
+    align-items: center;
+    color:#0080FF;
+    border-bottom: 2px solid lightgray;
+}
+
+/* 게시판이름, 게시글 목록 담는 div */
+#postList{
+    display:flex;
+    height:45px;
+    margin-top:10px;
+}
+
+/* 게시판 이름 (3개중 하나) */
+#boardName{
+    font-size:25px;
+    font-weight:bold;
+}
+
+/*  */
+#post{
+    height:600px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.posts{
+    border-bottom: 3px solid lightgray;
+    height: 10%;
+    width:100%;
+}
+
+/* 임시 페이지네이션 */
+#pagination{
+    display:flex;
+    height:35px;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 4px;
+    /* color:#0080FF; */
+    font-size:16px;
+    font-weight:bold;
+}

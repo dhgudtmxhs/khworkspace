@@ -61,7 +61,7 @@ public class AirPollutionJavaAppRun {
 		// json 데이터를 원하는 데이터만 추출하여 VO에 담기
 		// 응답 데이터 text를 JsonObject화 시키는 작업(파싱)
 		JsonObject totalObj = JsonParser.parseString(responseText).getAsJsonObject();
-		// System.out.println("total : " + totalObj);
+		 System.out.println("total : " + totalObj);
 		
 		// response 속성 접근
 		JsonObject responseObj = totalObj.getAsJsonObject("response");

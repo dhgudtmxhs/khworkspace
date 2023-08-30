@@ -162,6 +162,8 @@
 						let value;
 						const rowsArr = $(data).find("row"); // find = 하위요소 중 하나 찾음
 						
+						console.log($(data).find("row"));
+
 						rowsArr.each(function(index, row){ 
 							
 							value += "<tr>"
