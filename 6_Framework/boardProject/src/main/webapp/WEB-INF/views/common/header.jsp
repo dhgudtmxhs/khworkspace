@@ -29,7 +29,7 @@
                 - POST : input태그 값을 주소에 담지 않고 제출(주소에 안보임)
                         -> HTTP Body에 담아서 제출
             -->
-            <form action="#" method="GET">
+            <form action="/board/1" method="GET"> <%-- 공지로 가게 간단하게만 구현 --%> <%-- @GetMapping("/{boardCode:[0-9]+}") 게시글 목록조회 --%>
 
                 <fieldset> <!-- form태그 내 영역 구분 -->
 
@@ -41,7 +41,10 @@
                     -->
                     <input type="search" name="query" id="query"
                     placeholder="검색어를 입력해주세요."
-                    autocomplete="off">
+                    autocomplete="off" value=${param.query}>
+
+                    <%-- 제목 검색 --%>
+                    <input type="hidden" name="key" value="t"> <%-- if(paramMap.get("key") == null) -> 게시글 목록 조회 그냥 t -> 제목으로만 임시로 작동하게한 느낌인듯 --%>
 
                     <!-- 검색 버튼 -->
                     <!-- button type="submit" 이 기본값 -->

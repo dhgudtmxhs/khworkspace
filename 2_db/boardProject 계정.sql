@@ -757,7 +757,6 @@ CONNECT BY PRIOR COMMENT_NO = PARENT_NO
 ORDER SIBLINGS BY COMMENT_NO;
 -- start with 부모 -> prior commnet_no = parent_no -> 부모 댓글의  comment_no이 자식 댓글의 parent_no 동일 여부를 찾음
 -- start with 부모 -> prior parent_no = comment_no -> 부모 댓글의  parent_no이 자식 댓글의 comment_no 동일 여부를 찾음
--- 만약 데이터베이스에 parent_no 값이 없다면, 이상한 결과가 나올 수 있습니다.
 
 -- 댓글 삽입
 INSERT INTO "COMMENT"

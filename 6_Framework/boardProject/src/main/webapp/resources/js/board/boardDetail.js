@@ -79,6 +79,7 @@ boardLike.addEventListener("click", e => {
 // 게시글 수정 버튼 클릭 시
 const updateBtn = document.getElementById("updateBtn")
 
+if(updateBtn != null){
 updateBtn.addEventListener("click",()=>{
 
     // board/1/2012 에서
@@ -99,4 +100,98 @@ updateBtn.addEventListener("click",()=>{
     location.href = location.pathname.replace("board", "board2") + "/update" + location.search;
 
 })
+}
 
+// 게시글 삭제 버튼이 클릭 되었을 때
+const deleteBtn = document.getElementById("deleteBtn");
+if(deleteBtn != null){
+deleteBtn.addEventListener("click", () => {
+
+
+    if(confirm("정말 삭제 하시겠습니까?")){
+        location.href 
+        = location.pathname.replace("board","board2")
+            + "/delete";
+        //   /board2/1/2006/delete (GET)
+
+        // 삭제 서비스 호출 성공 시 redirect:/board/{boardCode}
+        // + RedirectAttributes 이용해서 "삭제 되었습니다" alert 출력
+
+        // 삭제 서비스 호출 실패 시 redirect:/board/{boardCoed}/{boardNo}
+         // + RedirectAttributes 이용해서 "삭제 실패" alert 출력
+        }
+    })
+}
+
+    // board/1/1517?cp=1 에서
+    // board/1/cp=1 으로 이동
+
+    // location.pathname.split("/") -> (4) ['', 'board', '1' '1524']
+                    
+    // location.pathname.split("/")[2] -> '1'
+
+    // location.search -> '?cp=1' 쿼리스트링
+
+    //location.href = `/board/${location.pathname.split("/")[2]}` + location.search ;
+
+
+// 목록으로 
+const goToListBtn = document.getElementById("goToListBtn");
+
+goToListBtn.addEventListener("click", ()=>{
+
+   // history.back();
+/*    const params = new URL(location.href).searchParams;
+   const cp = params.get("cp");
+   const key = params.get("key"); 
+   const query = params.get("query");  */
+
+   /*    게시글 등록 
+   location.href = `/board/${location.pathname.split("/")[2]}?cp=1` ;
+
+   if(cp != null){
+
+       location.href = `/board/${location.pathname.split("/")[2]}` + location.search ;
+   }
+
+   if(key != null || query != null){
+
+       location.href = `/board/${location.pathname.split("/")[2]}` + location.search ;
+   } 
+   */
+
+   let url = "/board/" + boardCode;
+
+   // URL 내장 객체 : 주소 관련 정보를 나타내는 객체
+   // URL.searchParams : 쿼리스트링만 별도 객체로 반환
+
+   const params = new URL(location.href).searchParams;
+
+   let cp;
+
+   if(params.get("cp") != "") { // 쿼리스트링에 cp가 있을 경우
+        
+        cp = "?cp=" + params.get("cp");
+
+   } else {
+        cp = "?cp=1";
+   }
+
+   if(params.get("cp") == null){ // 게시글작성하고 목록가면 cp=null pointexception뜸
+        cp = "?cp=1";
+   }
+
+   url += cp;
+
+   if(params.get("key") != null){
+        const key = "&key=" + params.get("key");
+        const query = "&query=" + params.get("query");
+   
+        url += key + query; // url 뒤에 붙이기
+   }
+
+   
+
+   location.href = url;
+
+})

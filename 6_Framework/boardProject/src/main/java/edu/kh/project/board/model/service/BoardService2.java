@@ -28,4 +28,11 @@ public interface BoardService2 {
 	 */
 	int boardUpdate(Board board, List<MultipartFile> images, String webPath, String filePath, String deleteList)  throws IllegalStateException, IOException ;
 
+	/** 게시글 삭제
+	 * @param boardCode
+	 * @param boardNo
+	 * @return result
+	 */
+	int deleteBoard(Board board);
+
 }

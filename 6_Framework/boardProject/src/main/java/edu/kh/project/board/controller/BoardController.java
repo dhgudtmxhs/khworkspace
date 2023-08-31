@@ -68,7 +68,7 @@ public class BoardController {
 	// ex) search.naver.com?query=날씨 // 
 	// ex) search.naver.com?query=점심 // 선택적 조건 느낌?
 	// ex) /board2/insert?code=1
-	// ex) /board2/insert?code=2
+	// ex) /board2/insert?code=2/{boardCode}/{boardNo}
 	// -> 삽입이라는 공통된 동작 수행
 	//	  단, code에 따라 어디에 삽입할 지 지정(필터링)
 
@@ -101,15 +101,28 @@ public class BoardController {
 			// getMapping("/{boardCode}") 와 같은 값
 			,@RequestParam(value="cp", required=false, defaultValue="1") int cp 
 			// cp가 없을 경우를 대비 -> 없으면 1
-			,Model model) { 
+			,Model model
+			,@RequestParam Map<String, Object> paramMap ) { // 전달받은 파라미터 전부 다 담겨있다. 
 		//boardCode 확인
 		//System.out.println("boardCode : " +  boardCode);
 
-		// 게시글 목록 조회 서비스 호출
-		Map<String, Object> map = service.selectBoardTypeList(boardCode, cp);
-
-		model.addAttribute("map", map);
-		// model.addAttribute(map); 하면 key, value 둘다 객체돼서? 이렇게 쓰면 안됨
+		if(paramMap.get("key") == null) { // 검색어가 없을 때(검색 X) // map이라 key인가
+			
+			// 게시글 목록 조회 서비스 호출
+			Map<String, Object> map = service.selectBoardTypeList(boardCode, cp);
+			
+			model.addAttribute("map", map);
+			// model.addAttribute(map); 하면 key, value 둘다 객체돼서? 이렇게 쓰면 안됨
+			
+		} else { // 검색어가 있을 때(검색 O)
+			
+			paramMap.put("boardCode", boardCode);
+			
+			Map<String, Object> map = service.selectBoardList(paramMap, cp);
+			
+			model.addAttribute("map", map);
+			
+		}
 
 		// 조회 결과를 request scope에 세팅 후 forward
 		return "board/boardList"; // map에 put된 boardCode
@@ -294,6 +307,7 @@ public class BoardController {
 		return service.like(paramMap);
 		
 	}
+
 
 }
 

@@ -179,4 +179,36 @@ public class BoardController2 {
 	
 	}
 	
+	// * 삭제 : /board2/1/1500/delete /{boardCode}/{boardNo}
+	// 게시글 삭제
+	@GetMapping(value = "/{boardCode}/{boardNo}/delete")
+	public String deleteBoard(@PathVariable("boardCode") int boardCode
+						  ,@PathVariable("boardNo") int boardNo
+						  ,RedirectAttributes ra) {
+		
+		Board  board = new Board();
+		
+		board.setBoardCode(boardCode);
+		board.setBoardNo(boardNo);
+		
+		int result = service.deleteBoard(board);
+		
+		String path = "redirect:";
+		String message = null;
+		
+		if(result > 0) {
+			path += "/board/" + boardCode; 
+			message = "삭제되었습니다.";
+			
+		} else {
+			path += "/board/" + boardCode + boardNo;
+			message = "삭제 실패";
+		}
+		
+		ra.addFlashAttribute("message", message);
+		
+		return path;
+	}
+	
+	
 }

@@ -79,7 +79,18 @@ public class BoardDAO2 {
 	public int imageInsert(BoardImage img) {
 		return sqlSession.insert("boardMapper.imageInsert", img);
 	}
-	
+
+
+	/** 게시글 삭제
+	 * @return result
+	 */
+	public int deleteBoard(Board board) {
+		
+		return sqlSession.update("boardMapper.deleteBoard", board);
+	}
+
+
+
 	
 	
 	

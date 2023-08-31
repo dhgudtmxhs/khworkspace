@@ -230,17 +230,19 @@ public class BoardServiceImpl2 implements BoardService2 {
 						
 						images.get(index).transferTo(new File(filePath + rename));
 
-
 					}
-			
-
-		
-
 	
 	}
 
 }
 		return rowCount;
+	}
+
+	
+	// 게시글 삭제
+	@Override
+	public int deleteBoard(Board board) {
+		return dao.deleteBoard(board);
 	}
 }
 

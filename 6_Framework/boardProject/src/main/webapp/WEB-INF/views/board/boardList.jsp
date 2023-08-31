@@ -41,12 +41,26 @@
     <main>
         <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
-        
+        <%-- 검색을 진행한 경우 파라미터(key, query)를
+             쿼리스트링 형태로 저장한 변수를 선언 --%>
+
+        <%-- param.key or param.query == 검색했을때 주소에 key=숫자 나 query= 숫자가 있다면
+
+            -> 검색했을때 첫페이지는 http://localhost/board/1?key=t&query=1 인데 다른 페이지네이션 누르면
+               key=숫자&value=숫자 가 안넘어와서 해줌
+        --%>
+       <c:if test="${!empty param.key}" > 
+        <c:set var="cpQuery" value="&key=${param.key}&query=${param.query}"/>
+       </c:if> 
+
         <section class="board-list">
 
             <%-- 게시판 이름 --%>
             <h1 class="board-name">${boardName}</h1>
 
+            <c:if test="${!empty param.key}">
+                <h3 style="margin:30px">"${param.query}" 의 검색 결과</h3>
+            </c:if>
 
             <div class="list-wrapper">
                 <table class="list-table">
@@ -85,7 +99,7 @@
                                     <c:if test="${!empty board.thumbnail}">
                                         <img class="list-thumbnail" src="${board.thumbnail}"> <%-- 썸네일 이미지 --%>
                                     </c:if>
-                                        <a href="/board/${boardCode}/${board.boardNo}?cp=${pagination.currentPage}">${board.boardTitle}</a>   
+                                        <a href="/board/${boardCode}/${board.boardNo}?cp=${pagination.currentPage}${cpQuery}">${board.boardTitle}</a>   
                                         <%-- boardCode가 pathVariable로 있어서 resultMap이나 sql에서 쓰지않고 이렇게 가져옴--%>
                                         <%-- 1495번째 게시글 --%>
                                         [${board.commentCount}] <%-- 댓글 수 --%>
@@ -123,11 +137,11 @@
                 <ul class="pagination">
                 
                     <!-- 첫 페이지로 이동 -->
-                    <li><a href="${boardCode}?cp=1">&lt;&lt;</a></li>
+                    <li><a href="${boardCode}?cp=1${cpQuery}" >&lt;&lt;</a></li>
                     <%-- 절대경로 : href="/board/${boardCode}?cp=1" --%>
                     
                     <!-- 이전 목록 마지막 번호로 이동 -->
-                    <li><a href="${boardCode}?cp=${pagination.prevPage}">&lt;</a></li>
+                    <li><a href="${boardCode}?cp=${pagination.prevPage}${cpQuery}">&lt;</a></li>
 
                     <!-- 특정 페이지로 이동 -->
                     <c:forEach var="i" begin="${pagination.startPage}" 
@@ -148,24 +162,29 @@
                                     
                                        <c:otherwise>
                                                 <!-- 현재 페이지를 제외한 나머지 -->
-                                                <li><a href="/board/${boardCode}?cp=${i}">${i}</a></li>
+                                                <li><a href="/board/${boardCode}?cp=${i}${cpQuery}">${i}</a></li>
                                        </c:otherwise>
                                     </c:choose>
 
                     </c:forEach>
                     
                     <!-- 다음 목록 시작 번호로 이동 -->
-                    <li><a href="/board/${boardCode}?cp=${pagination.nextPage}">&gt;</a></li>
+                    <li><a href="/board/${boardCode}?cp=${pagination.nextPage}${cpQuery}">&gt;</a></li>
 
                     <!-- 끝 페이지로 이동 -->
-                    <li><a href="/board/${boardCode}?cp=${pagination.maxPage}">&gt;&gt;</a></li>
+                    <li><a href="/board/${boardCode}?cp=${pagination.maxPage}${cpQuery}">&gt;&gt;</a></li>
 
                 </ul>
             </div>
 
 
          <!-- 검색창 -->
-            <form action="#" method="get" id="boardSearch">
+
+            <%--    
+                    게시글 목록 조회
+                    @GetMapping("/{boardCode:[0-9]+}") 
+            --%>
+            <form action="${boardCode}" method="get" id="boardSearch">
 
                 <select name="key" id="searchKey">
                     <option value="t">제목</option>
