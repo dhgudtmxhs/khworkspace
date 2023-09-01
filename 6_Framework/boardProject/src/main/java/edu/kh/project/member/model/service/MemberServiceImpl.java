@@ -1,5 +1,7 @@
 package edu.kh.project.member.model.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,15 +22,24 @@ public class MemberServiceImpl implements MemberService{
 	// 해당 필드에 자동으로 주입(Injection)하는 어노테이션
 	// == DI(Dependency Injection, 의존성 주입)
 	// 	  -> 객체를 직접 만들지 않고 Spring이 만든걸 주입함(Spring에 의존)
+
+	private Logger logger = LoggerFactory.getLogger(MemberServiceImpl.class);
 	
 	@Autowired
 	private MemberDAO dao;
-
+	
 	@Autowired // bean으로 등록된 객체중 타입이 일치하는 객체를 DI 
 	private BCryptPasswordEncoder bcrypt;
 	
 	@Override // 이건 그냥 자바 어노테이션이라 bean 등록과는 연관이 없다.
 	public Member login(Member inputMember) {
+		
+		// 로그 출력
+		 logger.info("MemberService.login() 실행"); 
+		 logger.debug("memberEmail : " + inputMember.getMemberEmail()); 
+		 logger.warn("이건 경고 용도");
+		 logger.error("이건 오류 발생 시");
+		
 		
 		// 암호화 추가 예정
 		// System.out.println("암호화 확인 : " + bcrypt.encode( inputMember.getMemberPw() ) );

@@ -451,6 +451,10 @@
 	</select>
 
 
+	<select id="selectImageListAll" resultType="string">
+		SELECT IMG_RENAME FROM BOARD_IMG
+	</select>
+
 
 
 

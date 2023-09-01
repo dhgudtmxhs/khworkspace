@@ -10,10 +10,11 @@ import edu.kh.project.member.model.dto.Member;
 
 @Service // service임을 명시 + bean 등록
 public class AjaxServiceImpl implements AjaxService{
-
+	
 	@Autowired // DI
 	private AjaxDAO dao;
 
+	
 	// 이메일로 닉네임 조회
 	@Override
 	public String selectNickname(String email) {

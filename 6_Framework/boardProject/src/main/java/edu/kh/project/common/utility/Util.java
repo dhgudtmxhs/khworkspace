@@ -39,5 +39,4 @@ public class Util {
 			return date + str + ext;
 		}
 	   
-	   
 }

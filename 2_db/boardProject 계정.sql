@@ -772,3 +772,5 @@ UPDATE "COMMENT"
 SET COMMENT_CONTENT = #{commentContent}
 WHERE COMMNET_NO = #{commentNo}
 
+-- 이미지 RENAME SELECT
+
