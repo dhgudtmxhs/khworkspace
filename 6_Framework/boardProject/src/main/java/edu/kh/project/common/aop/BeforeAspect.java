@@ -29,12 +29,12 @@ public class BeforeAspect {
 	// 지정된 클래스, 메소드에 작성된 @Pointcut() 어노테이션의 내용을 타겟으로 삼는다.
 	
 	@Order(1) // 순서, 하나의 타겟에 대한 여러 advice 수행 시 순서 지정
-	@Before("CommonPointcut.serviceImplPointcut()") 
+	@Before("CommonPointcut.serviceImplPointcut()")  // Advice, 
 	public void beforeLog(JoinPoint jp) { // = Advice(수행할 코드)
 
 		// 매개변수 JoinPoint : AOP의 부가 기능이 적용된 대상의
 		//					  객체, 메소드, 파라미터 정보를 얻을 수 있게 해주는 객체
-		
+		//					  Advice를 적용할 수 있는 관점
 		
 		// 대상 객체의 간단한 클래스명(패키지명 제외)
 		String className = jp.getTarget().getClass().getSimpleName();
@@ -63,7 +63,7 @@ public class BeforeAspect {
 	             str += "[스프링 스케쥴러]";
 	    }
 		
-		logger.info(str);
+		logger.warn(str);
 		
 	}
 	

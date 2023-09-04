@@ -36,6 +36,7 @@ public class AroundAspect {
 
       logger.info(str);
       
+      
       return obj;
       
    }

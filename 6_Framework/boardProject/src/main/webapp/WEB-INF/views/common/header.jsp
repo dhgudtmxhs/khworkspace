@@ -98,31 +98,29 @@
 
 </header>
 
+
 <nav>
     <ul>
-    <%--<li><a href="#">공지사항</a></li>
+        <%-- <li><a href="#">공지사항</a></li>
         <li><a href="#">자유 게시판</a></li>
         <li><a href="#">질문 게시판</a></li>
         <li><a href="#">FAQ</a></li>
         <li><a href="#">1:1문의</a></li> --%>
 
 
+        <%-- interceptor를 이용해서 조회된 boardTypeList를 
+            application scope에서 얻어와 화면에 출력
+        --%>
+        <c:forEach var="boardType" items="${boardTypeList}">
+            <li>
+                <a href="/board/${boardType.BOARD_CODE}">${boardType.BOARD_NAME}</a>
+                <!--     /board/boardCode -->
+            </li>
+        </c:forEach>
 
-    <%-- interceptor를 이용해서 조회된 boardTypeList를
-         application scope에서 얻어와 화면에 출력
-     --%>
-
-    <%-- List에 담긴 Map이 넘어옴 --%> 
-    <%-- [{BOARD_NAME=공지사항, BOARD_CODE=1}, {BOARD_NAME=자유 게시판, BOARD_CODE=2}] 이런식 --%>
-    <c:forEach  var="boardType" items="${boardTypeList}"> 
-        <li>
-            <a href="/board/${boardType.BOARD_CODE}">${boardType.BOARD_CODE}.${boardType.BOARD_NAME}</a> 
-        </li>
-    </c:forEach>    
-    <%-- BOARD_NAME 오라클 컬럼명 그대로? --%>
-
-    <%-- /board/5 이런식인데 parameter가 아님 쿼리스트링도 아니고 --%>
-                   
-
+        <%-- 로그인 했을 때 채팅 보여짐 --%>
+        <c:if test="${!empty loginMember}">
+            <li><a href="/chatting">채팅</a></li>
+        </c:if>
     </ul>
 </nav>
