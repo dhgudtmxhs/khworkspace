@@ -7,8 +7,10 @@ import Ex2 from './components/Exam2';
 
 import PropsEx from './components/R01.props.js';
 
-import State1 from './componets/R02_state1.jsn';
+import State1 from './components/R02_state1.js';
 import State2 from './components/R03_state2.js';
+import State3 from './components/R04_state3.js';
+import TodoList1 from './components/R05_todolist1.js';
 
 import { Component } from 'react';
 
@@ -32,9 +34,16 @@ function App() {
       {/* <PropsEx name={'이길동'}/> */}
 
       {/* R02_state1 */}
-      <State1/>
+      {/* <State1/> */}
       {/* R02_state2 */}
-      <State2 init={100}/>
+      {/* <State2 init={100}/> */}
+
+      {/* R04_state3 */}
+      {/* <hr></hr> */}
+      {/* <State3/> */}
+
+      {/* R05_state4 */}
+      <TodoList1/>
 
     </>
     
