@@ -11,6 +11,7 @@ import State1 from './components/R02_state1.js';
 import State2 from './components/R03_state2.js';
 import State3 from './components/R04_state3.js';
 import TodoList1 from './components/R05_todolist1.js';
+import Profile from './components/R06_context_api.js';
 
 import { Component } from 'react';
 
@@ -23,8 +24,8 @@ function App() {
     <>
 
       {/* JSX 주석 */}
-      <h1>hello react</h1>
-      <div>리액트</div>
+      {/* <h1>hello react</h1> */}
+      {/* <div>리액트</div> */}
 
       {/* <Ex1/> */}
       {/* <Ex2/> */}
@@ -43,7 +44,10 @@ function App() {
       {/* <State3/> */}
 
       {/* R05_state4 */}
-      <TodoList1/>
+      {/* <TodoList1/> */}
+
+      {/* R06_context_api */}
+      <Profile/>
 
     </>
     

@@ -62,6 +62,18 @@ const TodoList1 = () => {
 
     };
 
+    // 체크박스 값 변경시
+    const TodoChange = (index) => {
+
+        const newTodos = [...todos]; // todos를 풀어서 새로운 배열 생성
+                                     // 전개 연산자를 이용한 배열의 깊은 복사
+        newTodos[index].completed = !newTodos[index].completed; // boolean값 반대로 대입
+ 
+        setTodos(newTodos);
+
+    }
+
+
     return(
         <>
             <hr/>
@@ -73,10 +85,35 @@ const TodoList1 = () => {
             {/* 입력 */}
             <InputTodo/>
 
-        </>
-    );
+            {/* 할 일 목록 */}
+            {/* 배열.map( (배열요소, 인덱스) => { return 값; } ) 
+                -> 기존 배열을 이용해서 새로운 배열 만드는 함수
+                -> 새로운 배열의 요소는 map에서 return되는 값으로 이루어짐
+            */}
+            
+            <ul>
+                { todos.map ( ( todo, index ) => { 
+                                 return(
+                                    /* key 속성 : 배열(list) 출력 시 요소를 구분하는 key값 pk 콘솔 에러 방지?*/
+                                    <li key={index}> 
+                                        <input type="checkbox"
+                                            checked={todo.completed}
+                                            onChange={() => {TodoChange(index)}}
+                                        />
+                                        <span className={todo.completed ? 'completed' : ''}> {/* ''는 className 안주겠다 */}
+                                            {todo.text}
+                                            
+                                        </span>
+                                    </li>     
+                                 ); 
+                                 } ) }
+            </ul> 
 
-};
+        </> // todos를 하나씩 꺼냈을때 todo라고 부르겠다. index자리엔 index라고 부르겠다 ( 매개변수 )
+    );
+    // 추가하면 리렌더링되면서 return이 다시 읽혀 화면에 추가가된다.
+
+}; // return 안의 {} == 자바스크립트 쓰겠다.
 
 // 외부에서 해당 파일 import 시 TodoList1 함수를 내보내는 것을 기본값으로 지정
 export default TodoList1;
