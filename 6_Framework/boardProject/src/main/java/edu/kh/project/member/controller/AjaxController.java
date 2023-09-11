@@ -114,7 +114,7 @@ public class AjaxController {
 	
 	이를 통해 Spring MVC 컨트롤러에서 JSON 형식의 데이터를 처리할 수 있게 됩니다.
 	
-	-> 받을때는 DTO/map을 변환 return할때는 JSON으로 변환
+	-> 받을때는 DTO/map으로 변환 return할때는 JSON으로 변환
 	
 	*/
 	

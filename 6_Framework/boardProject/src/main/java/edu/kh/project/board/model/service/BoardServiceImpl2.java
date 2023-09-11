@@ -54,7 +54,6 @@ public class BoardServiceImpl2 implements BoardService2 {
 
 				// i 번째 요소에 업로드한 파일이 있다면
 				if(images.get(i).getSize() > 0) {
-					System.out.println("test");
 					BoardImage img = new BoardImage();
 
 					// img에 파일 정보를 담아서 uploadList에 추가
