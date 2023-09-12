@@ -4,13 +4,56 @@ const SignupContainer = () => {
 
     const [id, setId] = useState('');
     const [pw, setPw] = useState('');
-    const [pwCheck, setPwCheck] = u
-    seState('');
+    const [pwCheck, setPwCheck] = useState('');
     const [name, setName] = useState('');
     const [result, setResult] = useState('');
 
+    // 아이디 중복 검사
+    const [idValidation, setIdValidation] = useState(false);
+    // false -> 사용 불가
+    // true -> 사용 가능
+
+    const idCheck = (inputId) => { /* onchange 마다 */
+        // inputId : 입력한 아이디
+        setId(inputId); // id 변수에 입력받은 아이디 대입
+
+        // 4글자 미만이면 검사 안함
+        if(inputId.trim().length < 4){
+            setIdValidation(false);
+            return;
+        }
+
+        fetch("/idCheck?id=" + inputId)
+        .then(resp => resp.text())
+        .then(result => {
+
+            console.log(`result : ${result}`);
+
+            //console.log(typeof result); 
+            // controller는 int, 메세지컨버터는 string으로 바꿈
+            // -> result를 numbertype으로 파싱
+
+            if(Number(result) === 0){ // 중복 x -> 사용 가능
+                console.log(typeof result); 
+                setIdValidation(true);
+
+            }else{ // 중복 O -> 사용 불가능
+                setIdValidation(false);
+            }
+        })
+        .catch(e => console.log(e));
+
+
+    }
+
     // 회원 가입 함수
     const signup = () => {
+
+        // 아이디가 사용 불가인 경우(짧거나 중복)
+        if(!idValidation){
+            alert("아이디를 다시 입력해주세요.");
+            return;
+        }
 
         // 1. 비밀번호가 일치하지 않으면 (pw !== pwCheck)
         //    '비밀번호가 일치하지 않습니다'를 alert로 출력 후 return
@@ -32,10 +75,6 @@ const SignupContainer = () => {
                 "pw" : pw,
                 "name" : name
             })
-        
-
-
-
 
         })
         .then(resp => resp.text())
@@ -69,8 +108,12 @@ const SignupContainer = () => {
             <label>
                 ID :
                 <input type='text'  
-                onChange={ e => {setId(e.target.value)} }
+                onChange={ e => {
+                    //setId(e.target.value)
+                    idCheck(e.target.value)
+                } }
                 value={id}
+                className={idValidation ? '' : 'id-error'}
                 />
             </label>
 

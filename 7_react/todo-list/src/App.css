@@ -34,3 +34,8 @@
 .signup-container button{
   width: 100%;
 }
+
+.id-error{
+  color:red;
+  font-weight:bold;
+}
