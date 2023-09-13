@@ -4,6 +4,8 @@ import './App.css';
 import SignupContainer from './Signup';
 import Login from './Login';
 
+import TodoList from './TodoList';
+
 //const UserContext = createContext();
 //export default UserContext;
 // 따로 js 안만들고 한번에 내보내기?
@@ -20,7 +22,7 @@ function App() {
   const [todoList, setTodoList] = useState([]);
 
   return (
-    <TodoListContext.Provider value={ {setTodoList, setLoginMember, loginMember} }> {/* {{}} == 객체형태로 내보내기 */} 
+    <TodoListContext.Provider value={ {setTodoList, setLoginMember, loginMember, todoList} }> {/* {{}} == 객체형태로 내보내기 */} 
         {/* 안의 component 들에서 전역변수로 todolistcontext 사용 */}
       <button onClick={ () => {setSignupView(!signupView)} }> {/* false, true */}
         { signupView ? ('회원 가입 닫기') : ('회원 가입 열기')}
@@ -33,7 +35,13 @@ function App() {
       </div>
 
       <h1>Todo List</h1>
-      <Login />
+      <Login/>
+
+      <hr/>
+      {/* 로그인이 되어 있을 때만 Todo-List 출력 */}
+      {loginMember && (<TodoList/>)}
+
+
     </TodoListContext.Provider>
   );
 }

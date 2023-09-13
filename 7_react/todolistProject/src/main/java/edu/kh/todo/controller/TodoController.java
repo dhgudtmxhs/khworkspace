@@ -67,7 +67,6 @@ public class TodoController {
       return service.delete(todoNo);
    }
    
-   
    @GetMapping("/test")
    public int test() {
       return 100;
