@@ -1,4 +1,4 @@
-import Test from 'react';
+import React from 'react';
 
 // props : 부모 컴포넌트가 자식 컴포넌트에게
 //         데이터 전달 시 사용하는 객체

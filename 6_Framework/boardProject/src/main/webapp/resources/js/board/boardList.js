@@ -30,7 +30,6 @@ if(insertBtn != null){
 const boardSearch = document.querySelector("#boardSearch");
 const searchKey = document.querySelector("#searchKey");
 const searchQuery = document.querySelector("#searchQuery");
-
 const options = document.querySelectorAll("#searchKey > option");
 
 (()=>{

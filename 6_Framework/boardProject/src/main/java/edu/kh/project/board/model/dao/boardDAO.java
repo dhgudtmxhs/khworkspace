@@ -61,7 +61,6 @@ public class boardDAO {
 		// 3) selectList("namespace.id", 파라미터)
 		return sqlSession.selectList("boardMapper.selectBoardList", boardCode, rowBounds);
 
-
 	}
 
 	/** 게시글 상세 조회
@@ -148,11 +147,5 @@ public class boardDAO {
 	public List<String> selectImageList() {
 		return sqlSession.selectList("boardMapper.selectImageListAll"); // 넘길 파라미터 필요하지 않음
 	}
-
-
-
-
-
-
 
 }

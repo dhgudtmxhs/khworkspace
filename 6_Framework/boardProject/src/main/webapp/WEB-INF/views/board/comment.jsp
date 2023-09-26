@@ -35,7 +35,7 @@
                     <p class="comment-content">${comment.commentContent}</p>
 
 
-                    <!-- 버튼 영역 -->
+                    <!-- 버튼 영역 -->  
                     <div class="comment-btn-area">
                         <button onclick="showInsertComment(${comment.commentNo}, this)">답글</button>   
                             

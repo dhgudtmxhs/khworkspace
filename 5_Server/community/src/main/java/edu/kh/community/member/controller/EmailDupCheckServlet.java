@@ -38,7 +38,9 @@ public class EmailDupCheckServlet extends HttpServlet{
 			// 응답 스트림을 이용해서 result를 출력
 			
 			
-			 if(result == 1) { System.out.println("중복임"); }else {
+			 if(result == 1) { 
+				 System.out.println("중복임"); 
+			 } else {
 			 System.out.println("중복 없음"); }
 			 
 			
@@ -46,21 +48,7 @@ public class EmailDupCheckServlet extends HttpServlet{
 			e.printStackTrace();
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
-	
-	
-	
 	
 }
 

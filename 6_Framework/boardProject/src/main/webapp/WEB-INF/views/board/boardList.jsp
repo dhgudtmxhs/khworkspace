@@ -201,13 +201,11 @@
         </section>
     </main>
     
-    
     <!-- 썸네일 클릭 시 모달창 출력 -->
     <div class="modal">
         <span id="modalClose">&times;</span>
         <img id="modalImage" src="/resources/images/user.png">
     </div>
-
 
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 

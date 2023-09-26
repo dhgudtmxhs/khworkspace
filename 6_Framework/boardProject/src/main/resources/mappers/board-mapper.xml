@@ -27,7 +27,6 @@
 
 		<collection property="imageList" select="selectImageList"
 			column="BOARD_NO" javaType="java.util.ArrayList" ofType="BoardImage">
-
 		</collection>
 
 		<!-- imageList property = Board dto 안에 있는 private List<BoardImage> imageList; 

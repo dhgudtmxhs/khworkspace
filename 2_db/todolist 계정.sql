@@ -1,3 +1,9 @@
+CREATE TABLE MEMBERS(
+
+EMAIL VARCHAR2(500) NOT NULL
+
+);
+
 
 CREATE TABLE TODO_MEMBER(
    TODO_MEMBER_NO NUMBER PRIMARY KEY,
@@ -29,3 +35,33 @@ INSERT INTO TODO_LIST
 VALUES(SEQ_TODO_NO.NEXTVAL, '복습 하기', DEFAULT, 1);
 
 COMMIT;
+
+INSERT INTO "COMMENT"
+		VALUES (SEQ_COMMENT_NO.NEXTVAL, #{commentContent}, DEFAULT, DEFAULT, #{boardNo}, #{memberId},;
+        
+        
+        
+        
+        
+        
+	
+		INSERT INTO "COMMENT"
+		VALUES (SEQ_COMMENT_NO.NEXTVAL, 500, 'user01','테스트용', DEFAULT, DEFAULT, NULL, DEFAULT); 
+	 	COMMIT;
+	 	<!-- 동적 sql : if문  -->
+	 	
+	 	<!-- 부모 댓글 -->
+	 	<if test="parentNo == 0">NULL</if>
+
+	 	<!-- 자식 댓글 -->
+	 	<if test="parentNo != 0">#{parentNo}</if>
+	 	
+	 	, DEFAULT	   )
+        
+        
+        
+        
+        
+        
+        
+        

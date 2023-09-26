@@ -163,7 +163,6 @@ public class BoardServiceImpl2 implements BoardService2 {
 				// 		DELETE FROM BOARD_IMG
 				//		WHERE BOARD_NO = #{boardNo}
 				//		AND IMG_ORDER IN(${deleteList})
-				
 
 				if(rowCount == 0) { // 이미지 삭제 실패 시 전체 롤백
 
