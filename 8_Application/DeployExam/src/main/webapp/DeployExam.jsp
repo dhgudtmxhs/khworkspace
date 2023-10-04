@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title></title>
 <script type="text/javascript">
 function show(){
 var value = document.getElementById("btn").innerText;
